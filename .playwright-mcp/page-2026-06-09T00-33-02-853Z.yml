@@ -1,0 +1,201 @@
+- generic [ref=e5]:
+  - navigation [ref=e7]:
+    - generic [ref=e8]:
+      - link "Threads" [ref=e13] [cursor=pointer]:
+        - /url: /
+        - img "Threads" [ref=e15]
+      - generic [ref=e25]:
+        - generic [ref=e26]:
+          - link "ホーム" [ref=e28] [cursor=pointer]:
+            - /url: /
+            - generic [ref=e29]:
+              - img [ref=e30]
+              - generic [ref=e32]: ホーム
+          - button "新しいスレッド" [ref=e34] [cursor=pointer]:
+            - generic [ref=e36]:
+              - img [ref=e38]
+              - generic [ref=e42]: 新しいスレッド
+          - link "検索 検索" [ref=e44] [cursor=pointer]:
+            - /url: /search
+            - generic [ref=e46]:
+              - img "検索" [ref=e48]
+              - generic [ref=e52]: 検索
+        - generic [ref=e53]:
+          - link "メッセージ メッセージ" [ref=e55] [cursor=pointer]:
+            - /url: /messages/
+            - generic [ref=e57]:
+              - img "メッセージ" [ref=e59]
+              - generic [ref=e63]: メッセージ
+          - link "お知らせ アクティビティ" [ref=e65] [cursor=pointer]:
+            - /url: /activity
+            - generic [ref=e67]:
+              - img "お知らせ" [ref=e69]
+              - generic [ref=e73]: アクティビティ
+          - link "プロフィール プロフィール" [ref=e75] [cursor=pointer]:
+            - /url: /@pursuitli
+            - generic [ref=e77]:
+              - img "プロフィール" [ref=e79]
+              - generic [ref=e84]: プロフィール
+          - link "インサイト インサイト" [ref=e86] [cursor=pointer]:
+            - /url: /insights/
+            - generic [ref=e88]:
+              - img "インサイト" [ref=e90]
+              - generic [ref=e97]: インサイト
+          - link "保存済み 保存済み" [ref=e99] [cursor=pointer]:
+            - /url: /saved/
+            - generic [ref=e101]:
+              - img "保存済み" [ref=e103]
+              - generic [ref=e107]: 保存済み
+        - generic [ref=e109]:
+          - generic [ref=e111]: フィード
+          - status "読み込み中..." [ref=e113]
+          - status "読み込み中..." [ref=e115]
+          - status "読み込み中..." [ref=e117]
+      - button "さらに表示" [ref=e120] [cursor=pointer]:
+        - generic [ref=e122]:
+          - img [ref=e124]
+          - generic [ref=e129]: さらに表示
+  - generic [ref=e134]:
+    - generic [ref=e137]:
+      - generic [ref=e138]:
+        - button "戻る" [ref=e145] [cursor=pointer]:
+          - img "戻る" [ref=e149]
+        - generic [ref=e151]:
+          - generic [ref=e154]:
+            - link "列のタイトル" [ref=e156] [cursor=pointer]:
+              - /url: /@pursuitli/post/DZGxxgbkkMN
+              - heading "スレッド" [level=1] [ref=e157]:
+                - generic [ref=e158]: スレッド
+            - generic [ref=e161]: 表示8,214回
+          - button "もっと見る" [ref=e164] [cursor=pointer]:
+            - img "もっと見る" [ref=e167]
+      - region "列の本文" [ref=e173]:
+        - generic [ref=e175]:
+          - generic [ref=e178] [cursor=pointer]:
+            - link "pursuitliのプロフィール写真" [ref=e181]:
+              - /url: /@pursuitli
+              - img "pursuitliのプロフィール写真" [ref=e183]
+            - generic [ref=e185]:
+              - generic [ref=e186]:
+                - generic [ref=e187]:
+                  - link "pursuitli" [ref=e191]:
+                    - /url: /@pursuitli
+                    - generic [ref=e193]: pursuitli
+                  - img "認証済み" [ref=e195]
+                - button "投稿はフェディバースにシェアされています" [ref=e197]:
+                  - img "投稿はフェディバースにシェアされています" [ref=e198]
+                - generic [ref=e204]:
+                  - generic [ref=e205]:
+                    - img [ref=e208]
+                    - link "哈薩克" [ref=e211]:
+                      - /url: /search?q=%E5%93%88%E8%96%A9%E5%85%8B&serp_type=tags&tag_id=18365744980096933
+                      - generic [ref=e214]: 哈薩克
+                  - link "5日前" [ref=e217]:
+                    - /url: /@pursuitli/post/DZGxxgbkkMN
+                    - time [ref=e218]:
+                      - generic "5日前" [ref=e220]: 5日
+              - button "もっと見る" [ref=e223]:
+                - img "もっと見る" [ref=e225]
+            - generic [ref=e228]:
+              - generic [ref=e229]:
+                - generic [ref=e231]: 一堆香港人話唔知阿拉木圖喺邊係咪第三世界。好心啦，求其行入一間餐廳都好食過你😂
+                - generic [ref=e233]:
+                  - text: 🐴肉他他非常fresh， 大推
+                  - button "翻訳" [ref=e235]:
+                    - generic [ref=e236]: 翻訳
+              - generic [ref=e241]:
+                - generic [ref=e245]:
+                  - button "Photo by Pur Li on June 02, 2026. May be an image of souvlakia, steak, grill restaurant, skewer and text." [ref=e246]:
+                    - generic [ref=e249]:
+                      - generic:
+                        - img "Photo by Pur Li on June 02, 2026. May be an image of souvlakia, steak, grill restaurant, skewer and text."
+                  - button "メディアを結合してパノラマにする" [ref=e250]
+                - generic [ref=e253]:
+                  - button "Photo by Pur Li on June 02, 2026. May be an image of poached egg, fried rice, scotch egg, pasta, spaghetti and text." [ref=e254]:
+                    - generic [ref=e257]:
+                      - generic:
+                        - img "Photo by Pur Li on June 02, 2026. May be an image of poached egg, fried rice, scotch egg, pasta, spaghetti and text."
+                  - button "メディアを結合してパノラマにする" [ref=e258]
+                - generic [ref=e261]:
+                  - button "Photo by Pur Li on June 02, 2026. May be an image of plate, stew, vegetable and text." [ref=e262]:
+                    - generic [ref=e265]:
+                      - generic:
+                        - img "Photo by Pur Li on June 02, 2026. May be an image of plate, stew, vegetable and text."
+                  - button "メディアを結合してパノラマにする" [ref=e266]
+                - button "Photo by Pur Li on June 02, 2026. May be an image of sashimi and text." [ref=e270]:
+                  - generic [ref=e273]:
+                    - generic:
+                      - img "Photo by Pur Li on June 02, 2026. May be an image of sashimi and text."
+              - generic [ref=e275]:
+                - button "「いいね！」 180" [ref=e277]:
+                  - generic [ref=e279]:
+                    - img "「いいね！」" [ref=e280]
+                    - generic [ref=e284]: "180"
+                - button "返信 30" [ref=e286]:
+                  - generic [ref=e288]:
+                    - img "返信" [ref=e289]
+                    - generic [ref=e293]: "30"
+                - button "再投稿 2" [ref=e295]:
+                  - generic [ref=e297]:
+                    - img "再投稿" [ref=e298]
+                    - generic [ref=e303]: "2"
+                - button "シェアする 98" [ref=e305]:
+                  - generic [ref=e307]:
+                    - img "シェアする" [ref=e308]
+                    - generic [ref=e312]: "98"
+            - generic [ref=e315]:
+              - button "並び替え トップ もっと見る" [ref=e318]:
+                - img "並び替え" [ref=e319]
+                - generic [ref=e321]: トップ
+                - img "もっと見る" [ref=e322]
+              - button "アクティビティを見る アクティビティを見る" [ref=e324]:
+                - generic [ref=e325]:
+                  - text: アクティビティを見る
+                  - img "アクティビティを見る" [ref=e328]
+            - status "読み込み中..." [ref=e330]
+          - generic [ref=e332]:
+            - generic [ref=e333]:
+              - status "読み込み中..." [ref=e335]
+              - generic [ref=e336]:
+                - status "読み込み中..." [ref=e338]
+                - status "読み込み中..." [ref=e340]
+                - status "読み込み中..." [ref=e342]
+            - generic [ref=e343]:
+              - status "読み込み中..." [ref=e345]
+              - generic [ref=e346]:
+                - status "読み込み中..." [ref=e348]
+                - status "読み込み中..." [ref=e350]
+                - status "読み込み中..." [ref=e352]
+            - generic [ref=e353]:
+              - status "読み込み中..." [ref=e355]
+              - generic [ref=e356]:
+                - status "読み込み中..." [ref=e358]
+                - status "読み込み中..." [ref=e360]
+                - status "読み込み中..." [ref=e362]
+            - generic [ref=e363]:
+              - status "読み込み中..." [ref=e365]
+              - generic [ref=e366]:
+                - status "読み込み中..." [ref=e368]
+                - status "読み込み中..." [ref=e370]
+                - status "読み込み中..." [ref=e372]
+            - generic [ref=e373]:
+              - status "読み込み中..." [ref=e375]
+              - generic [ref=e376]:
+                - status "読み込み中..." [ref=e378]
+                - status "読み込み中..." [ref=e380]
+                - status "読み込み中..." [ref=e382]
+    - contentinfo [ref=e383]:
+      - list [ref=e384]:
+        - listitem [ref=e385]:
+          - generic [ref=e386]: "@2026"
+        - listitem [ref=e387]:
+          - link "Threads規約" [ref=e389] [cursor=pointer]:
+            - /url: https://l.threads.com/?u=https%3A%2F%2Fhelp.instagram.com%2F769983657850450&e=AUBu3nlmt18KRXleLOz6dCJ9PUekXNoq3SGNtT_OrangdQb43T8AkLAwpTj3vmrl-qeHVkaHUXpjZp_16Z_aUMptmjQ9zAqjhZ5o75aKdLFp9w9UjpbsY22F45HGK2p7g847n5LpBaJRK2HV82rb-sflIPfC
+        - listitem [ref=e390]:
+          - link "プライバシーポリシー" [ref=e392] [cursor=pointer]:
+            - /url: https://l.threads.com/?u=https%3A%2F%2Fhelp.instagram.com%2F515230437301944&e=AUBu3nlmt18KRXleLOz6dCJ9PUekXNoq3SGNtT_OrangdQb43T8AkLAwpTj3vmrl-qeHVkaHUXpjZp_16Z_aUMptmjQ9zAqjhZ5o75aKdLFp9w9UjpbsY22F45HGK2p7g847n5LpBaJRK2HV82rb-sflIPfC
+        - listitem [ref=e393]:
+          - link "Cookieポリシー" [ref=e395] [cursor=pointer]:
+            - /url: https://l.threads.com/?u=https%3A%2F%2Fhelp.instagram.com%2F1896641480634370%2F&e=AUBu3nlmt18KRXleLOz6dCJ9PUekXNoq3SGNtT_OrangdQb43T8AkLAwpTj3vmrl-qeHVkaHUXpjZp_16Z_aUMptmjQ9zAqjhZ5o75aKdLFp9w9UjpbsY22F45HGK2p7g847n5LpBaJRK2HV82rb-sflIPfC
+  - button "作成" [ref=e397] [cursor=pointer]:
+    - img "作成" [ref=e398]

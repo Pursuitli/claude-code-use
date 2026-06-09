@@ -1,0 +1,420 @@
+- generic [ref=e4]:
+  - generic [ref=e5]:
+    - link "Threads" [ref=e7] [cursor=pointer]:
+      - /url: /
+      - img "Threads" [ref=e9]
+    - generic [ref=e11]:
+      - link "ホーム" [ref=e13] [cursor=pointer]:
+        - /url: /
+        - img "ホーム" [ref=e17]
+      - link "検索" [ref=e20] [cursor=pointer]:
+        - /url: /search
+        - img "検索" [ref=e24]
+      - button "作成" [ref=e27] [cursor=pointer]:
+        - img "作成" [ref=e31]
+      - button "お知らせ" [ref=e34] [cursor=pointer]:
+        - img "お知らせ" [ref=e38]
+      - button "プロフィール" [ref=e41] [cursor=pointer]:
+        - img "プロフィール" [ref=e45]
+    - generic [ref=e48]:
+      - button "ピン留め" [ref=e50] [cursor=pointer]:
+        - img "ピン留め" [ref=e54]
+      - button "もっと見る もっと見る" [ref=e56] [cursor=pointer]:
+        - generic [ref=e57]:
+          - img "もっと見る" [ref=e59]
+          - img "もっと見る" [ref=e63]
+  - generic [ref=e72]:
+    - generic [ref=e74]:
+      - generic [ref=e82]:
+        - button "戻る" [ref=e85] [cursor=pointer]:
+          - img "戻る" [ref=e89]
+        - link "列のタイトル" [ref=e92] [cursor=pointer]:
+          - /url: /@pursuitli
+          - heading "pursuitli" [level=1] [ref=e93]:
+            - generic [ref=e94]: pursuitli
+      - region "列の本文" [ref=e97]:
+        - generic [ref=e98]:
+          - generic [ref=e99]:
+            - generic [ref=e100]:
+              - generic [ref=e101]:
+                - heading "Pur Li" [level=1] [ref=e102]
+                - generic [ref=e106]: pursuitli
+              - button "pursuitliのプロフィール写真 認証済み" [ref=e108] [cursor=pointer]:
+                - img "pursuitliのプロフィール写真" [ref=e111]
+                - img "認証済み" [ref=e113]
+            - generic [ref=e118]: 香港人在新加坡創業 分享星港台及東南亞市場洞察、新聞不會告訴你的事
+            - button "opptymizer.com +3" [ref=e122] [cursor=pointer]:
+              - generic [ref=e124]: opptymizer.com
+              - generic [ref=e125]:
+                - generic [ref=e126]: "+3"
+                - img [ref=e128]
+            - generic [ref=e132]:
+              - link "AI Threads" [ref=e133] [cursor=pointer]:
+                - /url: /search?q=aithreads&serp_type=tags&tag_id=18399895213044171
+                - generic [ref=e136]: AI Threads
+              - link "Taiwan" [ref=e137] [cursor=pointer]:
+                - /url: /search?q=taiwan&serp_type=tags&tag_id=18370641160076663
+                - generic [ref=e140]: Taiwan
+              - link "Hong Kong" [ref=e141] [cursor=pointer]:
+                - /url: /search?q=hong%20kong&serp_type=tags&tag_id=18404162884040288
+                - generic [ref=e144]: Hong Kong
+              - link "日文學習" [ref=e145] [cursor=pointer]:
+                - /url: /search?q=%E6%97%A5%E6%96%87%E5%AD%B8%E7%BF%92&serp_type=tags&tag_id=18410042275004307
+                - generic [ref=e148]: 日文學習
+              - link "BuildInPublic" [ref=e149] [cursor=pointer]:
+                - /url: /search?q=buildinpublic&serp_type=tags&tag_id=18399440476027527
+                - generic [ref=e152]: BuildInPublic
+            - generic [ref=e153]:
+              - link "フォロワー363人" [ref=e155] [cursor=pointer]:
+                - /url: /login
+                - generic [ref=e157]: フォロワー363人
+              - generic [ref=e158]:
+                - link "Instagram" [ref=e159] [cursor=pointer]:
+                  - /url: https://l.threads.com/?u=https%3A%2F%2Fwww.instagram.com%2Fpursuitli%2F&e=AUCGrDBVwzDq1QmURVjaLfuI8A_XOC3EJlHa8k3MVMyifMGegMFTpK02E-di4oQ72enGRl5qDmOySq0C1_fbWb5eJFRjs-OlKvpjCj43QZw-aUr4SDDbVe7Ziam_qHe7wyRjLwTyU2KYrjoG
+                  - img "Instagram" [ref=e161]
+                - button "もっと見る" [ref=e164] [cursor=pointer]:
+                  - img "もっと見る" [ref=e166]
+          - generic [ref=e172]:
+            - link "フォローする" [ref=e173] [cursor=pointer]:
+              - /url: /login?interaction_source=FOLLOW&show_choice_screen=false
+              - generic [ref=e174]: フォローする
+            - link "メンション" [ref=e175] [cursor=pointer]:
+              - /url: /login?interaction_source=OTHER&show_choice_screen=false
+              - generic [ref=e176]: メンション
+          - generic [ref=e177]:
+            - link "スレッド" [ref=e180] [cursor=pointer]:
+              - /url: /@pursuitli
+              - generic [ref=e183]: スレッド
+            - link "返信" [ref=e187] [cursor=pointer]:
+              - /url: /@pursuitli/replies
+              - generic [ref=e190]: 返信
+            - link "メディア" [ref=e193] [cursor=pointer]:
+              - /url: /@pursuitli/media
+              - generic [ref=e196]: メディア
+            - link "再投稿" [ref=e199] [cursor=pointer]:
+              - /url: /@pursuitli/reposts
+              - generic [ref=e202]: 再投稿
+          - generic [ref=e204]:
+            - generic [ref=e207]:
+              - generic [ref=e209] [cursor=pointer]:
+                - generic [ref=e211]:
+                  - img "Pin icon" [ref=e213]
+                  - generic [ref=e216]: ピン留め済み
+                - generic [ref=e217]:
+                  - link "pursuitliのプロフィール写真" [ref=e220]:
+                    - /url: /@pursuitli
+                    - img "pursuitliのプロフィール写真" [ref=e222]
+                  - generic [ref=e224]:
+                    - generic [ref=e225]:
+                      - generic [ref=e226]:
+                        - link "pursuitli" [ref=e230]:
+                          - /url: /@pursuitli
+                          - generic [ref=e232]: pursuitli
+                        - img "認証済み" [ref=e234]
+                      - generic [ref=e236]:
+                        - generic [ref=e237]:
+                          - img [ref=e240]
+                          - link "buildinpublic" [ref=e243]:
+                            - /url: /search?q=buildinpublic&serp_type=tags&tag_id=18399440476027527
+                            - generic [ref=e246]: buildinpublic
+                        - link "2026/04/23" [ref=e249]:
+                          - /url: /@pursuitli/post/DXgAkapEtAr
+                          - time [ref=e250]: 2026/04/23
+                    - button "もっと見る" [ref=e253]:
+                      - img "もっと見る" [ref=e255]
+                  - generic [ref=e259]:
+                    - generic [ref=e260]:
+                      - generic [ref=e262]: I started learning Japanese 2 years back but was seriously not improving.
+                      - generic [ref=e264]: No one for me to speak to. Then I realized, when driving alone it's the perfectly embarrassment-free moment to speak loudly.
+                      - generic [ref=e266]: I spent 3 days to make the app Japan Cat 🐱 where this Japanese girlfriend champion will talk to me in Japanese, explain the grammar she uses, keeps bugging me with questions and corrects my grammar when they look wrong.
+                      - generic [ref=e268]:
+                        - text: Speak LOUDLY!!
+                        - button "翻訳" [ref=e270]:
+                          - generic [ref=e271]: 翻訳
+                    - generic [ref=e276]:
+                      - generic [ref=e280]:
+                        - button [ref=e281]
+                        - button "メディアを結合してパノラマにする" [ref=e285]
+                      - generic [ref=e288]:
+                        - button [ref=e289]
+                        - button "メディアを結合してパノラマにする" [ref=e293]
+                      - generic [ref=e296]:
+                        - button [ref=e297]
+                        - button "メディアを結合してパノラマにする" [ref=e301]
+                      - button [ref=e305]
+                    - generic [ref=e310]:
+                      - button "「いいね！」 17" [ref=e312]:
+                        - generic [ref=e314]:
+                          - img "「いいね！」" [ref=e315]
+                          - generic [ref=e319]: "17"
+                      - button "コメントする 7" [ref=e321]:
+                        - generic [ref=e323]:
+                          - img "コメントする" [ref=e324]
+                          - generic [ref=e328]: "7"
+                      - button "再投稿 1" [ref=e330]:
+                        - generic [ref=e332]:
+                          - img "再投稿" [ref=e333]
+                          - generic [ref=e338]: "1"
+                      - button "シェアする" [ref=e340]:
+                        - img "シェアする" [ref=e343]
+              - generic [ref=e347] [cursor=pointer]:
+                - link "pursuitliのプロフィール写真" [ref=e350]:
+                  - /url: /@pursuitli
+                  - img "pursuitliのプロフィール写真" [ref=e352]
+                - generic [ref=e354]:
+                  - generic [ref=e355]:
+                    - generic [ref=e356]:
+                      - link "pursuitli" [ref=e360]:
+                        - /url: /@pursuitli
+                        - generic [ref=e362]: pursuitli
+                      - img "認証済み" [ref=e364]
+                    - link "2026/05/10" [ref=e369]:
+                      - /url: /@pursuitli/post/DYLk49ikk5-
+                      - time [ref=e370]: 2026/05/10
+                  - button "もっと見る" [ref=e373]:
+                    - img "もっと見る" [ref=e375]
+                - generic [ref=e378]:
+                  - generic [ref=e381]:
+                    - text: Download at -
+                    - link "Japancat.app" [ref=e382]:
+                      - /url: https://l.threads.com/?u=http%3A%2F%2FJapancat.app%2F&e=AUCGrDBVwzDq1QmURVjaLfuI8A_XOC3EJlHa8k3MVMyifMGegMFTpK02E-di4oQ72enGRl5qDmOySq0C1_fbWb5eJFRjs-OlKvpjCj43QZw-aUr4SDDbVe7Ziam_qHe7wyRjLwTyU2KYrjoG
+                  - generic [ref=e384]:
+                    - button "「いいね！」" [ref=e386]:
+                      - img "「いいね！」" [ref=e389]
+                    - button "コメントする" [ref=e392]:
+                      - img "コメントする" [ref=e395]
+                    - button "再投稿" [ref=e398]:
+                      - img "再投稿" [ref=e401]
+                    - button "シェアする 1" [ref=e405]:
+                      - generic [ref=e407]:
+                        - img "シェアする" [ref=e408]
+                        - generic [ref=e412]: "1"
+            - generic [ref=e418] [cursor=pointer]:
+              - link "pursuitliのプロフィール写真" [ref=e421]:
+                - /url: /@pursuitli
+                - img "pursuitliのプロフィール写真" [ref=e423]
+              - generic [ref=e425]:
+                - generic [ref=e426]:
+                  - generic [ref=e427]:
+                    - link "pursuitli" [ref=e431]:
+                      - /url: /@pursuitli
+                      - generic [ref=e433]: pursuitli
+                    - img "認証済み" [ref=e435]
+                  - generic [ref=e437]:
+                    - generic [ref=e438]:
+                      - img [ref=e441]
+                      - link "AI Threads" [ref=e444]:
+                        - /url: /search?q=AI%20Threads&serp_type=tags&tag_id=18406834975056806
+                        - generic [ref=e447]: AI Threads
+                    - link "10時間前" [ref=e450]:
+                      - /url: /@pursuitli/post/DZU8NaPkjLu
+                      - time [ref=e451]:
+                        - generic "10時間前" [ref=e453]: 10時間
+                - button "もっと見る" [ref=e456]:
+                  - img "もっと見る" [ref=e458]
+              - generic [ref=e461]:
+                - generic [ref=e464]: 2050年，AI 可唔可以自己設計一架比 A350 更好的飛機？
+                - generic [ref=e465]:
+                  - button "37% 可以 37%" [ref=e467]:
+                    - generic [ref=e468]:
+                      - meter "可以" [ref=e470]
+                      - generic:
+                        - generic:
+                          - generic: 可以
+                      - generic [ref=e472]: 37%
+                  - button "63% 唔可以 63%" [ref=e474]:
+                    - generic [ref=e475]:
+                      - meter "唔可以" [ref=e477]
+                      - generic:
+                        - generic:
+                          - generic: 唔可以
+                      - generic [ref=e479]: 63%
+                  - generic [ref=e481]: 27票 · 13:30:33後に終了
+                - generic [ref=e483]:
+                  - button "「いいね！」" [ref=e485]:
+                    - img "「いいね！」" [ref=e488]
+                  - button "コメントする 5" [ref=e491]:
+                    - generic [ref=e493]:
+                      - img "コメントする" [ref=e494]
+                      - generic [ref=e498]: "5"
+                  - button "再投稿 1" [ref=e500]:
+                    - generic [ref=e502]:
+                      - img "再投稿" [ref=e503]
+                      - generic [ref=e508]: "1"
+                  - button "シェアする" [ref=e510]:
+                    - img "シェアする" [ref=e513]
+            - generic [ref=e517]:
+              - generic [ref=e520] [cursor=pointer]:
+                - link "pursuitliのプロフィール写真" [ref=e523]:
+                  - /url: /@pursuitli
+                  - img "pursuitliのプロフィール写真" [ref=e525]
+                - generic [ref=e527]:
+                  - generic [ref=e528]:
+                    - generic [ref=e529]:
+                      - link "pursuitli" [ref=e533]:
+                        - /url: /@pursuitli
+                        - generic [ref=e535]: pursuitli
+                      - img "認証済み" [ref=e537]
+                    - generic [ref=e539]:
+                      - generic [ref=e540]:
+                        - img [ref=e543]
+                        - link "Nokia" [ref=e546]:
+                          - /url: /search?q=Nokia&serp_type=tags&tag_id=18324798769105969
+                          - generic [ref=e549]: Nokia
+                      - link "1日前" [ref=e552]:
+                        - /url: /@pursuitli/post/DZRYndjElPD
+                        - time [ref=e553]:
+                          - generic "1日前" [ref=e555]: 1日
+                  - button "もっと見る" [ref=e558]:
+                    - img "もっと見る" [ref=e560]
+                - generic [ref=e564]:
+                  - generic [ref=e567]:
+                    - text: 而家啲小朋友應該唔知道 以前未有Airdrop手機之間點樣send相😅 十四年前我諗咗個方法 襟一下幅相將佢變做QR code 另一部機scan佢 就可以跨平台 跨手機電腦share相！ 不過細個嗰陣唔識Marketing，連設計個icon都唔識 咁梗係同Nokia一齊收咗皮啦😂 （嗰時我鍾意Nokia所以整咗Nokia版本先）
+                    - button "翻訳" [ref=e569]:
+                      - generic [ref=e570]: 翻訳
+                  - link [ref=e573]:
+                    - /url: /@pursuitli/post/DZRYndjElPD/media
+                  - generic [ref=e579]:
+                    - button "「いいね！」 9" [ref=e581]:
+                      - generic [ref=e583]:
+                        - img "「いいね！」" [ref=e584]
+                        - generic [ref=e588]: "9"
+                    - button "コメントする 6" [ref=e590]:
+                      - generic [ref=e592]:
+                        - img "コメントする" [ref=e593]
+                        - generic [ref=e597]: "6"
+                    - button "再投稿" [ref=e599]:
+                      - img "再投稿" [ref=e602]
+                    - button "シェアする" [ref=e606]:
+                      - img "シェアする" [ref=e609]
+              - generic [ref=e613] [cursor=pointer]:
+                - link "pursuitliのプロフィール写真" [ref=e616]:
+                  - /url: /@pursuitli
+                  - img "pursuitliのプロフィール写真" [ref=e618]
+                - generic [ref=e620]:
+                  - generic [ref=e621]:
+                    - generic [ref=e622]:
+                      - link "pursuitli" [ref=e626]:
+                        - /url: /@pursuitli
+                        - generic [ref=e628]: pursuitli
+                      - img "認証済み" [ref=e630]
+                    - link "1日前" [ref=e635]:
+                      - /url: /@pursuitli/post/DZRYndlEghT
+                      - time [ref=e636]:
+                        - generic "1日前" [ref=e638]: 1日
+                  - button "もっと見る" [ref=e641]:
+                    - img "もっと見る" [ref=e643]
+                - generic [ref=e646]:
+                  - generic [ref=e649]: 👇
+                  - link "手機之間傳相的最快方法 (How to transfer photos between phones) youtube.com 手機之間傳相的最快方法 (How to transfer photos between phones)" [ref=e651]:
+                    - /url: https://l.threads.com/?u=https%3A%2F%2Fyoutu.be%2FKzM96uw5a24%3Fsi%3DovoVItin_imfAw_U&e=AUC4iohB1u2jHIHQNtpmFSOlMVnuz-9g5TJd8ssazs1dqctB4ASWVnetvJr-tFpqKkK5nE_3O4GqsqDP9vcgIB-_5JqH990vUJvIk8hGOlH1J__UILFjy4UoM2xpEXzQyiVfkI1eDSS7-cvj
+                    - generic [ref=e652]:
+                      - img "手機之間傳相的最快方法 (How to transfer photos between phones)" [ref=e653]
+                      - generic [ref=e655]:
+                        - generic [ref=e656]:
+                          - img [ref=e658]
+                          - generic [ref=e660]: youtube.com
+                        - generic [ref=e663]: 手機之間傳相的最快方法 (How to transfer photos between phones)
+                  - generic [ref=e665]:
+                    - button "「いいね！」 1" [ref=e667]:
+                      - generic [ref=e669]:
+                        - img "「いいね！」" [ref=e670]
+                        - generic [ref=e674]: "1"
+                    - button "コメントする" [ref=e676]:
+                      - img "コメントする" [ref=e679]
+                    - button "再投稿" [ref=e682]:
+                      - img "再投稿" [ref=e685]
+                    - button "シェアする" [ref=e689]:
+                      - img "シェアする" [ref=e692]
+            - generic [ref=e699] [cursor=pointer]:
+              - link "pursuitliのプロフィール写真" [ref=e702]:
+                - /url: /@pursuitli
+                - img "pursuitliのプロフィール写真" [ref=e704]
+              - generic [ref=e706]:
+                - generic [ref=e707]:
+                  - generic [ref=e708]:
+                    - link "pursuitli" [ref=e712]:
+                      - /url: /@pursuitli
+                      - generic [ref=e714]: pursuitli
+                    - img "認証済み" [ref=e716]
+                  - generic [ref=e718]:
+                    - generic [ref=e719]:
+                      - img [ref=e722]
+                      - link "烏茲別克" [ref=e725]:
+                        - /url: /search?q=%E7%83%8F%E8%8C%B2%E5%88%A5%E5%85%8B&serp_type=tags&tag_id=18394645465074113
+                        - generic [ref=e728]: 烏茲別克
+                    - link "2日前" [ref=e731]:
+                      - /url: /@pursuitli/post/DZPG4hhkkaa
+                      - time [ref=e732]:
+                        - generic "2日前" [ref=e734]: 2日
+                - button "もっと見る" [ref=e737]:
+                  - img "もっと見る" [ref=e739]
+              - generic [ref=e742]:
+                - generic [ref=e745]:
+                  - text: 同係中亞，烏茲別克發展程度遠低於鄰國 圖1 - 市中心大街上無修飾賣肉店 圖2 - 最大市場 圖3 - 當地人無錢，PS4都要Share嚟打 圖4 - 無真Victoria Secret 😂 圖5 - 大部分油站得80油，租車公司規定要91以上，搵咗四五個油站先有91，好好心咁幫佢打返滿還車，點知deposit都係永遠唔退😂 催咗幾個月放棄鳥
+                  - button "翻訳" [ref=e747]:
+                    - generic [ref=e748]: 翻訳
+                - generic [ref=e753]:
+                  - generic [ref=e757]:
+                    - button [ref=e758]
+                    - button "メディアを結合してパノラマにする" [ref=e762]
+                  - generic [ref=e765]:
+                    - button [ref=e766]
+                    - button "メディアを結合してパノラマにする" [ref=e770]
+                  - generic [ref=e773]:
+                    - button [ref=e774]
+                    - button "メディアを結合してパノラマにする" [ref=e778]
+                  - generic [ref=e781]:
+                    - button [ref=e782]
+                    - button "メディアを結合してパノラマにする" [ref=e786]
+                  - button [ref=e790]
+                - generic [ref=e795]:
+                  - button "「いいね！」 1" [ref=e797]:
+                    - generic [ref=e799]:
+                      - img "「いいね！」" [ref=e800]
+                      - generic [ref=e804]: "1"
+                  - button "コメントする 1" [ref=e806]:
+                    - generic [ref=e808]:
+                      - img "コメントする" [ref=e809]
+                      - generic [ref=e813]: "1"
+                  - button "再投稿" [ref=e815]:
+                    - img "再投稿" [ref=e818]
+                  - button "シェアする 1" [ref=e822]:
+                    - generic [ref=e824]:
+                      - img "シェアする" [ref=e825]
+                      - generic [ref=e829]: "1"
+            - status "読み込み中..." [ref=e833]:
+              - img "読み込み中..." [ref=e834]
+          - generic [ref=e844]:
+            - generic [ref=e845]: pursuitliの投稿をもっと見るにはログインしてください。
+            - link "ログイン" [ref=e847] [cursor=pointer]:
+              - /url: /login?show_choice_screen=false
+              - generic [ref=e848]: ログイン
+    - generic [ref=e849]:
+      - generic [ref=e850]:
+        - generic [ref=e851]: Threadsにログインするかサインアップ
+        - generic [ref=e852]: 話題のトピックをチェックして、会話に参加しよう。
+        - button "Instagram 読み込み中... 読み込み中..." [ref=e853] [cursor=pointer]:
+          - generic [ref=e854]:
+            - img "Instagram" [ref=e855]
+            - generic [ref=e857]:
+              - status "読み込み中..." [ref=e858]
+              - status "読み込み中..." [ref=e859]
+        - link "代わりにユーザーネームでログイン" [ref=e861] [cursor=pointer]:
+          - /url: /login?show_choice_screen=false
+      - contentinfo [ref=e862]:
+        - list [ref=e863]:
+          - listitem [ref=e864]:
+            - generic [ref=e865]: "@2026"
+          - listitem [ref=e866]:
+            - link "Threads規約" [ref=e868] [cursor=pointer]:
+              - /url: https://l.threads.com/?u=https%3A%2F%2Fhelp.instagram.com%2F769983657850450&e=AUCGrDBVwzDq1QmURVjaLfuI8A_XOC3EJlHa8k3MVMyifMGegMFTpK02E-di4oQ72enGRl5qDmOySq0C1_fbWb5eJFRjs-OlKvpjCj43QZw-aUr4SDDbVe7Ziam_qHe7wyRjLwTyU2KYrjoG
+          - listitem [ref=e869]:
+            - link "プライバシーポリシー" [ref=e871] [cursor=pointer]:
+              - /url: https://l.threads.com/?u=https%3A%2F%2Fhelp.instagram.com%2F515230437301944&e=AUCGrDBVwzDq1QmURVjaLfuI8A_XOC3EJlHa8k3MVMyifMGegMFTpK02E-di4oQ72enGRl5qDmOySq0C1_fbWb5eJFRjs-OlKvpjCj43QZw-aUr4SDDbVe7Ziam_qHe7wyRjLwTyU2KYrjoG
+          - listitem [ref=e872]:
+            - link "Cookieポリシー" [ref=e874] [cursor=pointer]:
+              - /url: https://l.threads.com/?u=https%3A%2F%2Fhelp.instagram.com%2F1896641480634370%2F&e=AUCGrDBVwzDq1QmURVjaLfuI8A_XOC3EJlHa8k3MVMyifMGegMFTpK02E-di4oQ72enGRl5qDmOySq0C1_fbWb5eJFRjs-OlKvpjCj43QZw-aUr4SDDbVe7Ziam_qHe7wyRjLwTyU2KYrjoG
+          - listitem [ref=e875]:
+            - button "問題を報告" [ref=e876] [cursor=pointer]:
+              - generic [ref=e877]: 問題を報告

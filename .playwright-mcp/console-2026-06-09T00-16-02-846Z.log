@@ -1,0 +1,81 @@
+[    3163ms] [ERROR] ErrorUtils caught an error:
+
+Minified React error #418; visit https://react.dev/errors/418?args[]=HTML&args[]= for the full message or use the non-minified dev environment for full errors and additional helpful warnings.
+
+Subsequent non-fatal errors won't be logged; see https://fburl.com/debugjs. {column: 28932, clientTime: 1780964166, componentStackFrames: Array(53), extra: Object, guardList: Array(1)} @ https://static.cdninstagram.com/rsrc.php/v4/yA/r/llpHPzBZ1ZW.js:79
+[    3164ms] Error: Minified React error #418; visit https://react.dev/errors/418?args[]=HTML&args[]= for the full message or use the non-minified dev environment for full errors and additional helpful warnings.
+    at mr (https://static.cdninstagram.com/rsrc.php/v4ijV54/yp/l/ja_JP-j/RlFDugfMI5e.js:367:28932)
+    at Hl (https://static.cdninstagram.com/rsrc.php/v4ijV54/yp/l/ja_JP-j/RlFDugfMI5e.js:367:80708)
+    at os (https://static.cdninstagram.com/rsrc.php/v4ijV54/yp/l/ja_JP-j/RlFDugfMI5e.js:367:89454)
+    at Rd (https://static.cdninstagram.com/rsrc.php/v4ijV54/yp/l/ja_JP-j/RlFDugfMI5e.js:367:141480)
+    at Sd (https://static.cdninstagram.com/rsrc.php/v4ijV54/yp/l/ja_JP-j/RlFDugfMI5e.js:367:141452)
+    at vd (https://static.cdninstagram.com/rsrc.php/v4ijV54/yp/l/ja_JP-j/RlFDugfMI5e.js:367:141307)
+    at id (https://static.cdninstagram.com/rsrc.php/v4ijV54/yp/l/ja_JP-j/RlFDugfMI5e.js:367:136473)
+    at Jr (https://static.cdninstagram.com/rsrc.php/v4ijV54/yp/l/ja_JP-j/RlFDugfMI5e.js:367:35869)
+    at Object.applyWithGuard (https://static.cdninstagram.com/rsrc.php/v4/yA/r/llpHPzBZ1ZW.js:80:10303)
+    at e (https://static.cdninstagram.com/rsrc.php/v4/yA/r/llpHPzBZ1ZW.js:80:11000)
+    at MessagePort.N (https://static.cdninstagram.com/rsrc.php/v4/yA/r/llpHPzBZ1ZW.js:235:1878)
+[    3300ms] [LOG] 
+%cSTOP！ font-family:helvetica; font-size:20px; font-size:50px; font-weight:bold; color:red; -webkit-text-stroke:1px black; @ https://static.cdninstagram.com/rsrc.php/v4/yA/r/llpHPzBZ1ZW.js:245
+[    3300ms] [LOG] 
+%cこれは開発者向けのブラウザー機能です。Threads機能を有効にするためまたは誰かのアカウントをハッキングするために、ここに何かをコピー・貼り付けするように言われた場合、それは第三者があなたのThreadsアカウントへのアクセスを得るための詐欺・不正行為です。 font-family:helvetica; font-size:20px;  @ https://static.cdninstagram.com/rsrc.php/v4/yA/r/llpHPzBZ1ZW.js:245
+[    3300ms] [LOG] 
+%c詳しくは https://www.facebook.com/selfxss をご覧ください。 font-family:helvetica; font-size:20px;  @ https://static.cdninstagram.com/rsrc.php/v4/yA/r/llpHPzBZ1ZW.js:245
+[    3300ms] [LOG] 
+%c  @ https://static.cdninstagram.com/rsrc.php/v4/yA/r/llpHPzBZ1ZW.js:245
+[   50604ms] [INFO] Banner not shown: beforeinstallpromptevent.preventDefault() called. The page must call beforeinstallpromptevent.prompt() to show the banner. @ https://www.instagram.com/threads/sso/?waterfall_id=76828b10-df45-4c7d-9252-c1594f7f137d:0
+[   50619ms] [LOG] 
+%cSTOP！ font-family:helvetica; font-size:20px; font-size:50px; font-weight:bold; color:red; -webkit-text-stroke:1px black; @ https://static.cdninstagram.com/rsrc.php/v4/yA/r/llpHPzBZ1ZW.js:245
+[   50619ms] [LOG] 
+%cこれは開発者向けのブラウザー機能です。Instagram機能を有効にするためまたは誰かのアカウントをハッキングするために、ここに何かをコピー・貼り付けするように言われた場合、それは第三者があなたのInstagramアカウントへのアクセスを得るための詐欺・不正行為です。 font-family:helvetica; font-size:20px;  @ https://static.cdninstagram.com/rsrc.php/v4/yA/r/llpHPzBZ1ZW.js:245
+[   50619ms] [LOG] 
+%c詳しくは https://www.facebook.com/selfxss をご覧ください。 font-family:helvetica; font-size:20px;  @ https://static.cdninstagram.com/rsrc.php/v4/yA/r/llpHPzBZ1ZW.js:245
+[   50619ms] [LOG] 
+%c  @ https://static.cdninstagram.com/rsrc.php/v4/yA/r/llpHPzBZ1ZW.js:245
+[   51874ms] [LOG] 
+%cSTOP！ font-family:helvetica; font-size:20px; font-size:50px; font-weight:bold; color:red; -webkit-text-stroke:1px black; @ https://static.cdninstagram.com/rsrc.php/v4/yA/r/llpHPzBZ1ZW.js:245
+[   51874ms] [LOG] 
+%cこれは開発者向けのブラウザー機能です。Instagram機能を有効にするためまたは誰かのアカウントをハッキングするために、ここに何かをコピー・貼り付けするように言われた場合、それは第三者があなたのInstagramアカウントへのアクセスを得るための詐欺・不正行為です。 font-family:helvetica; font-size:20px;  @ https://static.cdninstagram.com/rsrc.php/v4/yA/r/llpHPzBZ1ZW.js:245
+[   51874ms] [LOG] 
+%c詳しくは https://www.facebook.com/selfxss をご覧ください。 font-family:helvetica; font-size:20px;  @ https://static.cdninstagram.com/rsrc.php/v4/yA/r/llpHPzBZ1ZW.js:245
+[   51874ms] [LOG] 
+%c  @ https://static.cdninstagram.com/rsrc.php/v4/yA/r/llpHPzBZ1ZW.js:245
+[   52044ms] [VERBOSE] [DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq) %o @ https://www.instagram.com/accounts/login/?force_authentication&platform_app_id=1289884158313322&enable_fb_login&request_id=f2bf01c3-39ef-4b35-aa1e-aa0a31646262&next=https%3A%2F%2Fwww.instagram.com%2Foauth%2Foidc%2F%3Fapp_id%3D1289884158313322%26redirect_uri%3Dhttps%253A%252F%252Fwww.threads.com%252Flogin%252Foidc%252F%26response_type%3Dcode%26scope%3Dopenid%26state%3DATrVlR3e6avTwcDIHdQE1x3XZM_W35lAJQ87-8h-3usudwmIW8d0QXQRsZw-U-OiD9RS5aUx1qXEz5EUpCmHrI-q5nuJYUTnXufBgWEfPOEmQBkZRE1plTJ9mWlaAMcLkatVtdLUnaXloURTpjDU2Zz8mUaeUtXvdnxioyx96iw97VHPxle7coFoK7giChym0VIQkzHf6GXp_9VpHipT4Mj2_2Ns1ABpi3C5UJ_0aK4yWeELvpqsBWhjleRqCbEcVzuclnFg%26logger_id%3Df2bf01c3-39ef-4b35-aa1e-aa0a31646262%26force_consent%3D0%26force_authentication%3D0:0
+[   52052ms] [INFO] Banner not shown: beforeinstallpromptevent.preventDefault() called. The page must call beforeinstallpromptevent.prompt() to show the banner. @ https://www.instagram.com/accounts/login/?force_authentication&platform_app_id=1289884158313322&enable_fb_login&request_id=f2bf01c3-39ef-4b35-aa1e-aa0a31646262&next=https%3A%2F%2Fwww.instagram.com%2Foauth%2Foidc%2F%3Fapp_id%3D1289884158313322%26redirect_uri%3Dhttps%253A%252F%252Fwww.threads.com%252Flogin%252Foidc%252F%26response_type%3Dcode%26scope%3Dopenid%26state%3DATrVlR3e6avTwcDIHdQE1x3XZM_W35lAJQ87-8h-3usudwmIW8d0QXQRsZw-U-OiD9RS5aUx1qXEz5EUpCmHrI-q5nuJYUTnXufBgWEfPOEmQBkZRE1plTJ9mWlaAMcLkatVtdLUnaXloURTpjDU2Zz8mUaeUtXvdnxioyx96iw97VHPxle7coFoK7giChym0VIQkzHf6GXp_9VpHipT4Mj2_2Ns1ABpi3C5UJ_0aK4yWeELvpqsBWhjleRqCbEcVzuclnFg%26logger_id%3Df2bf01c3-39ef-4b35-aa1e-aa0a31646262%26force_consent%3D0%26force_authentication%3D0:0
+[  110645ms] [LOG] 
+%cSTOP！ font-family:helvetica; font-size:20px; font-size:50px; font-weight:bold; color:red; -webkit-text-stroke:1px black; @ https://static.cdninstagram.com/rsrc.php/v4/yA/r/llpHPzBZ1ZW.js:245
+[  110645ms] [LOG] 
+%cこれは開発者向けのブラウザー機能です。Instagram機能を有効にするためまたは誰かのアカウントをハッキングするために、ここに何かをコピー・貼り付けするように言われた場合、それは第三者があなたのInstagramアカウントへのアクセスを得るための詐欺・不正行為です。 font-family:helvetica; font-size:20px;  @ https://static.cdninstagram.com/rsrc.php/v4/yA/r/llpHPzBZ1ZW.js:245
+[  110645ms] [LOG] 
+%c詳しくは https://www.facebook.com/selfxss をご覧ください。 font-family:helvetica; font-size:20px;  @ https://static.cdninstagram.com/rsrc.php/v4/yA/r/llpHPzBZ1ZW.js:245
+[  110645ms] [LOG] 
+%c  @ https://static.cdninstagram.com/rsrc.php/v4/yA/r/llpHPzBZ1ZW.js:245
+[  110960ms] [INFO] Banner not shown: beforeinstallpromptevent.preventDefault() called. The page must call beforeinstallpromptevent.prompt() to show the banner. @ https://www.instagram.com/accounts/password/reset/:0
+[  118863ms] [ERROR] Permissions policy violation: unload is not allowed in this document. @ https://static.xx.fbcdn.net/rsrc.php/v4/ys/r/wPrfXEAC8ZC.js:321
+[  150582ms] [LOG] 
+%cSTOP！ font-family:helvetica; font-size:20px; font-size:50px; font-weight:bold; color:red; -webkit-text-stroke:1px black; @ https://static.cdninstagram.com/rsrc.php/v4/yA/r/llpHPzBZ1ZW.js:245
+[  150582ms] [LOG] 
+%cこれは開発者向けのブラウザー機能です。Instagram機能を有効にするためまたは誰かのアカウントをハッキングするために、ここに何かをコピー・貼り付けするように言われた場合、それは第三者があなたのInstagramアカウントへのアクセスを得るための詐欺・不正行為です。 font-family:helvetica; font-size:20px;  @ https://static.cdninstagram.com/rsrc.php/v4/yA/r/llpHPzBZ1ZW.js:245
+[  150582ms] [LOG] 
+%c詳しくは https://www.facebook.com/selfxss をご覧ください。 font-family:helvetica; font-size:20px;  @ https://static.cdninstagram.com/rsrc.php/v4/yA/r/llpHPzBZ1ZW.js:245
+[  150582ms] [LOG] 
+%c  @ https://static.cdninstagram.com/rsrc.php/v4/yA/r/llpHPzBZ1ZW.js:245
+[  150621ms] [VERBOSE] [DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq) %o @ https://www.instagram.com/accounts/login/?force_authentication&platform_app_id=1289884158313322&enable_fb_login&request_id=f2bf01c3-39ef-4b35-aa1e-aa0a31646262&next=https%3A%2F%2Fwww.instagram.com%2Foauth%2Foidc%2F%3Fapp_id%3D1289884158313322%26redirect_uri%3Dhttps%253A%252F%252Fwww.threads.com%252Flogin%252Foidc%252F%26response_type%3Dcode%26scope%3Dopenid%26state%3DATrVlR3e6avTwcDIHdQE1x3XZM_W35lAJQ87-8h-3usudwmIW8d0QXQRsZw-U-OiD9RS5aUx1qXEz5EUpCmHrI-q5nuJYUTnXufBgWEfPOEmQBkZRE1plTJ9mWlaAMcLkatVtdLUnaXloURTpjDU2Zz8mUaeUtXvdnxioyx96iw97VHPxle7coFoK7giChym0VIQkzHf6GXp_9VpHipT4Mj2_2Ns1ABpi3C5UJ_0aK4yWeELvpqsBWhjleRqCbEcVzuclnFg%26logger_id%3Df2bf01c3-39ef-4b35-aa1e-aa0a31646262%26force_consent%3D0%26force_authentication%3D0:0
+[  150636ms] [INFO] Banner not shown: beforeinstallpromptevent.preventDefault() called. The page must call beforeinstallpromptevent.prompt() to show the banner. @ https://www.instagram.com/accounts/login/?force_authentication&platform_app_id=1289884158313322&enable_fb_login&request_id=f2bf01c3-39ef-4b35-aa1e-aa0a31646262&next=https%3A%2F%2Fwww.instagram.com%2Foauth%2Foidc%2F%3Fapp_id%3D1289884158313322%26redirect_uri%3Dhttps%253A%252F%252Fwww.threads.com%252Flogin%252Foidc%252F%26response_type%3Dcode%26scope%3Dopenid%26state%3DATrVlR3e6avTwcDIHdQE1x3XZM_W35lAJQ87-8h-3usudwmIW8d0QXQRsZw-U-OiD9RS5aUx1qXEz5EUpCmHrI-q5nuJYUTnXufBgWEfPOEmQBkZRE1plTJ9mWlaAMcLkatVtdLUnaXloURTpjDU2Zz8mUaeUtXvdnxioyx96iw97VHPxle7coFoK7giChym0VIQkzHf6GXp_9VpHipT4Mj2_2Ns1ABpi3C5UJ_0aK4yWeELvpqsBWhjleRqCbEcVzuclnFg%26logger_id%3Df2bf01c3-39ef-4b35-aa1e-aa0a31646262%26force_consent%3D0%26force_authentication%3D0:0
+[  152915ms] [ERROR] ErrorUtils caught an error:
+
+signal is aborted without reason [Caught in: Passkey authentication failed]
+
+Subsequent non-fatal errors won't be logged; see https://fburl.com/debugjs. {column: 2973, clientTime: 1780964315, extra: Object, guardList: Array(0), hash: kl2zlf} @ https://static.cdninstagram.com/rsrc.php/v4/yA/r/llpHPzBZ1ZW.js:79
+[  157212ms] [ERROR] Permissions policy violation: unload is not allowed in this document. @ https://static.xx.fbcdn.net/rsrc.php/v4/ys/r/wPrfXEAC8ZC.js:321
+[  208516ms] [VERBOSE] [DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq) %o @ https://www.instagram.com/accounts/login/?force_authentication&platform_app_id=1289884158313322&enable_fb_login&request_id=f2bf01c3-39ef-4b35-aa1e-aa0a31646262&next=https%3A%2F%2Fwww.instagram.com%2Foauth%2Foidc%2F%3Fapp_id%3D1289884158313322%26redirect_uri%3Dhttps%253A%252F%252Fwww.threads.com%252Flogin%252Foidc%252F%26response_type%3Dcode%26scope%3Dopenid%26state%3DATrVlR3e6avTwcDIHdQE1x3XZM_W35lAJQ87-8h-3usudwmIW8d0QXQRsZw-U-OiD9RS5aUx1qXEz5EUpCmHrI-q5nuJYUTnXufBgWEfPOEmQBkZRE1plTJ9mWlaAMcLkatVtdLUnaXloURTpjDU2Zz8mUaeUtXvdnxioyx96iw97VHPxle7coFoK7giChym0VIQkzHf6GXp_9VpHipT4Mj2_2Ns1ABpi3C5UJ_0aK4yWeELvpqsBWhjleRqCbEcVzuclnFg%26logger_id%3Df2bf01c3-39ef-4b35-aa1e-aa0a31646262%26force_consent%3D0%26force_authentication%3D0:0
+[  219646ms] [INFO] Banner not shown: beforeinstallpromptevent.preventDefault() called. The page must call beforeinstallpromptevent.prompt() to show the banner. @ https://www.instagram.com/accounts/onetap/?next=https%3A%2F%2Fwww.instagram.com%2Foauth%2Foidc%2F%3Fapp_id%3D1289884158313322%26redirect_uri%3Dhttps%253A%252F%252Fwww.threads.com%252Flogin%252Foidc%252F%26response_type%3Dcode%26scope%3Dopenid%26state%3DATrVlR3e6avTwcDIHdQE1x3XZM_W35lAJQ87-8h-3usudwmIW8d0QXQRsZw-U-OiD9RS5aUx1qXEz5EUpCmHrI-q5nuJYUTnXufBgWEfPOEmQBkZRE1plTJ9mWlaAMcLkatVtdLUnaXloURTpjDU2Zz8mUaeUtXvdnxioyx96iw97VHPxle7coFoK7giChym0VIQkzHf6GXp_9VpHipT4Mj2_2Ns1ABpi3C5UJ_0aK4yWeELvpqsBWhjleRqCbEcVzuclnFg%26logger_id%3Df2bf01c3-39ef-4b35-aa1e-aa0a31646262%26force_consent%3D0%26force_authentication%3D0:0
+[  220957ms] [LOG] 
+%cSTOP！ font-family:helvetica; font-size:20px; font-size:50px; font-weight:bold; color:red; -webkit-text-stroke:1px black; @ https://static.cdninstagram.com/rsrc.php/v4i99w4/ye/l/ja_JP-j/9JQCs2bBdpN51qibAUABY_oYfDQnsESIGTsaa6c_y1Ov0FbROOjSCWMC4fHGZPlv6rcBg9OemlgFH19JIBMpvbDr9aUyD2ha4Ta0MgvGFgTubtGa_18N7y_wflTU6h_74-8uMXEOkztNZ5ZrrCxjEFdRGjiFGHh9ozlMI64oxaJD-bMV1zrNvhsc-ja18neY9AQkz5IKxAiusmbNiolQ_GXCJLbUoLqllHVDFQqmb0p0kvNWiGN4gzmA4VjiQlWadpm90PaD3k1f5EqvkZLjEK0xFYYDbnphhshD5-sc1yxdkJx4O5NrpKzMGU-W7GsTMMsiJC02ez.js:102
+[  220957ms] [LOG] 
+%cこれは開発者向けのブラウザー機能です。Instagram機能を有効にするためまたは誰かのアカウントをハッキングするために、ここに何かをコピー・貼り付けするように言われた場合、それは第三者があなたのInstagramアカウントへのアクセスを得るための詐欺・不正行為です。 font-family:helvetica; font-size:20px;  @ https://static.cdninstagram.com/rsrc.php/v4i99w4/ye/l/ja_JP-j/9JQCs2bBdpN51qibAUABY_oYfDQnsESIGTsaa6c_y1Ov0FbROOjSCWMC4fHGZPlv6rcBg9OemlgFH19JIBMpvbDr9aUyD2ha4Ta0MgvGFgTubtGa_18N7y_wflTU6h_74-8uMXEOkztNZ5ZrrCxjEFdRGjiFGHh9ozlMI64oxaJD-bMV1zrNvhsc-ja18neY9AQkz5IKxAiusmbNiolQ_GXCJLbUoLqllHVDFQqmb0p0kvNWiGN4gzmA4VjiQlWadpm90PaD3k1f5EqvkZLjEK0xFYYDbnphhshD5-sc1yxdkJx4O5NrpKzMGU-W7GsTMMsiJC02ez.js:102
+[  220957ms] [LOG] 
+%c詳しくは https://www.facebook.com/selfxss をご覧ください。 font-family:helvetica; font-size:20px;  @ https://static.cdninstagram.com/rsrc.php/v4i99w4/ye/l/ja_JP-j/9JQCs2bBdpN51qibAUABY_oYfDQnsESIGTsaa6c_y1Ov0FbROOjSCWMC4fHGZPlv6rcBg9OemlgFH19JIBMpvbDr9aUyD2ha4Ta0MgvGFgTubtGa_18N7y_wflTU6h_74-8uMXEOkztNZ5ZrrCxjEFdRGjiFGHh9ozlMI64oxaJD-bMV1zrNvhsc-ja18neY9AQkz5IKxAiusmbNiolQ_GXCJLbUoLqllHVDFQqmb0p0kvNWiGN4gzmA4VjiQlWadpm90PaD3k1f5EqvkZLjEK0xFYYDbnphhshD5-sc1yxdkJx4O5NrpKzMGU-W7GsTMMsiJC02ez.js:102
+[  220957ms] [LOG] 
+%c  @ https://static.cdninstagram.com/rsrc.php/v4i99w4/ye/l/ja_JP-j/9JQCs2bBdpN51qibAUABY_oYfDQnsESIGTsaa6c_y1Ov0FbROOjSCWMC4fHGZPlv6rcBg9OemlgFH19JIBMpvbDr9aUyD2ha4Ta0MgvGFgTubtGa_18N7y_wflTU6h_74-8uMXEOkztNZ5ZrrCxjEFdRGjiFGHh9ozlMI64oxaJD-bMV1zrNvhsc-ja18neY9AQkz5IKxAiusmbNiolQ_GXCJLbUoLqllHVDFQqmb0p0kvNWiGN4gzmA4VjiQlWadpm90PaD3k1f5EqvkZLjEK0xFYYDbnphhshD5-sc1yxdkJx4O5NrpKzMGU-W7GsTMMsiJC02ez.js:102
+[  224312ms] [ERROR] Permissions policy violation: unload is not allowed in this document. @ https://static.xx.fbcdn.net/rsrc.php/v4/yA/r/llpHPzBZ1ZW.js:241

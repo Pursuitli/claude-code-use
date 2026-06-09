@@ -1,0 +1,462 @@
+- generic [ref=e5]:
+  - navigation [ref=e7]:
+    - generic [ref=e8]:
+      - link "Threads" [ref=e13] [cursor=pointer]:
+        - /url: /
+        - img "Threads" [ref=e15]
+      - generic [ref=e25]:
+        - generic [ref=e26]:
+          - link "おすすめ" [ref=e28] [cursor=pointer]:
+            - /url: /
+            - generic [ref=e30]:
+              - img [ref=e32]
+              - generic [ref=e36]: おすすめ
+          - button "新しいスレッド" [ref=e38] [cursor=pointer]:
+            - generic [ref=e40]:
+              - img [ref=e42]
+              - generic [ref=e46]: 新しいスレッド
+          - link "検索 検索" [ref=e48] [cursor=pointer]:
+            - /url: /search
+            - generic [ref=e50]:
+              - img "検索" [ref=e52]
+              - generic [ref=e56]: 検索
+        - generic [ref=e57]:
+          - link "メッセージ メッセージ" [ref=e59] [cursor=pointer]:
+            - /url: /messages/
+            - generic [ref=e61]:
+              - img "メッセージ" [ref=e63]
+              - generic [ref=e67]: メッセージ
+          - link "お知らせ アクティビティ" [ref=e69] [cursor=pointer]:
+            - /url: /activity
+            - generic [ref=e71]:
+              - img "お知らせ" [ref=e73]
+              - generic [ref=e77]: アクティビティ
+          - link "プロフィール プロフィール" [ref=e79] [cursor=pointer]:
+            - /url: /@pursuitli
+            - generic [ref=e81]:
+              - img "プロフィール" [ref=e83]
+              - generic [ref=e88]: プロフィール
+          - link "フェディバース フェディバース" [ref=e91] [cursor=pointer]:
+            - /url: /fediverse_feed/
+            - generic [ref=e93]:
+              - img "フェディバース" [ref=e95]
+              - generic [ref=e103]: フェディバース
+          - link "インサイト インサイト" [ref=e105] [cursor=pointer]:
+            - /url: /insights/
+            - generic [ref=e107]:
+              - img "インサイト" [ref=e109]
+              - generic [ref=e116]: インサイト
+          - link "保存済み 保存済み" [ref=e118] [cursor=pointer]:
+            - /url: /saved/
+            - generic [ref=e120]:
+              - img "保存済み" [ref=e122]
+              - generic [ref=e126]: 保存済み
+        - generic [ref=e128]:
+          - generic [ref=e130]: フィード
+          - status "読み込み中..." [ref=e132]
+          - status "読み込み中..." [ref=e134]
+          - status "読み込み中..." [ref=e136]
+      - button "さらに表示" [ref=e139] [cursor=pointer]:
+        - generic [ref=e141]:
+          - img [ref=e143]
+          - generic [ref=e148]: さらに表示
+  - generic [ref=e153]:
+    - generic [ref=e156]:
+      - generic [ref=e162]:
+        - link "列のタイトル" [ref=e167] [cursor=pointer]:
+          - /url: /@pursuitli/replies
+          - heading "pursuitli" [level=1] [ref=e168]:
+            - generic [ref=e169]: pursuitli
+        - generic [ref=e170]:
+          - link "pursuitliさんの投稿を検索" [ref=e172] [cursor=pointer]:
+            - /url: /search?from_author=pursuitli
+            - img "pursuitliさんの投稿を検索" [ref=e175]
+          - button "もっと見る" [ref=e178] [cursor=pointer]:
+            - img "もっと見る" [ref=e181]
+      - region "列の本文" [ref=e187]:
+        - generic [ref=e188]:
+          - generic [ref=e189]:
+            - generic [ref=e190]:
+              - generic [ref=e191]:
+                - heading "Pur Li" [level=1] [ref=e192]
+                - generic [ref=e194]:
+                  - generic [ref=e196]: pursuitli
+                  - button "フェディバースについて詳しくはこちらをクリック" [ref=e198] [cursor=pointer]:
+                    - img [ref=e199]
+              - button "pursuitliのプロフィール写真 認証済み" [ref=e206] [cursor=pointer]:
+                - img "pursuitliのプロフィール写真" [ref=e209]
+                - img "認証済み" [ref=e211]
+            - generic [ref=e216]: 香港人在新加坡創業 分享星港台及東南亞市場洞察、新聞不會告訴你的事
+            - button "opptymizer.com +3" [ref=e220] [cursor=pointer]:
+              - generic [ref=e222]: opptymizer.com
+              - generic [ref=e223]:
+                - generic [ref=e224]: "+3"
+                - img [ref=e226]
+            - generic [ref=e229]:
+              - generic [ref=e230]:
+                - link "AI Threads" [ref=e231] [cursor=pointer]:
+                  - /url: /search?q=aithreads&serp_type=tags&tag_id=18399895213044171
+                  - generic [ref=e232]:
+                    - img [ref=e233]
+                    - generic [ref=e238]: AI Threads
+                - link "Taiwan" [ref=e239] [cursor=pointer]:
+                  - /url: /search?q=taiwan&serp_type=tags&tag_id=18370641160076663
+                  - generic [ref=e240]:
+                    - img [ref=e241]
+                    - generic [ref=e246]: Taiwan
+                - link "Hong Kong" [ref=e247] [cursor=pointer]:
+                  - /url: /search?q=hongkong&serp_type=tags&tag_id=18404162884040288
+                  - generic [ref=e248]:
+                    - img [ref=e249]
+                    - generic [ref=e254]: Hong Kong
+                - link "日文學習" [ref=e255] [cursor=pointer]:
+                  - /url: /search?q=%E6%97%A5%E6%96%87%E5%AD%B8%E7%BF%92&serp_type=tags&tag_id=18410042275004307
+                  - generic [ref=e258]: 日文學習
+              - button "+ 1" [ref=e259] [cursor=pointer]:
+                - generic [ref=e261]: + 1
+            - generic [ref=e262]:
+              - button "Threadsユーザーのプロフィール写真 Threadsユーザーのプロフィール写真 Threadsユーザーのプロフィール写真 フォロワー363人" [ref=e264] [cursor=pointer]:
+                - generic [ref=e265]:
+                  - generic [ref=e267]:
+                    - img "Threadsユーザーのプロフィール写真" [ref=e270]
+                    - img "Threadsユーザーのプロフィール写真" [ref=e273]
+                    - img "Threadsユーザーのプロフィール写真" [ref=e276]
+                  - generic [ref=e277]: フォロワー363人
+              - generic [ref=e278]:
+                - generic [ref=e280]: ·
+                - button "最近の閲覧数46万回" [ref=e281] [cursor=pointer]:
+                  - generic [ref=e282]: 最近の閲覧数46万回
+              - generic [ref=e283]:
+                - link "インサイト" [ref=e284] [cursor=pointer]:
+                  - /url: /insights
+                  - img "インサイト" [ref=e286]
+                - link "Instagram" [ref=e291] [cursor=pointer]:
+                  - /url: https://l.threads.com/?u=https%3A%2F%2Fwww.instagram.com%2Fpursuitli%2F&e=AUCObDVpmAORBaiTDRaXQQPOpcyAnc9dvD6iC1mhkDZPBuC6HHKEcUGljzf3NfKSxss0J_3ou5dnPbvsHW1MWNhYuk4LwfciyODeXjpB2URzd1-lDFXuZAO8HDyCujyWV_kOk27AiFyWiST_cG4jM_InK2Q9
+                  - img "Instagram" [ref=e293]
+          - button "プロフィールを編集" [ref=e299] [cursor=pointer]:
+            - generic [ref=e300]: プロフィールを編集
+          - generic [ref=e301]:
+            - link "スレッド" [ref=e304] [cursor=pointer]:
+              - /url: /@pursuitli
+              - generic [ref=e307]: スレッド
+            - link "返信" [ref=e310] [cursor=pointer]:
+              - /url: /@pursuitli/replies
+              - generic [ref=e313]: 返信
+            - link "メディア" [ref=e317] [cursor=pointer]:
+              - /url: /@pursuitli/media
+              - generic [ref=e320]: メディア
+            - link "再投稿" [ref=e323] [cursor=pointer]:
+              - /url: /@pursuitli/reposts
+              - generic [ref=e326]: 再投稿
+          - generic [ref=e328]:
+            - generic [ref=e331]:
+              - generic [ref=e334] [cursor=pointer]:
+                - button "readingsooeunのプロフィール写真 フォローする" [ref=e336]:
+                  - img "readingsooeunのプロフィール写真" [ref=e339]
+                  - button "フォローする" [ref=e340]:
+                    - img "フォローする" [ref=e343]
+                - generic [ref=e346]:
+                  - generic [ref=e347]:
+                    - link "readingsooeun" [ref=e352]:
+                      - /url: /@readingsooeun
+                      - generic [ref=e354]: readingsooeun
+                    - link "11時間前" [ref=e358]:
+                      - /url: /@readingsooeun/post/DZU5TATEqG5
+                      - time [ref=e359]:
+                        - generic "11時間前" [ref=e361]: 11時間
+                  - button "もっと見る" [ref=e364]:
+                    - img "もっと見る" [ref=e366]
+                - generic [ref=e370]:
+                  - generic [ref=e371]:
+                    - generic [ref=e373]: 喺新加坡公幹，有一餐 lunch 可以唔跟大隊自己出去食，有冇香港人可以介紹食咩好？🙌🙌🙏
+                    - generic [ref=e375]:
+                      - text: 之前見好多人話去東京信香港人無伏，求新加坡version 🙇🏻‍♂️
+                      - button "翻訳" [ref=e377]:
+                        - generic [ref=e378]: 翻訳
+                  - generic [ref=e380]:
+                    - button "「いいね！」 3" [ref=e382]:
+                      - generic [ref=e384]:
+                        - img "「いいね！」" [ref=e385]
+                        - generic [ref=e389]: "3"
+                    - button "返信 9" [ref=e391]:
+                      - generic [ref=e393]:
+                        - img "返信" [ref=e394]
+                        - generic [ref=e398]: "9"
+                    - button "再投稿" [ref=e400]:
+                      - img "再投稿" [ref=e403]
+                    - button "シェアする 8" [ref=e407]:
+                      - generic [ref=e409]:
+                        - img "シェアする" [ref=e410]
+                        - generic [ref=e414]: "8"
+              - generic [ref=e417] [cursor=pointer]:
+                - link "pursuitliのプロフィール写真" [ref=e420]:
+                  - /url: /@pursuitli
+                  - img "pursuitliのプロフィール写真" [ref=e422]
+                - generic [ref=e424]:
+                  - generic [ref=e425]:
+                    - generic [ref=e426]:
+                      - link "pursuitli" [ref=e430]:
+                        - /url: /@pursuitli
+                        - generic [ref=e432]: pursuitli
+                      - img "認証済み" [ref=e434]
+                    - link "34分前" [ref=e439]:
+                      - /url: /@pursuitli/post/DZWBoFrkkqa
+                      - time [ref=e440]:
+                        - generic "34分前" [ref=e442]: 34分
+                  - button "もっと見る" [ref=e445]:
+                    - img "もっと見る" [ref=e447]
+                - generic [ref=e450]:
+                  - generic [ref=e453]:
+                    - text: Had it a few days ago
+                    - button "翻訳" [ref=e455]:
+                      - generic [ref=e456]: 翻訳
+                  - 'link "Photo by Pur Li on June 08, 2026. May be an image of ‎phone, telephone, thermostat and ‎text that says \"‎Miraku من 4.8 8 (309) 司 27 min Japanese restaurant- ๘ $100+ Closed Opens 12：00 Directions Start Call Saved 山版盟 مب-الاف_اننه ች 2 RRAN m Overview $ Menu Reviews Photos Updates Saved in SG food Add note L Closed Opens 12:00 O 12 Gopeng St, #01-01 to 04 Icon Village, Singapore 078877 Located in: Icon Village Find table miraku.com.sg 6904 69049783 9783‎\"‎‎." [ref=e459]':
+                    - /url: /@pursuitli/post/DZWBoFrkkqa/media
+                    - generic [ref=e463]:
+                      - 'img "Photo by Pur Li on June 08, 2026. May be an image of ‎phone, telephone, thermostat and ‎text that says \"‎Miraku من 4.8 8 (309) 司 27 min Japanese restaurant- ๘ $100+ Closed Opens 12：00 Directions Start Call Saved 山版盟 مب-الاف_اننه ች 2 RRAN m Overview $ Menu Reviews Photos Updates Saved in SG food Add note L Closed Opens 12:00 O 12 Gopeng St, #01-01 to 04 Icon Village, Singapore 078877 Located in: Icon Village Find table miraku.com.sg 6904 69049783 9783‎\"‎‎."'
+                  - generic [ref=e465]:
+                    - button "「いいね！」" [ref=e467]:
+                      - img "「いいね！」" [ref=e470]
+                    - button "返信" [ref=e473]:
+                      - img "返信" [ref=e476]
+                    - button "再投稿" [ref=e479]:
+                      - img "再投稿" [ref=e482]
+                    - button "シェアする" [ref=e486]:
+                      - img "シェアする" [ref=e489]
+            - generic [ref=e493]:
+              - generic [ref=e496] [cursor=pointer]:
+                - button "hkmovie67のプロフィール写真 フォローする" [ref=e498]:
+                  - img "hkmovie67のプロフィール写真" [ref=e501]
+                  - button "フォローする" [ref=e502]:
+                    - img "フォローする" [ref=e505]
+                - generic [ref=e508]:
+                  - generic [ref=e509]:
+                    - link "hkmovie67" [ref=e514]:
+                      - /url: /@hkmovie67
+                      - generic [ref=e516]: hkmovie67
+                    - link "16時間前" [ref=e520]:
+                      - /url: /@hkmovie67/post/DZUVwwpmNDD
+                      - time [ref=e521]:
+                        - generic "16時間前" [ref=e523]: 16時間
+                  - button "もっと見る" [ref=e526]:
+                    - img "もっと見る" [ref=e528]
+                - generic [ref=e532]:
+                  - generic [ref=e535]:
+                    - generic [ref=e536]: "@whaleagent"
+                    - text: に返信
+                  - generic [ref=e539]:
+                    - text: 你意思是我可以在CBD鬧市憑想像想出一個Uber App 並想像出一台車把我載回家？
+                    - button "翻訳" [ref=e541]:
+                      - generic [ref=e542]: 翻訳
+                  - generic [ref=e544]:
+                    - button "「いいね！」 5" [ref=e546]:
+                      - generic [ref=e548]:
+                        - img "「いいね！」" [ref=e549]
+                        - generic [ref=e553]: "5"
+                    - button "返信 2" [ref=e555]:
+                      - generic [ref=e557]:
+                        - img "返信" [ref=e558]
+                        - generic [ref=e562]: "2"
+                    - button "再投稿" [ref=e564]:
+                      - img "再投稿" [ref=e567]
+                    - button "シェアする" [ref=e571]:
+                      - img "シェアする" [ref=e574]
+              - generic [ref=e578] [cursor=pointer]:
+                - link "pursuitliのプロフィール写真" [ref=e581]:
+                  - /url: /@pursuitli
+                  - img "pursuitliのプロフィール写真" [ref=e583]
+                - generic [ref=e585]:
+                  - generic [ref=e586]:
+                    - generic [ref=e587]:
+                      - link "pursuitli" [ref=e591]:
+                        - /url: /@pursuitli
+                        - generic [ref=e593]: pursuitli
+                      - img "認証済み" [ref=e595]
+                    - link "9時間前" [ref=e600]:
+                      - /url: /@pursuitli/post/DZVFDh-Ehkw
+                      - time [ref=e601]:
+                        - generic "9時間前" [ref=e603]: 9時間
+                  - button "もっと見る" [ref=e606]:
+                    - img "もっと見る" [ref=e608]
+                - generic [ref=e611]:
+                  - generic [ref=e612]:
+                    - generic [ref=e613]:
+                      - link "pursuitliのプロフィール写真" [ref=e616]:
+                        - /url: /@pursuitli
+                        - img "pursuitliのプロフィール写真" [ref=e618]
+                      - generic [ref=e619]:
+                        - generic [ref=e620]:
+                          - link "pursuitli" [ref=e624]:
+                            - /url: /@pursuitli
+                            - generic [ref=e626]: pursuitli
+                          - img "認証済み" [ref=e628]
+                        - generic [ref=e630]:
+                          - img [ref=e633]
+                          - link "AI Threads" [ref=e636]:
+                            - /url: /search?q=aithreads&serp_type=tags&tag_id=18406834975056806
+                            - generic [ref=e637]:
+                              - img [ref=e638]
+                              - generic [ref=e643]: AI Threads
+                        - link "10時間前" [ref=e646]:
+                          - /url: /@pursuitli/post/DZU8NaPkjLu
+                          - time [ref=e647]:
+                            - generic "10時間前" [ref=e649]: 10時間
+                    - generic [ref=e651]:
+                      - link "2050年，AI 可唔可以自己設計一架比 A350 更好的飛機？" [ref=e652]:
+                        - /url: /@pursuitli/post/DZU8NaPkjLu
+                        - generic [ref=e657]: 2050年，AI 可唔可以自己設計一架比 A350 更好的飛機？
+                      - generic [ref=e658]:
+                        - button "37% 可以 37%" [ref=e660]:
+                          - generic [ref=e661]:
+                            - meter "可以" [ref=e663]
+                            - generic:
+                              - generic:
+                                - generic: 可以
+                            - generic [ref=e665]: 37%
+                        - button "63% 唔可以 63%" [ref=e667]:
+                          - generic [ref=e668]:
+                            - meter "唔可以" [ref=e670]
+                            - generic:
+                              - generic:
+                                - generic: 唔可以
+                            - generic [ref=e672]: 63%
+                        - generic [ref=e674]: 27票 · 13:18:52後に終了
+                    - generic [ref=e677]:
+                      - button "「いいね！」" [ref=e679]:
+                        - img "「いいね！」" [ref=e682]
+                      - button "返信 5" [ref=e685]:
+                        - generic [ref=e687]:
+                          - img "返信" [ref=e688]
+                          - generic [ref=e692]: "5"
+                      - button "再投稿 1" [ref=e694]:
+                        - generic [ref=e696]:
+                          - img "再投稿" [ref=e697]
+                          - generic [ref=e702]: "1"
+                      - button "シェアする" [ref=e704]:
+                        - img "シェアする" [ref=e707]
+                  - generic [ref=e710]:
+                    - button "「いいね！」" [ref=e712]:
+                      - img "「いいね！」" [ref=e715]
+                    - button "返信 1" [ref=e718]:
+                      - generic [ref=e720]:
+                        - img "返信" [ref=e721]
+                        - generic [ref=e725]: "1"
+                    - button "再投稿" [ref=e727]:
+                      - img "再投稿" [ref=e730]
+                    - button "シェアする" [ref=e734]:
+                      - img "シェアする" [ref=e737]
+            - generic [ref=e741]:
+              - generic [ref=e744] [cursor=pointer]:
+                - button "alexinhogtownのプロフィール写真 フォローする" [ref=e746]:
+                  - img "alexinhogtownのプロフィール写真" [ref=e749]
+                  - button "フォローする" [ref=e750]:
+                    - img "フォローする" [ref=e753]
+                - generic [ref=e756]:
+                  - generic [ref=e757]:
+                    - link "alexinhogtown" [ref=e762]:
+                      - /url: /@alexinhogtown
+                      - generic [ref=e764]: alexinhogtown
+                    - link "21時間前" [ref=e768]:
+                      - /url: /@alexinhogtown/post/DZTz0pplf1I
+                      - time [ref=e769]:
+                        - generic "21時間前" [ref=e771]: 21時間
+                  - generic [ref=e772]:
+                    - generic [ref=e773]:
+                      - img "Threadsユーザーのプロフィール写真" [ref=e775]
+                      - generic [ref=e776]:
+                        - img "元の投稿者が「いいね！」しました" [ref=e777]
+                        - img [ref=e780]
+                    - button "もっと見る" [ref=e783]:
+                      - img "もっと見る" [ref=e785]
+                - generic [ref=e789]:
+                  - generic [ref=e792]:
+                    - generic [ref=e793]: "@letsgo_manila"
+                    - text: に返信
+                  - generic [ref=e796]:
+                    - text: 當年菲航首創Skybed服務，在英航之前已經提供全躺選擇。
+                    - button "翻訳" [ref=e798]:
+                      - generic [ref=e799]: 翻訳
+                  - generic [ref=e804]:
+                    - generic [ref=e808]:
+                      - button "Photo by Alex Xasha on June 07, 2026. May be an image of sleeping, aeroplane and text." [ref=e809]:
+                        - generic [ref=e812]:
+                          - generic:
+                            - img "Photo by Alex Xasha on June 07, 2026. May be an image of sleeping, aeroplane and text."
+                      - button "メディアを結合してパノラマにする" [ref=e813]
+                    - generic [ref=e816]:
+                      - button "Photo by Alex Xasha on June 07, 2026. May be an image of magazine, newspaper, aeroplane, poster and text." [ref=e817]:
+                        - generic [ref=e820]:
+                          - generic:
+                            - img "Photo by Alex Xasha on June 07, 2026. May be an image of magazine, newspaper, aeroplane, poster and text."
+                      - button "メディアを結合してパノラマにする" [ref=e821]
+                    - button "Photo by Alex Xasha on June 07, 2026. May be an image of text." [ref=e825]:
+                      - generic [ref=e828]:
+                        - generic:
+                          - img "Photo by Alex Xasha on June 07, 2026. May be an image of text."
+                  - generic [ref=e830]:
+                    - button "「いいね！」を取り消す 18" [ref=e832]:
+                      - generic [ref=e834]:
+                        - img "「いいね！」を取り消す" [ref=e835]
+                        - generic [ref=e839]: "18"
+                    - button "返信 1" [ref=e841]:
+                      - generic [ref=e843]:
+                        - img "返信" [ref=e844]
+                        - generic [ref=e848]: "1"
+                    - button "再投稿 1" [ref=e850]:
+                      - generic [ref=e852]:
+                        - img "再投稿" [ref=e853]
+                        - generic [ref=e858]: "1"
+                    - button "シェアする 4" [ref=e860]:
+                      - generic [ref=e862]:
+                        - img "シェアする" [ref=e863]
+                        - generic [ref=e867]: "4"
+              - generic [ref=e870] [cursor=pointer]:
+                - link "pursuitliのプロフィール写真" [ref=e873]:
+                  - /url: /@pursuitli
+                  - img "pursuitliのプロフィール写真" [ref=e875]
+                - generic [ref=e877]:
+                  - generic [ref=e878]:
+                    - generic [ref=e879]:
+                      - link "pursuitli" [ref=e883]:
+                        - /url: /@pursuitli
+                        - generic [ref=e885]: pursuitli
+                      - img "認証済み" [ref=e887]
+                    - link "10時間前" [ref=e892]:
+                      - /url: /@pursuitli/post/DZU-4E6kn5s
+                      - time [ref=e893]:
+                        - generic "10時間前" [ref=e895]: 10時間
+                  - button "もっと見る" [ref=e898]:
+                    - img "もっと見る" [ref=e900]
+                - generic [ref=e903]:
+                  - link "Photo by Pur Li on June 08, 2026. May be an image of record, place mat, poster and text that says \"Philippine Airlines SHINING SHININGIHROUGH THROUGH NAL 1RTON0 N S MABUHAY MABUHAYCLASS CLASS TI\"." [ref=e906]:
+                    - /url: /@pursuitli/post/DZU-4E6kn5s/media
+                    - generic [ref=e910]:
+                      - img "Photo by Pur Li on June 08, 2026. May be an image of record, place mat, poster and text that says \"Philippine Airlines SHINING SHININGIHROUGH THROUGH NAL 1RTON0 N S MABUHAY MABUHAYCLASS CLASS TI\"."
+                  - generic [ref=e912]:
+                    - button "「いいね！」 1" [ref=e914]:
+                      - generic [ref=e916]:
+                        - img "「いいね！」" [ref=e917]
+                        - generic [ref=e921]: "1"
+                    - button "返信" [ref=e923]:
+                      - img "返信" [ref=e926]
+                    - button "再投稿" [ref=e929]:
+                      - img "再投稿" [ref=e932]
+                    - button "シェアする" [ref=e936]:
+                      - img "シェアする" [ref=e939]
+            - status "読み込み中..." [ref=e946]:
+              - img "読み込み中..." [ref=e947]
+    - contentinfo [ref=e956]:
+      - list [ref=e957]:
+        - listitem [ref=e958]:
+          - generic [ref=e959]: "@2026"
+        - listitem [ref=e960]:
+          - link "Threads規約" [ref=e962] [cursor=pointer]:
+            - /url: https://l.threads.com/?u=https%3A%2F%2Fhelp.instagram.com%2F769983657850450&e=AUCObDVpmAORBaiTDRaXQQPOpcyAnc9dvD6iC1mhkDZPBuC6HHKEcUGljzf3NfKSxss0J_3ou5dnPbvsHW1MWNhYuk4LwfciyODeXjpB2URzd1-lDFXuZAO8HDyCujyWV_kOk27AiFyWiST_cG4jM_InK2Q9
+        - listitem [ref=e963]:
+          - link "プライバシーポリシー" [ref=e965] [cursor=pointer]:
+            - /url: https://l.threads.com/?u=https%3A%2F%2Fhelp.instagram.com%2F515230437301944&e=AUCObDVpmAORBaiTDRaXQQPOpcyAnc9dvD6iC1mhkDZPBuC6HHKEcUGljzf3NfKSxss0J_3ou5dnPbvsHW1MWNhYuk4LwfciyODeXjpB2URzd1-lDFXuZAO8HDyCujyWV_kOk27AiFyWiST_cG4jM_InK2Q9
+        - listitem [ref=e966]:
+          - link "Cookieポリシー" [ref=e968] [cursor=pointer]:
+            - /url: https://l.threads.com/?u=https%3A%2F%2Fhelp.instagram.com%2F1896641480634370%2F&e=AUCObDVpmAORBaiTDRaXQQPOpcyAnc9dvD6iC1mhkDZPBuC6HHKEcUGljzf3NfKSxss0J_3ou5dnPbvsHW1MWNhYuk4LwfciyODeXjpB2URzd1-lDFXuZAO8HDyCujyWV_kOk27AiFyWiST_cG4jM_InK2Q9
+  - button "作成" [ref=e970] [cursor=pointer]:
+    - img "作成" [ref=e971]

@@ -1,0 +1,182 @@
+- generic [ref=e5]:
+  - navigation [ref=e7]:
+    - generic [ref=e8]:
+      - link "Threads" [ref=e13] [cursor=pointer]:
+        - /url: /
+        - img "Threads" [ref=e15]
+      - generic [ref=e25]:
+        - generic [ref=e26]:
+          - link "ホーム" [ref=e28] [cursor=pointer]:
+            - /url: /
+            - generic [ref=e29]:
+              - img [ref=e30]
+              - generic [ref=e32]: ホーム
+          - button "新しいスレッド" [ref=e34] [cursor=pointer]:
+            - generic [ref=e36]:
+              - img [ref=e38]
+              - generic [ref=e42]: 新しいスレッド
+          - link "検索 検索" [ref=e44] [cursor=pointer]:
+            - /url: /search
+            - generic [ref=e46]:
+              - img "検索" [ref=e48]
+              - generic [ref=e52]: 検索
+        - generic [ref=e53]:
+          - link "メッセージ メッセージ" [ref=e55] [cursor=pointer]:
+            - /url: /messages/
+            - generic [ref=e57]:
+              - img "メッセージ" [ref=e59]
+              - generic [ref=e63]: メッセージ
+          - link "お知らせ アクティビティ" [ref=e65] [cursor=pointer]:
+            - /url: /activity
+            - generic [ref=e67]:
+              - img "お知らせ" [ref=e69]
+              - generic [ref=e73]: アクティビティ
+          - link "プロフィール プロフィール" [ref=e75] [cursor=pointer]:
+            - /url: /@pursuitli
+            - generic [ref=e77]:
+              - img "プロフィール" [ref=e79]
+              - generic [ref=e84]: プロフィール
+          - link "インサイト インサイト" [ref=e86] [cursor=pointer]:
+            - /url: /insights/
+            - generic [ref=e88]:
+              - img "インサイト" [ref=e90]
+              - generic [ref=e97]: インサイト
+          - link "保存済み 保存済み" [ref=e99] [cursor=pointer]:
+            - /url: /saved/
+            - generic [ref=e101]:
+              - img "保存済み" [ref=e103]
+              - generic [ref=e107]: 保存済み
+        - generic [ref=e109]:
+          - generic [ref=e111]: フィード
+          - status "読み込み中..." [ref=e113]
+          - status "読み込み中..." [ref=e115]
+          - status "読み込み中..." [ref=e117]
+      - button "さらに表示" [ref=e120] [cursor=pointer]:
+        - generic [ref=e122]:
+          - img [ref=e124]
+          - generic [ref=e129]: さらに表示
+  - generic [ref=e134]:
+    - generic [ref=e137]:
+      - generic [ref=e138]:
+        - button "戻る" [ref=e145] [cursor=pointer]:
+          - img "戻る" [ref=e149]
+        - generic [ref=e151]:
+          - generic [ref=e154]:
+            - link "列のタイトル" [ref=e156] [cursor=pointer]:
+              - /url: /@pursuitli/post/DYb5qONEgUG
+              - heading "スレッド" [level=1] [ref=e157]:
+                - generic [ref=e158]: スレッド
+            - generic [ref=e161]: 表示568回
+          - button "もっと見る" [ref=e164] [cursor=pointer]:
+            - img "もっと見る" [ref=e167]
+      - region "列の本文" [ref=e173]:
+        - generic [ref=e175]:
+          - generic [ref=e178] [cursor=pointer]:
+            - link "pursuitliのプロフィール写真" [ref=e181]:
+              - /url: /@pursuitli
+              - img "pursuitliのプロフィール写真" [ref=e183]
+            - generic [ref=e185]:
+              - generic [ref=e186]:
+                - generic [ref=e187]:
+                  - link "pursuitli" [ref=e191]:
+                    - /url: /@pursuitli
+                    - generic [ref=e193]: pursuitli
+                  - img "認証済み" [ref=e195]
+                - button "投稿はフェディバースにシェアされています" [ref=e197]:
+                  - img "投稿はフェディバースにシェアされています" [ref=e198]
+                - generic [ref=e204]:
+                  - generic [ref=e205]:
+                    - img [ref=e208]
+                    - link "buildinpublic" [ref=e211]:
+                      - /url: /search?q=buildinpublic&serp_type=tags&tag_id=18399440476027527
+                      - generic [ref=e214]: buildinpublic
+                  - link "2026/05/17" [ref=e217]:
+                    - /url: /@pursuitli/post/DYb5qONEgUG
+                    - time [ref=e218]: 2026/05/17
+              - button "もっと見る" [ref=e221]:
+                - img "もっと見る" [ref=e223]
+            - generic [ref=e226]:
+              - generic [ref=e229]:
+                - text: My wife never touched coding. Today she designed and built her first website 👋
+                - button "翻訳" [ref=e231]:
+                  - generic [ref=e232]: 翻訳
+              - generic [ref=e237]:
+                - generic [ref=e241]:
+                  - button "Photo by Pur Li on May 17, 2026. May be an image of ‎screen, tower and ‎text that says \"‎Beshbarmak Beshb mak Lagman Manty Shashlik Firstevening shadou citylightsundermountain APS PKOTO HAP Zhibek ZhibekZholy Zholy Ж6eKЖo ToleBiStreet Tole Street Almaly Aлmaлbl 明鞋 Gandhi 聞 er Mep Swissútel Almaty Terms 76.93\" PKOTO HAP bek bekBatyr Batyr aTblp Green Bazaar Ke 6a3ap Cathedral aлblwpKy! BiStreet 4a4e Go Mapdata 你2026 Goagle Bazaar Terrns PKOTO ت MAP m6eK 6aTblp maty maTbl Zholy Жoлbl Ascension Cath KaфeApaлblwpKey Street ToleB Street Alm Go gre Mapdata R2026 Geegle enkov athedral Terms 76.95 MAF ✓ Kok-Tobe KeKTe6e‎\"‎‎." [ref=e242]:
+                    - generic [ref=e245]:
+                      - generic:
+                        - img "Photo by Pur Li on May 17, 2026. May be an image of ‎screen, tower and ‎text that says \"‎Beshbarmak Beshb mak Lagman Manty Shashlik Firstevening shadou citylightsundermountain APS PKOTO HAP Zhibek ZhibekZholy Zholy Ж6eKЖo ToleBiStreet Tole Street Almaly Aлmaлbl 明鞋 Gandhi 聞 er Mep Swissútel Almaty Terms 76.93\" PKOTO HAP bek bekBatyr Batyr aTblp Green Bazaar Ke 6a3ap Cathedral aлblwpKy! BiStreet 4a4e Go Mapdata 你2026 Goagle Bazaar Terrns PKOTO ت MAP m6eK 6aTblp maty maTbl Zholy Жoлbl Ascension Cath KaфeApaлblwpKey Street ToleB Street Alm Go gre Mapdata R2026 Geegle enkov athedral Terms 76.95 MAF ✓ Kok-Tobe KeKTe6e‎\"‎‎."
+                  - button "メディアを結合してパノラマにする" [ref=e246]
+                - 'button "Photo by Pur Li on May 17, 2026. May be an image of screen, poster, skyscraper and text that says \"CHAPTER Azerbaijan: Fire, Mud & the Caspian. After Kazakhstan''s alpine silence, Baku shifts the mood: sandstone old city, futuristic towers, desert roads, mud volcanoes, ancieri fire tempies, and the Caspian Sea. Baku -28 200 m Sand. Fire· Caspian 49-B3°E İcherisheher Icherisheher_-OldCitysandsrone icheri heher OldCirysandstone Old City sandstone Areshgah Areshgah-firetemple fire h.firetemple remple\"." [ref=e250]':
+                  - generic [ref=e253]:
+                    - generic:
+                      - 'img "Photo by Pur Li on May 17, 2026. May be an image of screen, poster, skyscraper and text that says \"CHAPTER Azerbaijan: Fire, Mud & the Caspian. After Kazakhstan''s alpine silence, Baku shifts the mood: sandstone old city, futuristic towers, desert roads, mud volcanoes, ancieri fire tempies, and the Caspian Sea. Baku -28 200 m Sand. Fire· Caspian 49-B3°E İcherisheher Icherisheher_-OldCitysandsrone icheri heher OldCirysandstone Old City sandstone Areshgah Areshgah-firetemple fire h.firetemple remple\"."'
+              - generic [ref=e255]:
+                - button "「いいね！」 7" [ref=e257]:
+                  - generic [ref=e259]:
+                    - img "「いいね！」" [ref=e260]
+                    - generic [ref=e264]: "7"
+                - button "返信 5" [ref=e266]:
+                  - generic [ref=e268]:
+                    - img "返信" [ref=e269]
+                    - generic [ref=e273]: "5"
+                - button "再投稿" [ref=e275]:
+                  - img "再投稿" [ref=e278]
+                - button "シェアする" [ref=e282]:
+                  - img "シェアする" [ref=e285]
+            - generic [ref=e289]:
+              - button "並び替え トップ もっと見る" [ref=e292]:
+                - img "並び替え" [ref=e293]
+                - generic [ref=e295]: トップ
+                - img "もっと見る" [ref=e296]
+              - button "アクティビティを見る アクティビティを見る" [ref=e298]:
+                - generic [ref=e299]:
+                  - text: アクティビティを見る
+                  - img "アクティビティを見る" [ref=e302]
+            - status "読み込み中..." [ref=e304]
+          - generic [ref=e306]:
+            - generic [ref=e307]:
+              - status "読み込み中..." [ref=e309]
+              - generic [ref=e310]:
+                - status "読み込み中..." [ref=e312]
+                - status "読み込み中..." [ref=e314]
+                - status "読み込み中..." [ref=e316]
+            - generic [ref=e317]:
+              - status "読み込み中..." [ref=e319]
+              - generic [ref=e320]:
+                - status "読み込み中..." [ref=e322]
+                - status "読み込み中..." [ref=e324]
+                - status "読み込み中..." [ref=e326]
+            - generic [ref=e327]:
+              - status "読み込み中..." [ref=e329]
+              - generic [ref=e330]:
+                - status "読み込み中..." [ref=e332]
+                - status "読み込み中..." [ref=e334]
+                - status "読み込み中..." [ref=e336]
+            - generic [ref=e337]:
+              - status "読み込み中..." [ref=e339]
+              - generic [ref=e340]:
+                - status "読み込み中..." [ref=e342]
+                - status "読み込み中..." [ref=e344]
+                - status "読み込み中..." [ref=e346]
+            - generic [ref=e347]:
+              - status "読み込み中..." [ref=e349]
+              - generic [ref=e350]:
+                - status "読み込み中..." [ref=e352]
+                - status "読み込み中..." [ref=e354]
+                - status "読み込み中..." [ref=e356]
+    - contentinfo [ref=e357]:
+      - list [ref=e358]:
+        - listitem [ref=e359]:
+          - generic [ref=e360]: "@2026"
+        - listitem [ref=e361]:
+          - link "Threads規約" [ref=e363] [cursor=pointer]:
+            - /url: https://l.threads.com/?u=https%3A%2F%2Fhelp.instagram.com%2F769983657850450&e=AUB-Z2_uwSdT_hX8NsnAtS-Lk3TNxRzDEor5FpvZ5_-gEcUE7PTiGdwB532M7SnacsMUDVwj1yxywUX07dXJzRLT3j7Dt2eSShbsAZjer9syhQsY5DxaUdGmQP-XkgHuNnc1E8KLLCRJ2Wq1OKag95dBTo8N
+        - listitem [ref=e364]:
+          - link "プライバシーポリシー" [ref=e366] [cursor=pointer]:
+            - /url: https://l.threads.com/?u=https%3A%2F%2Fhelp.instagram.com%2F515230437301944&e=AUB-Z2_uwSdT_hX8NsnAtS-Lk3TNxRzDEor5FpvZ5_-gEcUE7PTiGdwB532M7SnacsMUDVwj1yxywUX07dXJzRLT3j7Dt2eSShbsAZjer9syhQsY5DxaUdGmQP-XkgHuNnc1E8KLLCRJ2Wq1OKag95dBTo8N
+        - listitem [ref=e367]:
+          - link "Cookieポリシー" [ref=e369] [cursor=pointer]:
+            - /url: https://l.threads.com/?u=https%3A%2F%2Fhelp.instagram.com%2F1896641480634370%2F&e=AUB-Z2_uwSdT_hX8NsnAtS-Lk3TNxRzDEor5FpvZ5_-gEcUE7PTiGdwB532M7SnacsMUDVwj1yxywUX07dXJzRLT3j7Dt2eSShbsAZjer9syhQsY5DxaUdGmQP-XkgHuNnc1E8KLLCRJ2Wq1OKag95dBTo8N
+  - button "作成" [ref=e371] [cursor=pointer]:
+    - img "作成" [ref=e372]

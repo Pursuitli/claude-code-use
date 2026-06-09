@@ -1,0 +1,89 @@
+- generic [ref=e5]:
+  - navigation [ref=e7]:
+    - generic [ref=e8]:
+      - link "Threads" [ref=e13] [cursor=pointer]:
+        - /url: /
+        - img "Threads" [ref=e15]
+      - generic [ref=e25]:
+        - generic [ref=e26]:
+          - link "ホーム" [ref=e28] [cursor=pointer]:
+            - /url: /
+            - generic [ref=e29]:
+              - img [ref=e30]
+              - generic [ref=e32]: ホーム
+          - button "新しいスレッド" [ref=e34] [cursor=pointer]:
+            - generic [ref=e36]:
+              - img [ref=e38]
+              - generic [ref=e42]: 新しいスレッド
+          - link "検索 検索" [ref=e44] [cursor=pointer]:
+            - /url: /search
+            - generic [ref=e46]:
+              - img "検索" [ref=e48]
+              - generic [ref=e52]: 検索
+        - generic [ref=e53]:
+          - link "メッセージ メッセージ" [ref=e55] [cursor=pointer]:
+            - /url: /messages/
+            - generic [ref=e57]:
+              - img "メッセージ" [ref=e59]
+              - generic [ref=e63]: メッセージ
+          - link "お知らせ アクティビティ" [ref=e65] [cursor=pointer]:
+            - /url: /activity
+            - generic [ref=e67]:
+              - img "お知らせ" [ref=e69]
+              - generic [ref=e73]: アクティビティ
+          - link "プロフィール プロフィール" [ref=e75] [cursor=pointer]:
+            - /url: /@pursuitli
+            - generic [ref=e77]:
+              - img "プロフィール" [ref=e79]
+              - generic [ref=e84]: プロフィール
+          - link "インサイト インサイト" [ref=e86] [cursor=pointer]:
+            - /url: /insights/
+            - generic [ref=e88]:
+              - img "インサイト" [ref=e90]
+              - generic [ref=e97]: インサイト
+          - link "保存済み 保存済み" [ref=e99] [cursor=pointer]:
+            - /url: /saved/
+            - generic [ref=e101]:
+              - img "保存済み" [ref=e103]
+              - generic [ref=e107]: 保存済み
+        - generic [ref=e109]:
+          - generic [ref=e111]: フィード
+          - status "読み込み中..." [ref=e113]
+          - status "読み込み中..." [ref=e115]
+          - status "読み込み中..." [ref=e117]
+      - button "さらに表示" [ref=e120] [cursor=pointer]:
+        - generic [ref=e122]:
+          - img [ref=e124]
+          - generic [ref=e129]: さらに表示
+  - generic [ref=e134]:
+    - generic [ref=e137]:
+      - generic [ref=e138]:
+        - button "戻る" [ref=e145] [cursor=pointer]:
+          - img "戻る" [ref=e149]
+        - generic [ref=e151]:
+          - generic [ref=e154]:
+            - link "列のタイトル" [ref=e156] [cursor=pointer]:
+              - /url: /@pursuitli/post/DYUZgXLEmC6
+              - heading "スレッド" [level=1] [ref=e157]:
+                - generic [ref=e158]: スレッド
+            - generic [ref=e161]: 表示1,177回
+          - button "もっと見る" [ref=e164] [cursor=pointer]:
+            - img "もっと見る" [ref=e167]
+      - region "列の本文" [ref=e173]:
+        - status "読み込み中..." [ref=e176]:
+          - img "読み込み中..." [ref=e177]
+    - contentinfo [ref=e186]:
+      - list [ref=e187]:
+        - listitem [ref=e188]:
+          - generic [ref=e189]: "@2026"
+        - listitem [ref=e190]:
+          - link "Threads規約" [ref=e192] [cursor=pointer]:
+            - /url: https://l.threads.com/?u=https%3A%2F%2Fhelp.instagram.com%2F769983657850450&e=AUC9LWG65v6Xz9qpO6N_xnYmFbhziPtYbDZsLOGDPeaK4LkvzVCUPeGjOO8KqrDRTO82e2aHxfh51DoUUzv6typwZknp3FkNp37u32iNUMimk1Hk930vOTlY5_vVTBH1uyAUl4jocu5RXzqHi2elfARlxxCl
+        - listitem [ref=e193]:
+          - link "プライバシーポリシー" [ref=e195] [cursor=pointer]:
+            - /url: https://l.threads.com/?u=https%3A%2F%2Fhelp.instagram.com%2F515230437301944&e=AUC9LWG65v6Xz9qpO6N_xnYmFbhziPtYbDZsLOGDPeaK4LkvzVCUPeGjOO8KqrDRTO82e2aHxfh51DoUUzv6typwZknp3FkNp37u32iNUMimk1Hk930vOTlY5_vVTBH1uyAUl4jocu5RXzqHi2elfARlxxCl
+        - listitem [ref=e196]:
+          - link "Cookieポリシー" [ref=e198] [cursor=pointer]:
+            - /url: https://l.threads.com/?u=https%3A%2F%2Fhelp.instagram.com%2F1896641480634370%2F&e=AUC9LWG65v6Xz9qpO6N_xnYmFbhziPtYbDZsLOGDPeaK4LkvzVCUPeGjOO8KqrDRTO82e2aHxfh51DoUUzv6typwZknp3FkNp37u32iNUMimk1Hk930vOTlY5_vVTBH1uyAUl4jocu5RXzqHi2elfARlxxCl
+  - button "作成" [ref=e200] [cursor=pointer]:
+    - img "作成" [ref=e201]

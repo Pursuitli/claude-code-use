@@ -1,0 +1,179 @@
+- generic [ref=e5]:
+  - navigation [ref=e7]:
+    - generic [ref=e8]:
+      - link "Threads" [ref=e13] [cursor=pointer]:
+        - /url: /
+        - img "Threads" [ref=e15]
+      - generic [ref=e25]:
+        - generic [ref=e26]:
+          - link "ホーム" [ref=e28] [cursor=pointer]:
+            - /url: /
+            - generic [ref=e29]:
+              - img [ref=e30]
+              - generic [ref=e32]: ホーム
+          - button "新しいスレッド" [ref=e34] [cursor=pointer]:
+            - generic [ref=e36]:
+              - img [ref=e38]
+              - generic [ref=e42]: 新しいスレッド
+          - link "検索 検索" [ref=e44] [cursor=pointer]:
+            - /url: /search
+            - generic [ref=e46]:
+              - img "検索" [ref=e48]
+              - generic [ref=e52]: 検索
+        - generic [ref=e53]:
+          - link "メッセージ メッセージ" [ref=e55] [cursor=pointer]:
+            - /url: /messages/
+            - generic [ref=e57]:
+              - img "メッセージ" [ref=e59]
+              - generic [ref=e63]: メッセージ
+          - link "お知らせ アクティビティ" [ref=e65] [cursor=pointer]:
+            - /url: /activity
+            - generic [ref=e67]:
+              - img "お知らせ" [ref=e69]
+              - generic [ref=e73]: アクティビティ
+          - link "プロフィール プロフィール" [ref=e75] [cursor=pointer]:
+            - /url: /@pursuitli
+            - generic [ref=e77]:
+              - img "プロフィール" [ref=e79]
+              - generic [ref=e84]: プロフィール
+          - link "インサイト インサイト" [ref=e86] [cursor=pointer]:
+            - /url: /insights/
+            - generic [ref=e88]:
+              - img "インサイト" [ref=e90]
+              - generic [ref=e97]: インサイト
+          - link "保存済み 保存済み" [ref=e99] [cursor=pointer]:
+            - /url: /saved/
+            - generic [ref=e101]:
+              - img "保存済み" [ref=e103]
+              - generic [ref=e107]: 保存済み
+        - generic [ref=e109]:
+          - generic [ref=e111]: フィード
+          - status "読み込み中..." [ref=e113]
+          - status "読み込み中..." [ref=e115]
+          - status "読み込み中..." [ref=e117]
+      - button "さらに表示" [ref=e120] [cursor=pointer]:
+        - generic [ref=e122]:
+          - img [ref=e124]
+          - generic [ref=e129]: さらに表示
+  - generic [ref=e134]:
+    - generic [ref=e137]:
+      - generic [ref=e138]:
+        - button "戻る" [ref=e145] [cursor=pointer]:
+          - img "戻る" [ref=e149]
+        - generic [ref=e151]:
+          - generic [ref=e154]:
+            - link "列のタイトル" [ref=e156] [cursor=pointer]:
+              - /url: /@pursuitli/post/DZOkM6qkkSr
+              - heading "スレッド" [level=1] [ref=e157]:
+                - generic [ref=e158]: スレッド
+            - generic [ref=e161]: 表示1,153回
+          - button "もっと見る" [ref=e164] [cursor=pointer]:
+            - img "もっと見る" [ref=e167]
+      - region "列の本文" [ref=e173]:
+        - generic [ref=e175]:
+          - generic [ref=e178] [cursor=pointer]:
+            - link "pursuitliのプロフィール写真" [ref=e181]:
+              - /url: /@pursuitli
+              - img "pursuitliのプロフィール写真" [ref=e183]
+            - generic [ref=e185]:
+              - generic [ref=e186]:
+                - generic [ref=e187]:
+                  - link "pursuitli" [ref=e191]:
+                    - /url: /@pursuitli
+                    - generic [ref=e193]: pursuitli
+                  - img "認証済み" [ref=e195]
+                - button "投稿はフェディバースにシェアされています" [ref=e197]:
+                  - img "投稿はフェディバースにシェアされています" [ref=e198]
+                - generic [ref=e204]:
+                  - generic [ref=e205]:
+                    - img [ref=e208]
+                    - link "幫自己打工" [ref=e211]:
+                      - /url: /search?q=%E5%B9%AB%E8%87%AA%E5%B7%B1%E6%89%93%E5%B7%A5&serp_type=tags&tag_id=18595340788009718
+                      - generic [ref=e214]: 幫自己打工
+                  - link "2日前" [ref=e217]:
+                    - /url: /@pursuitli/post/DZOkM6qkkSr
+                    - time [ref=e218]:
+                      - generic "2日前" [ref=e220]: 2日
+              - button "もっと見る" [ref=e223]:
+                - img "もっと見る" [ref=e225]
+            - generic [ref=e228]:
+              - generic [ref=e229]:
+                - generic [ref=e231]: 我發現好多人創業之後 收入增加咗 自由反而少咗 😅
+                - generic [ref=e233]: 以前老闆出糧俾佢 而家客戶/用戶出糧俾佢 以前朝九晚六 而家朝九做到凌晨
+                - generic [ref=e235]:
+                  - text: 以前做打工仔，公司有你冇你照運作 做老闆反而假都冇得放 一放嘅話，成間公司停擺，冇人make decisions，有人主動推進next steps
+                  - button "翻訳" [ref=e237]:
+                    - generic [ref=e238]: 翻訳
+                  - generic [ref=e240]:
+                    - generic [ref=e241]: "1"
+                    - generic [ref=e243]: /
+                    - generic [ref=e244]: "3"
+              - generic [ref=e246]:
+                - button "「いいね！」 11" [ref=e248]:
+                  - generic [ref=e250]:
+                    - img "「いいね！」" [ref=e251]
+                    - generic [ref=e255]: "11"
+                - button "返信済み 6" [ref=e257]:
+                  - generic [ref=e259]:
+                    - img "返信済み" [ref=e260]
+                    - generic [ref=e264]: "6"
+                - button "再投稿" [ref=e266]:
+                  - img "再投稿" [ref=e269]
+                - button "シェアする" [ref=e273]:
+                  - img "シェアする" [ref=e276]
+            - generic [ref=e280]:
+              - button "並び替え トップ もっと見る" [ref=e283]:
+                - img "並び替え" [ref=e284]
+                - generic [ref=e286]: トップ
+                - img "もっと見る" [ref=e287]
+              - button "アクティビティを見る アクティビティを見る" [ref=e289]:
+                - generic [ref=e290]:
+                  - text: アクティビティを見る
+                  - img "アクティビティを見る" [ref=e293]
+            - status "読み込み中..." [ref=e295]
+          - generic [ref=e297]:
+            - generic [ref=e298]:
+              - status "読み込み中..." [ref=e300]
+              - generic [ref=e301]:
+                - status "読み込み中..." [ref=e303]
+                - status "読み込み中..." [ref=e305]
+                - status "読み込み中..." [ref=e307]
+            - generic [ref=e308]:
+              - status "読み込み中..." [ref=e310]
+              - generic [ref=e311]:
+                - status "読み込み中..." [ref=e313]
+                - status "読み込み中..." [ref=e315]
+                - status "読み込み中..." [ref=e317]
+            - generic [ref=e318]:
+              - status "読み込み中..." [ref=e320]
+              - generic [ref=e321]:
+                - status "読み込み中..." [ref=e323]
+                - status "読み込み中..." [ref=e325]
+                - status "読み込み中..." [ref=e327]
+            - generic [ref=e328]:
+              - status "読み込み中..." [ref=e330]
+              - generic [ref=e331]:
+                - status "読み込み中..." [ref=e333]
+                - status "読み込み中..." [ref=e335]
+                - status "読み込み中..." [ref=e337]
+            - generic [ref=e338]:
+              - status "読み込み中..." [ref=e340]
+              - generic [ref=e341]:
+                - status "読み込み中..." [ref=e343]
+                - status "読み込み中..." [ref=e345]
+                - status "読み込み中..." [ref=e347]
+    - contentinfo [ref=e348]:
+      - list [ref=e349]:
+        - listitem [ref=e350]:
+          - generic [ref=e351]: "@2026"
+        - listitem [ref=e352]:
+          - link "Threads規約" [ref=e354] [cursor=pointer]:
+            - /url: https://l.threads.com/?u=https%3A%2F%2Fhelp.instagram.com%2F769983657850450&e=AUBzgwkhfLfUIUWBcmPkV5WiAw2vjVg8-BZVkwblDkipkJWXxCabUnK6oVGL8mdrxC7bMXXoUGkIg7cxY_e5a0Bo84tE-Il0SxF8FCHAOf2Ko4sAQR8HGdsHFWTQnpHxK0DRbVDQGt8gc6LPegezYbQ4Vk0k
+        - listitem [ref=e355]:
+          - link "プライバシーポリシー" [ref=e357] [cursor=pointer]:
+            - /url: https://l.threads.com/?u=https%3A%2F%2Fhelp.instagram.com%2F515230437301944&e=AUBzgwkhfLfUIUWBcmPkV5WiAw2vjVg8-BZVkwblDkipkJWXxCabUnK6oVGL8mdrxC7bMXXoUGkIg7cxY_e5a0Bo84tE-Il0SxF8FCHAOf2Ko4sAQR8HGdsHFWTQnpHxK0DRbVDQGt8gc6LPegezYbQ4Vk0k
+        - listitem [ref=e358]:
+          - link "Cookieポリシー" [ref=e360] [cursor=pointer]:
+            - /url: https://l.threads.com/?u=https%3A%2F%2Fhelp.instagram.com%2F1896641480634370%2F&e=AUBzgwkhfLfUIUWBcmPkV5WiAw2vjVg8-BZVkwblDkipkJWXxCabUnK6oVGL8mdrxC7bMXXoUGkIg7cxY_e5a0Bo84tE-Il0SxF8FCHAOf2Ko4sAQR8HGdsHFWTQnpHxK0DRbVDQGt8gc6LPegezYbQ4Vk0k
+  - button "作成" [ref=e362] [cursor=pointer]:
+    - img "作成" [ref=e363]

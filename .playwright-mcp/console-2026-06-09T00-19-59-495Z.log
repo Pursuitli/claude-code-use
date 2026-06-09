@@ -1,0 +1,142 @@
+[    1106ms] [LOG] 
+%cSTOP！ font-family:helvetica; font-size:20px; font-size:50px; font-weight:bold; color:red; -webkit-text-stroke:1px black; @ https://static.cdninstagram.com/rsrc.php/v4/yA/r/llpHPzBZ1ZW.js:245
+[    1106ms] [LOG] 
+%cこれは開発者向けのブラウザー機能です。Threads機能を有効にするためまたは誰かのアカウントをハッキングするために、ここに何かをコピー・貼り付けするように言われた場合、それは第三者があなたのThreadsアカウントへのアクセスを得るための詐欺・不正行為です。 font-family:helvetica; font-size:20px;  @ https://static.cdninstagram.com/rsrc.php/v4/yA/r/llpHPzBZ1ZW.js:245
+[    1106ms] [LOG] 
+%c詳しくは https://www.facebook.com/selfxss をご覧ください。 font-family:helvetica; font-size:20px;  @ https://static.cdninstagram.com/rsrc.php/v4/yA/r/llpHPzBZ1ZW.js:245
+[    1106ms] [LOG] 
+%c  @ https://static.cdninstagram.com/rsrc.php/v4/yA/r/llpHPzBZ1ZW.js:245
+[    1176ms] [ERROR] ErrorUtils caught an error:
+
+Minified React error #418; visit https://react.dev/errors/418?args[]=text&args[]= for the full message or use the non-minified dev environment for full errors and additional helpful warnings.
+
+Subsequent non-fatal errors won't be logged; see https://fburl.com/debugjs. {column: 28932, clientTime: 1780964400, componentStackFrames: Array(172), extra: Object, guardList: Array(1)} @ https://static.cdninstagram.com/rsrc.php/v4/yA/r/llpHPzBZ1ZW.js:79
+[    1177ms] Error: Minified React error #418; visit https://react.dev/errors/418?args[]=text&args[]= for the full message or use the non-minified dev environment for full errors and additional helpful warnings.
+    at mr (https://static.cdninstagram.com/rsrc.php/v4ijV54/yp/l/ja_JP-j/RlFDugfMI5e.js:367:28932)
+    at Cs (https://static.cdninstagram.com/rsrc.php/v4ijV54/yp/l/ja_JP-j/RlFDugfMI5e.js:367:96697)
+    at kd (https://static.cdninstagram.com/rsrc.php/v4ijV54/yp/l/ja_JP-j/RlFDugfMI5e.js:367:142414)
+    at Rd (https://static.cdninstagram.com/rsrc.php/v4ijV54/yp/l/ja_JP-j/RlFDugfMI5e.js:367:141541)
+    at Sd (https://static.cdninstagram.com/rsrc.php/v4ijV54/yp/l/ja_JP-j/RlFDugfMI5e.js:367:141452)
+    at vd (https://static.cdninstagram.com/rsrc.php/v4ijV54/yp/l/ja_JP-j/RlFDugfMI5e.js:367:141307)
+    at id (https://static.cdninstagram.com/rsrc.php/v4ijV54/yp/l/ja_JP-j/RlFDugfMI5e.js:367:136473)
+    at Jr (https://static.cdninstagram.com/rsrc.php/v4ijV54/yp/l/ja_JP-j/RlFDugfMI5e.js:367:35869)
+    at MessagePort.N (https://static.cdninstagram.com/rsrc.php/v4/yA/r/llpHPzBZ1ZW.js:235:1878)
+[   55300ms] [LOG] 
+%cSTOP！ font-family:helvetica; font-size:20px; font-size:50px; font-weight:bold; color:red; -webkit-text-stroke:1px black; @ https://static.cdninstagram.com/rsrc.php/v4/yA/r/llpHPzBZ1ZW.js:245
+[   55300ms] [LOG] 
+%cこれは開発者向けのブラウザー機能です。Threads機能を有効にするためまたは誰かのアカウントをハッキングするために、ここに何かをコピー・貼り付けするように言われた場合、それは第三者があなたのThreadsアカウントへのアクセスを得るための詐欺・不正行為です。 font-family:helvetica; font-size:20px;  @ https://static.cdninstagram.com/rsrc.php/v4/yA/r/llpHPzBZ1ZW.js:245
+[   55300ms] [LOG] 
+%c詳しくは https://www.facebook.com/selfxss をご覧ください。 font-family:helvetica; font-size:20px;  @ https://static.cdninstagram.com/rsrc.php/v4/yA/r/llpHPzBZ1ZW.js:245
+[   55300ms] [LOG] 
+%c  @ https://static.cdninstagram.com/rsrc.php/v4/yA/r/llpHPzBZ1ZW.js:245
+[   66029ms] [LOG] 
+%cSTOP！ font-family:helvetica; font-size:20px; font-size:50px; font-weight:bold; color:red; -webkit-text-stroke:1px black; @ https://static.cdninstagram.com/rsrc.php/v4/yA/r/llpHPzBZ1ZW.js:245
+[   66029ms] [LOG] 
+%cこれは開発者向けのブラウザー機能です。Threads機能を有効にするためまたは誰かのアカウントをハッキングするために、ここに何かをコピー・貼り付けするように言われた場合、それは第三者があなたのThreadsアカウントへのアクセスを得るための詐欺・不正行為です。 font-family:helvetica; font-size:20px;  @ https://static.cdninstagram.com/rsrc.php/v4/yA/r/llpHPzBZ1ZW.js:245
+[   66029ms] [LOG] 
+%c詳しくは https://www.facebook.com/selfxss をご覧ください。 font-family:helvetica; font-size:20px;  @ https://static.cdninstagram.com/rsrc.php/v4/yA/r/llpHPzBZ1ZW.js:245
+[   66029ms] [LOG] 
+%c  @ https://static.cdninstagram.com/rsrc.php/v4/yA/r/llpHPzBZ1ZW.js:245
+[   75185ms] [VERBOSE] [DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq) %o @ https://www.facebook.com/:0
+[   75391ms] [LOG] 
+%cSTOP！ font-family:helvetica; font-size:20px; font-size:50px; font-weight:bold; color:red; -webkit-text-stroke:1px black; @ https://static.xx.fbcdn.net/rsrc.php/v4/yA/r/llpHPzBZ1ZW.js:245
+[   75391ms] [LOG] 
+%cこれは開発者向けのブラウザー機能です。Facebook機能を有効にするためまたは誰かのアカウントをハッキングするために、ここに何かをコピー・貼り付けするように言われた場合、それは第三者があなたのFacebookアカウントへのアクセスを得るための詐欺・不正行為です。 font-family:helvetica; font-size:20px;  @ https://static.xx.fbcdn.net/rsrc.php/v4/yA/r/llpHPzBZ1ZW.js:245
+[   75391ms] [LOG] 
+%c詳しくは https://www.facebook.com/selfxss をご覧ください。 font-family:helvetica; font-size:20px;  @ https://static.xx.fbcdn.net/rsrc.php/v4/yA/r/llpHPzBZ1ZW.js:245
+[   75391ms] [LOG] 
+%c  @ https://static.xx.fbcdn.net/rsrc.php/v4/yA/r/llpHPzBZ1ZW.js:245
+[   94404ms] [ERROR] ErrorUtils caught an error:
+
+terminate stream because StartStreamFailure with msg : UNAUTHENTICATED [Caught in: Subscription error in preprocessResponse]
+
+Subsequent non-fatal errors won't be logged; see https://fburl.com/debugjs. {column: 180, clientTime: 1780964493, extra: Object, guardList: Array(0), hash: iolsxd} @ https://static.xx.fbcdn.net/rsrc.php/v4/yA/r/llpHPzBZ1ZW.js:79
+[   94409ms] [LOG] 
+%cStop! font-family:helvetica; font-size:20px; font-size:50px; font-weight:bold; color:red; -webkit-text-stroke:1px black; @ https://static.xx.fbcdn.net/rsrc.php/v4/yA/r/llpHPzBZ1ZW.js:245
+[   94409ms] [LOG] 
+%cThis is a browser feature intended for developers. If someone told you to copy and paste something here to enable a Facebook feature or "hack" someone's account, it's a scam and will give them access to your Facebook account. font-family:helvetica; font-size:20px;  @ https://static.xx.fbcdn.net/rsrc.php/v4/yA/r/llpHPzBZ1ZW.js:245
+[   94409ms] [LOG] 
+%cSee https://www.facebook.com/selfxss for more information. font-family:helvetica; font-size:20px;  @ https://static.xx.fbcdn.net/rsrc.php/v4/yA/r/llpHPzBZ1ZW.js:245
+[   94409ms] [LOG] 
+%c  @ https://static.xx.fbcdn.net/rsrc.php/v4/yA/r/llpHPzBZ1ZW.js:245
+[  108457ms] [LOG] 
+%cStop! font-family:helvetica; font-size:20px; font-size:50px; font-weight:bold; color:red; -webkit-text-stroke:1px black; @ https://static.xx.fbcdn.net/rsrc.php/v4ie6e4/yj/l/en_GB-j/bzdt_1Wz2s_hM9YCzsuX3eLKkEjjLCoIClJlx4XBqvc3UiJHx9vxGUeFbrZ-OzE10oXcgcWUruCBX-nQq7ostfic4ljWOLz41HP5lRB1uIhTzOm1W0f-A0dIfO8wBlQtiByskuP3o04EsLKKXTUqcK0zLs-CoiMH3HZCOjbQQbzRJRC59USAbvAcgAZLi05LdeVqfAG3zBxyuUWuKP8dvcC3tAfib6wWMSXM9OSZnOVYqHtekqgFPxXyxCr211gHZ9iqkRcrNpBsIRN75Nk2uJ6DTsQMmp.js:1713
+[  108458ms] [LOG] 
+%cThis is a browser feature intended for developers. If someone told you to copy and paste something here to enable a Facebook feature or "hack" someone's account, it's a scam and will give them access to your Facebook account. font-family:helvetica; font-size:20px;  @ https://static.xx.fbcdn.net/rsrc.php/v4ie6e4/yj/l/en_GB-j/bzdt_1Wz2s_hM9YCzsuX3eLKkEjjLCoIClJlx4XBqvc3UiJHx9vxGUeFbrZ-OzE10oXcgcWUruCBX-nQq7ostfic4ljWOLz41HP5lRB1uIhTzOm1W0f-A0dIfO8wBlQtiByskuP3o04EsLKKXTUqcK0zLs-CoiMH3HZCOjbQQbzRJRC59USAbvAcgAZLi05LdeVqfAG3zBxyuUWuKP8dvcC3tAfib6wWMSXM9OSZnOVYqHtekqgFPxXyxCr211gHZ9iqkRcrNpBsIRN75Nk2uJ6DTsQMmp.js:1713
+[  108458ms] [LOG] 
+%cSee https://www.facebook.com/selfxss for more information. font-family:helvetica; font-size:20px;  @ https://static.xx.fbcdn.net/rsrc.php/v4ie6e4/yj/l/en_GB-j/bzdt_1Wz2s_hM9YCzsuX3eLKkEjjLCoIClJlx4XBqvc3UiJHx9vxGUeFbrZ-OzE10oXcgcWUruCBX-nQq7ostfic4ljWOLz41HP5lRB1uIhTzOm1W0f-A0dIfO8wBlQtiByskuP3o04EsLKKXTUqcK0zLs-CoiMH3HZCOjbQQbzRJRC59USAbvAcgAZLi05LdeVqfAG3zBxyuUWuKP8dvcC3tAfib6wWMSXM9OSZnOVYqHtekqgFPxXyxCr211gHZ9iqkRcrNpBsIRN75Nk2uJ6DTsQMmp.js:1713
+[  108458ms] [LOG] 
+%c  @ https://static.xx.fbcdn.net/rsrc.php/v4ie6e4/yj/l/en_GB-j/bzdt_1Wz2s_hM9YCzsuX3eLKkEjjLCoIClJlx4XBqvc3UiJHx9vxGUeFbrZ-OzE10oXcgcWUruCBX-nQq7ostfic4ljWOLz41HP5lRB1uIhTzOm1W0f-A0dIfO8wBlQtiByskuP3o04EsLKKXTUqcK0zLs-CoiMH3HZCOjbQQbzRJRC59USAbvAcgAZLi05LdeVqfAG3zBxyuUWuKP8dvcC3tAfib6wWMSXM9OSZnOVYqHtekqgFPxXyxCr211gHZ9iqkRcrNpBsIRN75Nk2uJ6DTsQMmp.js:1713
+[  108492ms] [ERROR] Permissions policy violation: unload is not allowed in this document. @ https://static.xx.fbcdn.net/rsrc.php/v4/ys/r/wPrfXEAC8ZC.js:321
+[  113962ms] [ERROR] Permissions policy violation: unload is not allowed in this document. @ https://static.xx.fbcdn.net/rsrc.php/v4/ys/r/wPrfXEAC8ZC.js:321
+[  115948ms] [LOG] 
+%cStop! font-family:helvetica; font-size:20px; font-size:50px; font-weight:bold; color:red; -webkit-text-stroke:1px black; @ https://static.xx.fbcdn.net/rsrc.php/v4iSML4/yr/l/en_GB-j/bzdt_1Wz2s_hM9YCzsuX3eLKkEjjLCoIClJlx4XBqvc3UiJHx9vxGUeFbrZ-OzE10oXcgcWUruCBX-nQq7ostfic4ljWOLz41HP5lRB1uIhTzOm1W0f-A0dIfO8wBlQtiBysKXTUqcK0zLs-CoiMH3HZCOjbQQbzRJRC5FK_tU0vXIGh9USAbvAcgAZLi05LdeVqfAG3zBxyuUWuKP8dvcC3tAfib6wWMSXM9OS.js:1677
+[  115948ms] [LOG] 
+%cThis is a browser feature intended for developers. If someone told you to copy and paste something here to enable a Facebook feature or "hack" someone's account, it's a scam and will give them access to your Facebook account. font-family:helvetica; font-size:20px;  @ https://static.xx.fbcdn.net/rsrc.php/v4iSML4/yr/l/en_GB-j/bzdt_1Wz2s_hM9YCzsuX3eLKkEjjLCoIClJlx4XBqvc3UiJHx9vxGUeFbrZ-OzE10oXcgcWUruCBX-nQq7ostfic4ljWOLz41HP5lRB1uIhTzOm1W0f-A0dIfO8wBlQtiBysKXTUqcK0zLs-CoiMH3HZCOjbQQbzRJRC5FK_tU0vXIGh9USAbvAcgAZLi05LdeVqfAG3zBxyuUWuKP8dvcC3tAfib6wWMSXM9OS.js:1677
+[  115948ms] [LOG] 
+%cSee https://www.facebook.com/selfxss for more information. font-family:helvetica; font-size:20px;  @ https://static.xx.fbcdn.net/rsrc.php/v4iSML4/yr/l/en_GB-j/bzdt_1Wz2s_hM9YCzsuX3eLKkEjjLCoIClJlx4XBqvc3UiJHx9vxGUeFbrZ-OzE10oXcgcWUruCBX-nQq7ostfic4ljWOLz41HP5lRB1uIhTzOm1W0f-A0dIfO8wBlQtiBysKXTUqcK0zLs-CoiMH3HZCOjbQQbzRJRC5FK_tU0vXIGh9USAbvAcgAZLi05LdeVqfAG3zBxyuUWuKP8dvcC3tAfib6wWMSXM9OS.js:1677
+[  115948ms] [LOG] 
+%c  @ https://static.xx.fbcdn.net/rsrc.php/v4iSML4/yr/l/en_GB-j/bzdt_1Wz2s_hM9YCzsuX3eLKkEjjLCoIClJlx4XBqvc3UiJHx9vxGUeFbrZ-OzE10oXcgcWUruCBX-nQq7ostfic4ljWOLz41HP5lRB1uIhTzOm1W0f-A0dIfO8wBlQtiBysKXTUqcK0zLs-CoiMH3HZCOjbQQbzRJRC5FK_tU0vXIGh9USAbvAcgAZLi05LdeVqfAG3zBxyuUWuKP8dvcC3tAfib6wWMSXM9OS.js:1677
+[  121456ms] [INFO] Banner not shown: beforeinstallpromptevent.preventDefault() called. The page must call beforeinstallpromptevent.prompt() to show the banner. @ https://www.instagram.com/:0
+[  121517ms] [LOG] 
+%cSTOP！ font-family:helvetica; font-size:20px; font-size:50px; font-weight:bold; color:red; -webkit-text-stroke:1px black; @ https://static.cdninstagram.com/rsrc.php/v4iT3Q4/yR/l/ja_JP-j/51qibAUABY_oYfDQnsESIG2JkkXTyKPMRTsaa6c_y1OvMHgcVJ4CCWKC4fHGZPlv6r19JIBMpvbDr9aUyD2ha4TaGa_18N7y_wflTU6h_74-8uMXEOkztNZ5ZrrCxjEFdRGj64oxaJD-bMV1zrNvhsc-ja18neY9AQkz5IKxAiusmbNiolQ_GXCJLbUZakI0r4aghtTxTvep2LFN5RKF_1AXP12lphhshD5-sc1pKzMGU-W7Gs.js:8
+[  121517ms] [LOG] 
+%cこれは開発者向けのブラウザー機能です。Instagram機能を有効にするためまたは誰かのアカウントをハッキングするために、ここに何かをコピー・貼り付けするように言われた場合、それは第三者があなたのInstagramアカウントへのアクセスを得るための詐欺・不正行為です。 font-family:helvetica; font-size:20px;  @ https://static.cdninstagram.com/rsrc.php/v4iT3Q4/yR/l/ja_JP-j/51qibAUABY_oYfDQnsESIG2JkkXTyKPMRTsaa6c_y1OvMHgcVJ4CCWKC4fHGZPlv6r19JIBMpvbDr9aUyD2ha4TaGa_18N7y_wflTU6h_74-8uMXEOkztNZ5ZrrCxjEFdRGj64oxaJD-bMV1zrNvhsc-ja18neY9AQkz5IKxAiusmbNiolQ_GXCJLbUZakI0r4aghtTxTvep2LFN5RKF_1AXP12lphhshD5-sc1pKzMGU-W7Gs.js:8
+[  121518ms] [LOG] 
+%c詳しくは https://www.facebook.com/selfxss をご覧ください。 font-family:helvetica; font-size:20px;  @ https://static.cdninstagram.com/rsrc.php/v4iT3Q4/yR/l/ja_JP-j/51qibAUABY_oYfDQnsESIG2JkkXTyKPMRTsaa6c_y1OvMHgcVJ4CCWKC4fHGZPlv6r19JIBMpvbDr9aUyD2ha4TaGa_18N7y_wflTU6h_74-8uMXEOkztNZ5ZrrCxjEFdRGj64oxaJD-bMV1zrNvhsc-ja18neY9AQkz5IKxAiusmbNiolQ_GXCJLbUZakI0r4aghtTxTvep2LFN5RKF_1AXP12lphhshD5-sc1pKzMGU-W7Gs.js:8
+[  121518ms] [LOG] 
+%c  @ https://static.cdninstagram.com/rsrc.php/v4iT3Q4/yR/l/ja_JP-j/51qibAUABY_oYfDQnsESIG2JkkXTyKPMRTsaa6c_y1OvMHgcVJ4CCWKC4fHGZPlv6r19JIBMpvbDr9aUyD2ha4TaGa_18N7y_wflTU6h_74-8uMXEOkztNZ5ZrrCxjEFdRGj64oxaJD-bMV1zrNvhsc-ja18neY9AQkz5IKxAiusmbNiolQ_GXCJLbUZakI0r4aghtTxTvep2LFN5RKF_1AXP12lphhshD5-sc1pKzMGU-W7Gs.js:8
+[  124802ms] [LOG] 
+%cSTOP！ font-family:helvetica; font-size:20px; font-size:50px; font-weight:bold; color:red; -webkit-text-stroke:1px black; @ https://static.cdninstagram.com/rsrc.php/v4/yA/r/llpHPzBZ1ZW.js:245
+[  124802ms] [LOG] 
+%cこれは開発者向けのブラウザー機能です。Instagram機能を有効にするためまたは誰かのアカウントをハッキングするために、ここに何かをコピー・貼り付けするように言われた場合、それは第三者があなたのInstagramアカウントへのアクセスを得るための詐欺・不正行為です。 font-family:helvetica; font-size:20px;  @ https://static.cdninstagram.com/rsrc.php/v4/yA/r/llpHPzBZ1ZW.js:245
+[  124802ms] [LOG] 
+%c詳しくは https://www.facebook.com/selfxss をご覧ください。 font-family:helvetica; font-size:20px;  @ https://static.cdninstagram.com/rsrc.php/v4/yA/r/llpHPzBZ1ZW.js:245
+[  124802ms] [LOG] 
+%c  @ https://static.cdninstagram.com/rsrc.php/v4/yA/r/llpHPzBZ1ZW.js:245
+[  124832ms] [INFO] Banner not shown: beforeinstallpromptevent.preventDefault() called. The page must call beforeinstallpromptevent.prompt() to show the banner. @ https://www.instagram.com/?flo=true:0
+[  132667ms] [INFO] Banner not shown: beforeinstallpromptevent.preventDefault() called. The page must call beforeinstallpromptevent.prompt() to show the banner. @ https://www.instagram.com/accounts/two_factor_login/?username=pursuitli&identifier=zFdoeFejiAFnNeVrFEYHzgNwuvdcKYJ0cq7zOoXUPus1PkeFYOfz151DQgbXIiCJ&last_four_digits=4166&sms_two_factor_on=True&totp_two_factor_on=False:0
+[  134058ms] [LOG] 
+%cSTOP！ font-family:helvetica; font-size:20px; font-size:50px; font-weight:bold; color:red; -webkit-text-stroke:1px black; @ https://static.cdninstagram.com/rsrc.php/v4/yA/r/llpHPzBZ1ZW.js:245
+[  134059ms] [LOG] 
+%cこれは開発者向けのブラウザー機能です。Instagram機能を有効にするためまたは誰かのアカウントをハッキングするために、ここに何かをコピー・貼り付けするように言われた場合、それは第三者があなたのInstagramアカウントへのアクセスを得るための詐欺・不正行為です。 font-family:helvetica; font-size:20px;  @ https://static.cdninstagram.com/rsrc.php/v4/yA/r/llpHPzBZ1ZW.js:245
+[  134059ms] [LOG] 
+%c詳しくは https://www.facebook.com/selfxss をご覧ください。 font-family:helvetica; font-size:20px;  @ https://static.cdninstagram.com/rsrc.php/v4/yA/r/llpHPzBZ1ZW.js:245
+[  134059ms] [LOG] 
+%c  @ https://static.cdninstagram.com/rsrc.php/v4/yA/r/llpHPzBZ1ZW.js:245
+[  161447ms] [ERROR] Failed to load resource: the server responded with a status of 400 () @ https://www.instagram.com/api/v1/web/accounts/login/ajax/two_factor/:0
+[  193761ms] [LOG] 
+%cSTOP！ font-family:helvetica; font-size:20px; font-size:50px; font-weight:bold; color:red; -webkit-text-stroke:1px black; @ https://static.cdninstagram.com/rsrc.php/v4/y8/r/3h4YqOhE0YZ.js:245
+[  193761ms] [LOG] 
+%cこれは開発者向けのブラウザー機能です。Instagram機能を有効にするためまたは誰かのアカウントをハッキングするために、ここに何かをコピー・貼り付けするように言われた場合、それは第三者があなたのInstagramアカウントへのアクセスを得るための詐欺・不正行為です。 font-family:helvetica; font-size:20px;  @ https://static.cdninstagram.com/rsrc.php/v4/y8/r/3h4YqOhE0YZ.js:245
+[  193761ms] [LOG] 
+%c詳しくは https://www.facebook.com/selfxss をご覧ください。 font-family:helvetica; font-size:20px;  @ https://static.cdninstagram.com/rsrc.php/v4/y8/r/3h4YqOhE0YZ.js:245
+[  193761ms] [LOG] 
+%c  @ https://static.cdninstagram.com/rsrc.php/v4/y8/r/3h4YqOhE0YZ.js:245
+[  193765ms] [INFO] Banner not shown: beforeinstallpromptevent.preventDefault() called. The page must call beforeinstallpromptevent.prompt() to show the banner. @ https://www.instagram.com/accounts/onetap/?next=%2F:0
+[  198237ms] [LOG] 
+%cSTOP！ font-family:helvetica; font-size:20px; font-size:50px; font-weight:bold; color:red; -webkit-text-stroke:1px black; @ https://static.cdninstagram.com/rsrc.php/v4/y8/r/3h4YqOhE0YZ.js:245
+[  198237ms] [LOG] 
+%cこれは開発者向けのブラウザー機能です。Instagram機能を有効にするためまたは誰かのアカウントをハッキングするために、ここに何かをコピー・貼り付けするように言われた場合、それは第三者があなたのInstagramアカウントへのアクセスを得るための詐欺・不正行為です。 font-family:helvetica; font-size:20px;  @ https://static.cdninstagram.com/rsrc.php/v4/y8/r/3h4YqOhE0YZ.js:245
+[  198237ms] [LOG] 
+%c詳しくは https://www.facebook.com/selfxss をご覧ください。 font-family:helvetica; font-size:20px;  @ https://static.cdninstagram.com/rsrc.php/v4/y8/r/3h4YqOhE0YZ.js:245
+[  198237ms] [LOG] 
+%c  @ https://static.cdninstagram.com/rsrc.php/v4/y8/r/3h4YqOhE0YZ.js:245
+[  198688ms] [INFO] Banner not shown: beforeinstallpromptevent.preventDefault() called. The page must call beforeinstallpromptevent.prompt() to show the banner. @ https://www.instagram.com/:0
+[  202039ms] [ERROR] Permissions policy violation: unload is not allowed in this document. @ https://static.xx.fbcdn.net/rsrc.php/v4/y8/r/3h4YqOhE0YZ.js:241
+[  203913ms] [LOG] 
+%cSTOP！ font-family:helvetica; font-size:20px; font-size:50px; font-weight:bold; color:red; -webkit-text-stroke:1px black; @ https://static.cdninstagram.com/rsrc.php/v4/yA/r/llpHPzBZ1ZW.js:245
+[  203913ms] [LOG] 
+%cこれは開発者向けのブラウザー機能です。Threads機能を有効にするためまたは誰かのアカウントをハッキングするために、ここに何かをコピー・貼り付けするように言われた場合、それは第三者があなたのThreadsアカウントへのアクセスを得るための詐欺・不正行為です。 font-family:helvetica; font-size:20px;  @ https://static.cdninstagram.com/rsrc.php/v4/yA/r/llpHPzBZ1ZW.js:245
+[  203913ms] [LOG] 
+%c詳しくは https://www.facebook.com/selfxss をご覧ください。 font-family:helvetica; font-size:20px;  @ https://static.cdninstagram.com/rsrc.php/v4/yA/r/llpHPzBZ1ZW.js:245
+[  203913ms] [LOG] 
+%c  @ https://static.cdninstagram.com/rsrc.php/v4/yA/r/llpHPzBZ1ZW.js:245
+[  210517ms] [LOG] 
+%cSTOP！ font-family:helvetica; font-size:20px; font-size:50px; font-weight:bold; color:red; -webkit-text-stroke:1px black; @ https://static.cdninstagram.com/rsrc.php/v4/yA/r/llpHPzBZ1ZW.js:245
+[  210517ms] [LOG] 
+%cこれは開発者向けのブラウザー機能です。Threads機能を有効にするためまたは誰かのアカウントをハッキングするために、ここに何かをコピー・貼り付けするように言われた場合、それは第三者があなたのThreadsアカウントへのアクセスを得るための詐欺・不正行為です。 font-family:helvetica; font-size:20px;  @ https://static.cdninstagram.com/rsrc.php/v4/yA/r/llpHPzBZ1ZW.js:245
+[  210517ms] [LOG] 
+%c詳しくは https://www.facebook.com/selfxss をご覧ください。 font-family:helvetica; font-size:20px;  @ https://static.cdninstagram.com/rsrc.php/v4/yA/r/llpHPzBZ1ZW.js:245
+[  210517ms] [LOG] 
+%c  @ https://static.cdninstagram.com/rsrc.php/v4/yA/r/llpHPzBZ1ZW.js:245
