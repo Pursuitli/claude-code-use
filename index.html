@@ -192,13 +192,17 @@ addEventListener("keyup",e=>keys[e.code]=false);
 const cellOf=p=>({r:Math.floor(p.y/T), c:Math.floor(p.x/T)});
 const solidAt=(r,c)=> r<0||c<0||r>=ROWS||c>=COLS || grid[r][c]!==EMPTY;
 const bombAt=(r,c)=> bombs.find(b=>b.r===r&&b.c===c);
+const PR=T*0.34; // 玩家碰撞半徑
+const overlapsCell=(p,r,c)=> Math.abs(p.x-(c+0.5)*T)<T/2+PR && Math.abs(p.y-(r+0.5)*T)<T/2+PR;
 
 function tryBomb(p){
   if(!p.alive||gameOver) return;
   const {r,c}=cellOf(p);
   if(bombAt(r,c)) return;
   if(bombs.filter(b=>b.owner===p.id).length>=p.maxBombs) return;
-  bombs.push({r,c,owner:p.id,range:p.range,timer:2.2,t:0,walkable:true});
+  // 放下時所有重疊中嘅玩家可以穿過,離開後變實心
+  const pass=new Set(players.filter(q=>q.alive&&overlapsCell(q,r,c)).map(q=>q.id));
+  bombs.push({r,c,owner:p.id,range:p.range,timer:2.2,t:0,pass});
 }
 
 function moveBox(p,dx,dy,dt){
@@ -210,7 +214,7 @@ function moveBox(p,dx,dy,dt){
       const r=Math.floor(y/T), c=Math.floor(x/T);
       if(solidAt(r,c)) return true;
       const b=bombAt(r,c);
-      if(b && !(b.walkable && Math.floor(p.y/T)===b.r && Math.floor(p.x/T)===b.c)) return true;
+      if(b && !b.pass.has(p.id)) return true;
       return false;
     };
     const pts=[[nx-R,ny-R],[nx+R,ny-R],[nx-R,ny+R],[nx+R,ny+R]];
@@ -351,9 +355,10 @@ function update(dt){
   // 炸彈
   for(let i=bombs.length-1;i>=0;i--){
     const b=bombs[i]; b.timer-=dt; b.t+=dt;
-    if(b.walkable){ // 離開後變不可穿越
-      const on=players.some(p=>p.alive&&cellOf(p).r===b.r&&cellOf(p).c===b.c);
-      if(!on) b.walkable=false;
+    // 玩家完全離開炸彈後,對佢變成實心
+    for(const id of [...b.pass]){
+      const p=players[id];
+      if(!p.alive || !overlapsCell(p,b.r,b.c)) b.pass.delete(id);
     }
     if(b.timer<=0) explode(b);
   }
