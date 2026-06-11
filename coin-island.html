@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<title>金幣衝刺小島 Coin Rush Island</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap">
+<style>
+  html,body{margin:0;height:100%;overflow:hidden;background:#7fd4f0;
+    font-family:"Fredoka","PingFang TC","Microsoft JhengHei",sans-serif;user-select:none;-webkit-user-select:none;}
+  #info{position:fixed;bottom:14px;left:50%;transform:translateX(-50%);color:#fff;
+    background:rgba(0,0,0,.25);padding:6px 16px;border-radius:999px;font-size:13px;
+    pointer-events:none;backdrop-filter:blur(4px);white-space:nowrap;}
+  #coins{position:fixed;top:14px;left:14px;display:flex;align-items:center;gap:7px;
+    background:rgba(255,255,255,.85);border-radius:999px;padding:7px 16px;pointer-events:none;
+    box-shadow:0 2px 8px rgba(0,0,0,.15);font-weight:700;font-size:16px;color:#5b6470;}
+  #coins .ic{color:#e8a93b;font-size:18px;}
+  #timer{position:fixed;top:14px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:6px;
+    background:rgba(255,255,255,.85);border-radius:999px;padding:7px 18px;pointer-events:none;
+    box-shadow:0 2px 8px rgba(0,0,0,.15);font-weight:700;font-size:18px;color:#5b6470;}
+  #timer.low{color:#e0524e;animation:blink .6s infinite;}
+  @keyframes blink{50%{opacity:.45;}}
+  #fuel{position:fixed;top:12px;right:12px;width:96px;height:96px;pointer-events:none;
+    filter:drop-shadow(0 3px 6px rgba(0,0,0,.25));}
+  #fuelNeedle{transform-origin:50px 54px;transition:transform .15s linear;}
+  #fuel.low #fuelLamp{fill:#e0524e;animation:blink .7s infinite;}
+  #gasBanner{position:fixed;top:18%;left:50%;transform:translate(-50%,0);display:none;text-align:center;
+    pointer-events:none;}
+  #gasBanner .m{color:#fff;background:#e0524e;padding:10px 26px;border-radius:14px;font-weight:700;
+    font-size:24px;box-shadow:0 6px 18px rgba(0,0,0,.3);}
+  #gasBanner .s{margin-top:8px;color:#fff;background:rgba(0,0,0,.4);padding:5px 14px;border-radius:999px;
+    font-size:13px;display:inline-block;}
+  #refuelBar{position:fixed;bottom:90px;left:50%;transform:translateX(-50%);width:220px;height:16px;
+    background:rgba(0,0,0,.35);border-radius:999px;display:none;overflow:hidden;}
+  #refuelFill{height:100%;width:0%;background:linear-gradient(90deg,#3ddc6c,#16a546);border-radius:999px;}
+  #vignette{position:fixed;inset:0;pointer-events:none;z-index:4;opacity:0;transition:opacity .4s;
+    background:radial-gradient(ellipse at center,rgba(224,82,78,0) 55%,rgba(224,82,78,.5) 100%);}
+  #vignette.on{opacity:1;}
+  #overlay{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;z-index:9;
+    background:rgba(20,50,90,.45);backdrop-filter:blur(4px);}
+  #ovPanel{background:linear-gradient(180deg,#fff,#eaf4ff);border-radius:26px;padding:38px 56px;text-align:center;
+    box-shadow:0 22px 60px rgba(0,0,0,.4);animation:pop .35s cubic-bezier(.2,1.6,.4,1);}
+  @keyframes pop{from{transform:scale(.6);opacity:0;}}
+  #ovTitle{font-size:38px;font-weight:700;color:#1d6fd1;margin-bottom:8px;}
+  #ovText{font-size:16px;color:#56708c;margin-bottom:24px;line-height:1.6;}
+  #ovBtn{background:linear-gradient(180deg,#ffb13b,#f3902a);border:none;color:#fff;font-size:20px;
+    font-weight:700;padding:13px 46px;border-radius:30px;cursor:pointer;font-family:inherit;letter-spacing:3px;
+    box-shadow:0 5px 0 #c46f12,0 8px 16px rgba(0,0,0,.25);}
+  #ovBtn:active{transform:translateY(4px);box-shadow:0 1px 0 #c46f12;}
+  #touchUI{position:fixed;inset:0;display:none;z-index:5;}
+  @media (pointer:coarse){#touchUI{display:block;}#info{display:none;}}
+  #stickBase{position:absolute;bottom:36px;left:36px;width:120px;height:120px;border-radius:50%;
+    background:rgba(255,255,255,.25);border:2px solid rgba(255,255,255,.5);}
+  #stickKnob{position:absolute;left:35px;top:35px;width:50px;height:50px;border-radius:50%;
+    background:rgba(255,255,255,.75);box-shadow:0 3px 8px rgba(0,0,0,.25);}
+  #countdown{position:fixed;inset:0;display:none;align-items:center;justify-content:center;z-index:8;
+    font-size:110px;font-weight:700;color:#fff;text-shadow:0 6px 24px rgba(0,0,0,.4);pointer-events:none;}
+</style>
+</head>
+<body>
+<div id="coins"><span class="ic">●</span><span id="coinNum">0</span></div>
+<div id="timer">⏱ <span id="timerNum">60</span></div>
+<div id="fuel">
+  <svg viewBox="0 0 100 100" width="96" height="96">
+    <circle cx="50" cy="54" r="46" fill="#5b6470"/><circle cx="50" cy="54" r="40" fill="#fff"/>
+    <path d="M 18.8 36 A 36 36 0 0 1 25.9 27.2" fill="none" stroke="#e0524e" stroke-width="5" stroke-linecap="round"/>
+    <line x1="16.2" y1="34.5" x2="21.4" y2="37.5" stroke="#5b6470" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="50" y1="15" x2="50" y2="21" stroke="#5b6470" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="83.8" y1="34.5" x2="78.6" y2="37.5" stroke="#5b6470" stroke-width="2.5" stroke-linecap="round"/>
+    <text x="27" y="47" text-anchor="middle" font-size="10" font-weight="700" fill="#e0524e" font-family="Fredoka">E</text>
+    <text x="73" y="47" text-anchor="middle" font-size="10" font-weight="700" fill="#5b6470" font-family="Fredoka">F</text>
+    <circle id="fuelLamp" cx="50" cy="68" r="3.5" fill="#d9d4cb"/>
+    <text x="50" y="81" text-anchor="middle" font-size="7" letter-spacing="1.5" fill="#9aa0a8" font-family="Fredoka">FUEL</text>
+    <g id="fuelNeedle"><polygon points="47.8,56 52.2,56 50,22" fill="#e0524e"/>
+      <circle cx="50" cy="54" r="4.5" fill="#5b6470"/><circle cx="50" cy="54" r="1.8" fill="#fff"/></g>
+  </svg>
+</div>
+<div id="gasBanner"><div class="m">⛽ 冇油呀！</div><div class="s">推車去油站入油啦！</div></div>
+<div id="refuelBar"><div id="refuelFill"></div></div>
+<div id="vignette"></div>
+<div id="info">W/S：油門・煞車&nbsp;&nbsp;A/D：轉向&nbsp;&nbsp;限時 60 秒執金幣！</div>
+<div id="touchUI"><div id="stickBase"><div id="stickKnob"></div></div></div>
+<div id="countdown"></div>
+<div id="overlay"><div id="ovPanel">
+  <div id="ovTitle">金幣衝刺！</div>
+  <div id="ovText">60 秒內可以執到幾多金幣？<br>小心油量 — 油錶見底就要推車去油站 ⛽</div>
+  <button id="ovBtn">開 始</button>
+</div></div>
+
+<script type="importmap">
+{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"}}
+</script>
+<script type="module">
+import * as THREE from "three";
+
+/* ============ 場景基礎 ============ */
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x8edcf5);
+scene.fog = new THREE.Fog(0x8edcf5, 90, 260);
+
+const camera = new THREE.PerspectiveCamera(50, innerWidth/innerHeight, 0.1, 500);
+const renderer = new THREE.WebGLRenderer({antialias:true});
+renderer.setSize(innerWidth, innerHeight);
+renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+document.body.prepend(renderer.domElement);
+addEventListener("resize",()=>{
+  camera.aspect=innerWidth/innerHeight; camera.updateProjectionMatrix();
+  renderer.setSize(innerWidth,innerHeight);
+});
+
+scene.add(new THREE.HemisphereLight(0xeaf6ff, 0x6aa84f, 0.95));
+const sun = new THREE.DirectionalLight(0xfff3d6, 1.6);
+sun.position.set(40,70,30);
+sun.castShadow = true;
+sun.shadow.mapSize.set(2048,2048);
+sun.shadow.camera.left=-80; sun.shadow.camera.right=80;
+sun.shadow.camera.top=80; sun.shadow.camera.bottom=-80;
+scene.add(sun);
+
+/* ============ 小島地形 ============ */
+const ISLAND_R = 58;
+const mat = (c,extra={}) => new THREE.MeshStandardMaterial({color:c,roughness:.9,...extra});
+
+// 海
+const sea = new THREE.Mesh(new THREE.CircleGeometry(400,48), mat(0x3fa9d9,{roughness:.35,metalness:.1}));
+sea.rotation.x=-Math.PI/2; sea.position.y=-0.4; scene.add(sea);
+// 淺水圈
+const shallow = new THREE.Mesh(new THREE.RingGeometry(ISLAND_R+1,ISLAND_R+9,48), mat(0x7fd0e8,{roughness:.4,transparent:true,opacity:.8}));
+shallow.rotation.x=-Math.PI/2; shallow.position.y=-0.3; scene.add(shallow);
+// 沙灘
+const beach = new THREE.Mesh(new THREE.CylinderGeometry(ISLAND_R+2,ISLAND_R+5,1,48), mat(0xf0dca2));
+beach.position.y=-0.5; beach.receiveShadow=true; scene.add(beach);
+// 草地
+const groundGeo = new THREE.CylinderGeometry(ISLAND_R-3,ISLAND_R+1,1.4,48);
+const ground = new THREE.Mesh(groundGeo, mat(0x6cc257));
+ground.position.y=0.1; ground.receiveShadow=true; scene.add(ground);
+// 中央小山
+const hill = new THREE.Mesh(new THREE.ConeGeometry(13,12,9), mat(0x5aa84a));
+hill.position.set(-14,0.6,-12); hill.castShadow=true; hill.receiveShadow=true; scene.add(hill);
+const peak = new THREE.Mesh(new THREE.ConeGeometry(4.5,4.5,9), mat(0xffffff,{roughness:.6}));
+peak.position.set(-14,11,-12); peak.castShadow=true; scene.add(peak);
+
+const obstacles=[{x:-14,z:-12,r:12}]; // 圓形障礙 (山)
+
+// 樹
+function addTree(x,z,s=1){
+  const g=new THREE.Group();
+  const trunk=new THREE.Mesh(new THREE.CylinderGeometry(.35*s,.45*s,1.6*s,7),mat(0x8a5a30));
+  trunk.position.y=.8*s; trunk.castShadow=true; g.add(trunk);
+  const greens=[0x2e9e3f,0x37b14a,0x43c257];
+  for(let i=0;i<3;i++){
+    const cone=new THREE.Mesh(new THREE.ConeGeometry((2.2-i*.55)*s,2*s,8),mat(greens[i]));
+    cone.position.y=(2+i*1.25)*s; cone.castShadow=true; g.add(cone);
+  }
+  g.position.set(x,0.8,z); scene.add(g);
+  obstacles.push({x,z,r:1.1*s});
+}
+// 石
+function addRock(x,z,s=1){
+  const r=new THREE.Mesh(new THREE.DodecahedronGeometry(s,0),mat(0x9aa0a8));
+  r.position.set(x,0.8+s*.3,z); r.rotation.set(Math.random(),Math.random(),0);
+  r.castShadow=true; scene.add(r);
+  obstacles.push({x,z,r:s*1.1});
+}
+const rng = (a,b)=>a+Math.random()*(b-a);
+for(let i=0;i<26;i++){
+  const a=rng(0,Math.PI*2), d=rng(16,ISLAND_R-7);
+  const x=Math.cos(a)*d, z=Math.sin(a)*d;
+  if(Math.hypot(x+14,z+12)<16) continue;       // 避開山
+  if(Math.hypot(x-20,z-20)<10) continue;       // 避開油站
+  if(Math.random()<0.75) addTree(x,z,rng(.8,1.4)); else addRock(x,z,rng(.7,1.5));
+}
+
+/* ============ 油站 ============ */
+const GAS={x:20,z:20,r:6};
+{
+  const g=new THREE.Group();
+  const base=new THREE.Mesh(new THREE.BoxGeometry(7,.4,5),mat(0xb9bfc7)); base.position.y=.2; base.receiveShadow=true; g.add(base);
+  const pump=new THREE.Mesh(new THREE.BoxGeometry(1.4,2.6,1),mat(0xe0524e)); pump.position.set(-1.6,1.5,0); pump.castShadow=true; g.add(pump);
+  const pump2=pump.clone(); pump2.position.x=1.6; g.add(pump2);
+  const roofPostM=mat(0xd9d4cb);
+  for(const sx of [-2.8,2.8]) for(const sz of [-1.8,1.8]){
+    const p=new THREE.Mesh(new THREE.CylinderGeometry(.15,.15,4,8),roofPostM);
+    p.position.set(sx,2,sz); g.add(p);
+  }
+  const roof=new THREE.Mesh(new THREE.BoxGeometry(8,.4,5.6),mat(0xffffff));
+  roof.position.y=4.1; roof.castShadow=true; g.add(roof);
+  const stripe=new THREE.Mesh(new THREE.BoxGeometry(8.05,.42,1.2),mat(0xe0524e));
+  stripe.position.set(0,4.1,2.2); g.add(stripe);
+  g.position.set(GAS.x,0.7,GAS.z); scene.add(g);
+}
+
+/* ============ 電單車 (低多邊形小車) ============ */
+const bike=new THREE.Group();
+{
+  const body=new THREE.Mesh(new THREE.BoxGeometry(1.1,.7,2.3),mat(0x2f7fe0,{roughness:.5}));
+  body.position.y=.85; body.castShadow=true; bike.add(body);
+  const nose=new THREE.Mesh(new THREE.BoxGeometry(.9,.45,.7),mat(0x1b56a8,{roughness:.5}));
+  nose.position.set(0,.78,1.35); nose.castShadow=true; bike.add(nose);
+  // 騎手
+  const rider=new THREE.Mesh(new THREE.BoxGeometry(.6,.7,.55),mat(0xe0524e));
+  rider.position.set(0,1.55,-.2); rider.castShadow=true; bike.add(rider);
+  const head=new THREE.Mesh(new THREE.SphereGeometry(.32,12,10),mat(0xffe7d1));
+  head.position.set(0,2.15,-.2); head.castShadow=true; bike.add(head);
+  const helmet=new THREE.Mesh(new THREE.SphereGeometry(.36,12,10,0,Math.PI*2,0,Math.PI*.55),mat(0xffb13b,{roughness:.4}));
+  helmet.position.set(0,2.2,-.2); bike.add(helmet);
+  // 車輪
+  const wheelM=mat(0x2b2f33,{roughness:.7});
+  bike.userData.wheels=[];
+  for(const z of [1.0,-1.0]){
+    const w=new THREE.Mesh(new THREE.CylinderGeometry(.45,.45,.4,14),wheelM);
+    w.rotation.z=Math.PI/2; w.position.set(0,.45,z); w.castShadow=true;
+    bike.add(w); bike.userData.wheels.push(w);
+  }
+}
+scene.add(bike);
+
+/* ============ 金幣 ============ */
+const COIN_N=42, coins=[];
+const coinGeo=new THREE.CylinderGeometry(.7,.7,.16,18);
+const coinMat=new THREE.MeshStandardMaterial({color:0xf2c43d,metalness:.7,roughness:.25,emissive:0x6b4e00,emissiveIntensity:.25});
+function placeCoin(c){
+  let x,z,ok=false;
+  for(let t=0;t<40&&!ok;t++){
+    const a=rng(0,Math.PI*2), d=rng(8,ISLAND_R-6);
+    x=Math.cos(a)*d; z=Math.sin(a)*d;
+    ok=obstacles.every(o=>Math.hypot(x-o.x,z-o.z)>o.r+1.2)&&Math.hypot(x-GAS.x,z-GAS.z)>5;
+  }
+  c.position.set(x,1.1,z); c.visible=true;
+}
+for(let i=0;i<COIN_N;i++){
+  const c=new THREE.Mesh(coinGeo,coinMat);
+  c.rotation.x=Math.PI/2; c.castShadow=true;
+  placeCoin(c); scene.add(c); coins.push(c);
+}
+
+/* ============ 雲 ============ */
+const clouds=[];
+for(let i=0;i<10;i++){
+  const cl=new THREE.Group();
+  for(let j=0;j<3;j++){
+    const b=new THREE.Mesh(new THREE.SphereGeometry(rng(2,3.6),10,8),
+      new THREE.MeshStandardMaterial({color:0xffffff,roughness:1,transparent:true,opacity:.92}));
+    b.position.set(j*2.6-2.6,rng(-.4,.4),rng(-1,1)); cl.add(b);
+  }
+  cl.position.set(rng(-120,120),rng(22,38),rng(-120,120));
+  cl.userData.v=rng(.5,1.4); scene.add(cl); clouds.push(cl);
+}
+
+/* ============ 遊戲狀態 ============ */
+const state={
+  playing:false, time:60, coins:0,
+  x:0, z:25, heading:Math.PI, speed:0,
+  fuel:1, refueling:0, outOfGas:false,
+};
+const keys={};
+addEventListener("keydown",e=>keys[e.code]=true);
+addEventListener("keyup",e=>keys[e.code]=false);
+
+/* 虛擬搖桿 */
+const stick={x:0,y:0,active:false};
+const base=document.getElementById("stickBase"), knob=document.getElementById("stickKnob");
+function stickHandle(e){
+  const t=e.touches?e.touches[0]:e;
+  const r=base.getBoundingClientRect();
+  let dx=t.clientX-(r.left+60), dy=t.clientY-(r.top+60);
+  const len=Math.hypot(dx,dy), max=45;
+  if(len>max){dx*=max/len;dy*=max/len;}
+  stick.x=dx/max; stick.y=dy/max;
+  knob.style.left=(35+dx)+"px"; knob.style.top=(35+dy)+"px";
+}
+base.addEventListener("touchstart",e=>{stick.active=true;stickHandle(e);e.preventDefault();},{passive:false});
+base.addEventListener("touchmove",e=>{stickHandle(e);e.preventDefault();},{passive:false});
+base.addEventListener("touchend",()=>{stick.active=false;stick.x=stick.y=0;knob.style.left="35px";knob.style.top="35px";});
+
+/* HUD */
+const $=id=>document.getElementById(id);
+function setFuelNeedle(f){
+  // E(空)= -120deg, F(滿)= +120deg … 用 SVG 針旋轉
+  const deg=-120+f*240;
+  $("fuelNeedle").style.transform=`rotate(${deg}deg)`;
+  $("fuel").classList.toggle("low",f<0.22&&!state.outOfGas);
+  $("vignette").classList.toggle("on",state.outOfGas);
+}
+
+/* ============ 主迴圈 ============ */
+let last=performance.now();
+function tick(now){
+  requestAnimationFrame(tick);
+  const dt=Math.min((now-last)/1000,0.05); last=now;
+  const t=now/1000;
+
+  // 雲飄
+  for(const cl of clouds){cl.position.x+=cl.userData.v*dt; if(cl.position.x>140)cl.position.x=-140;}
+  // 金幣轉動浮動
+  for(const c of coins){c.rotation.z=t*2.2; c.position.y=1.1+Math.sin(t*3+c.position.x)*.15;}
+  // 海面微動
+  sea.position.y=-0.4+Math.sin(t*.8)*.05;
+
+  if(state.playing){
+    // 時間
+    state.time-=dt;
+    $("timerNum").textContent=Math.ceil(Math.max(0,state.time));
+    $("timer").classList.toggle("low",state.time<=10);
+    if(state.time<=0) return endGame();
+
+    // 輸入
+    let throttle=0,steer=0;
+    if(keys.KeyW||keys.ArrowUp)throttle=1;
+    if(keys.KeyS||keys.ArrowDown)throttle=-1;
+    if(keys.KeyA||keys.ArrowLeft)steer=1;
+    if(keys.KeyD||keys.ArrowRight)steer=-1;
+    if(stick.active){throttle=-stick.y; steer=-stick.x;}
+
+    // 油量
+    const MAXV=state.outOfGas?3.2:26;       // 冇油得推車速度
+    if(throttle>0&&!state.outOfGas) state.fuel-=dt*0.030*(0.4+state.speed/26);
+    if(state.fuel<=0&&!state.outOfGas){
+      state.fuel=0; state.outOfGas=true;
+      $("gasBanner").style.display="block";
+    }
+    setFuelNeedle(state.fuel);
+
+    // 物理
+    const ACC=state.outOfGas?6:18, FRICTION=10;
+    if(throttle>0) state.speed+=ACC*dt;
+    else if(throttle<0) state.speed-=22*dt;
+    else state.speed-=Math.sign(state.speed)*FRICTION*dt*.55;
+    state.speed=Math.max(-6,Math.min(MAXV,state.speed));
+    if(Math.abs(state.speed)<.05&&!throttle)state.speed=0;
+    state.heading+=steer*dt*(1.9*Math.min(1,Math.abs(state.speed)/8))*Math.sign(state.speed||1);
+
+    let nx=state.x+Math.sin(state.heading)*state.speed*dt;
+    let nz=state.z+Math.cos(state.heading)*state.speed*dt;
+    // 障礙碰撞 (滑開)
+    for(const o of obstacles){
+      const d=Math.hypot(nx-o.x,nz-o.z), min=o.r+0.9;
+      if(d<min){const k=(min-d)/d; nx+=(nx-o.x)*k; nz+=(nz-o.z)*k; state.speed*=.6;}
+    }
+    // island 邊界
+    const dC=Math.hypot(nx,nz);
+    if(dC>ISLAND_R-2){const k=(ISLAND_R-2)/dC; nx*=k; nz*=k; state.speed*=.5;}
+    state.x=nx; state.z=nz;
+
+    // 執金幣
+    for(const c of coins){
+      if(c.visible&&Math.hypot(c.position.x-state.x,c.position.z-state.z)<1.7){
+        c.visible=false; state.coins++; $("coinNum").textContent=state.coins;
+        setTimeout(()=>placeCoin(c), 4000);   // 4 秒後喺第二度重生
+      }
+    }
+    // 入油
+    const nearGas=Math.hypot(state.x-GAS.x,state.z-GAS.z)<GAS.r && Math.abs(state.speed)<1;
+    if(nearGas&&state.fuel<1){
+      $("refuelBar").style.display="block";
+      state.fuel=Math.min(1,state.fuel+dt*0.45);
+      $("refuelFill").style.width=(state.fuel*100)+"%";
+      if(state.fuel>=0.999){
+        state.outOfGas=false;
+        $("gasBanner").style.display="none";
+        $("refuelBar").style.display="none";
+      } else if(state.fuel>0.25&&state.outOfGas){
+        state.outOfGas=false; $("gasBanner").style.display="none";
+      }
+    } else $("refuelBar").style.display="none";
+  }
+
+  // 車身姿態 + 相機
+  bike.position.set(state.x,0.7,state.z);
+  bike.rotation.y=state.heading;
+  bike.rotation.z=THREE.MathUtils.lerp(bike.rotation.z,(keys.KeyA||keys.ArrowLeft?1:keys.KeyD||keys.ArrowRight?-1:stick.x?-stick.x:0)*-0.18*Math.min(1,Math.abs(state.speed)/12),0.1);
+  for(const w of bike.userData.wheels)w.rotation.x+=state.speed*dt*2.2;
+
+  const camDist=11, camH=6;
+  const tx=state.x-Math.sin(state.heading)*camDist;
+  const tz=state.z-Math.cos(state.heading)*camDist;
+  camera.position.lerp(new THREE.Vector3(tx,camH,tz),0.07);
+  camera.lookAt(state.x,1.6,state.z);
+  renderer.render(scene,camera);
+}
+requestAnimationFrame(tick);
+
+/* ============ 開始/結束 ============ */
+function startGame(){
+  $("overlay").style.display="none";
+  Object.assign(state,{time:60,coins:0,x:0,z:25,heading:Math.PI,speed:0,fuel:1,outOfGas:false});
+  $("coinNum").textContent="0"; $("gasBanner").style.display="none";
+  for(const c of coins) placeCoin(c);
+  // 3-2-1 倒數
+  const cd=$("countdown"); cd.style.display="flex";
+  let n=3;
+  cd.textContent=n;
+  const iv=setInterval(()=>{
+    n--;
+    if(n===0){cd.textContent="GO!";}
+    else if(n<0){clearInterval(iv);cd.style.display="none";state.playing=true;}
+    else cd.textContent=n;
+  },700);
+}
+function endGame(){
+  state.playing=false;
+  $("ovTitle").textContent="時間到！";
+  $("ovText").innerHTML=`你執到 <b style="color:#e8a93b;font-size:24px">${state.coins}</b> 個金幣！<br>${
+    state.coins>=30?"金幣大王！🏆":state.coins>=20?"勁呀！🎉":state.coins>=10?"唔錯喎 👍":"再嚟一次，今次記住睇油錶 ⛽"}`;
+  $("ovBtn").textContent="再 玩";
+  $("overlay").style.display="flex";
+}
+$("ovBtn").onclick=startGame;
+</script>
+</body>
+</html>
