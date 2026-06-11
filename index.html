@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>爆爆王 Online — 雙人對戰</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html,body { height:100%; }
+  body {
+    background: linear-gradient(180deg,#aee3ff 0%,#7ec8f7 100%);
+    font-family: "PingFang TC","Microsoft JhengHei","Noto Sans TC",sans-serif;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    overflow:hidden; user-select:none;
+  }
+  #frame {
+    background:#1d4e9e;
+    border-radius:24px;
+    padding:14px;
+    box-shadow:0 14px 40px rgba(20,60,120,.45), inset 0 2px 0 rgba(255,255,255,.25);
+    display:flex; gap:14px;
+  }
+  canvas { border-radius:14px; display:block; background:#56b54a; }
+  #side {
+    width:230px; display:flex; flex-direction:column; gap:14px; color:#fff;
+  }
+  .panel {
+    background:rgba(10,40,95,.55); border-radius:14px; padding:12px 14px;
+    box-shadow: inset 0 2px 6px rgba(0,0,0,.3), 0 1px 0 rgba(255,255,255,.15);
+  }
+  #room { text-align:center; font-weight:700; letter-spacing:3px; font-size:18px; }
+  #timerPanel { display:flex; justify-content:space-between; align-items:center; }
+  #timerPanel .label { font-size:14px; opacity:.9; }
+  #timer { font-size:26px; font-weight:800; color:#ff4d4d; font-variant-numeric:tabular-nums;
+           text-shadow:0 0 8px rgba(255,60,60,.6); }
+  .pcard { display:flex; align-items:center; gap:10px; font-weight:700; font-size:16px; }
+  .dot { width:18px; height:18px; border-radius:50%; border:3px solid #fff; flex:none; }
+  .pcard .stats { margin-left:auto; font-size:14px; font-weight:600; display:flex; gap:10px; }
+  #spacer { flex:1; }
+  #restart {
+    background:linear-gradient(180deg,#4f8fe8,#2f66c4); border:none; color:#fff;
+    font-size:18px; font-weight:700; padding:14px; border-radius:14px; cursor:pointer;
+    letter-spacing:6px; box-shadow:0 4px 0 #1c478f, 0 6px 12px rgba(0,0,0,.3);
+    font-family:inherit;
+  }
+  #restart:active { transform:translateY(3px); box-shadow:0 1px 0 #1c478f; }
+  #hint {
+    margin-top:12px; background:rgba(255,255,255,.85); color:#b07b1f;
+    padding:8px 22px; border-radius:20px; font-size:14px; font-weight:600;
+    box-shadow:0 3px 10px rgba(0,0,0,.12);
+  }
+  kbd { background:#fff; border:1px solid #d8c08a; border-radius:4px; padding:0 5px;
+        font-family:inherit; font-size:12px; box-shadow:0 1px 0 #d8c08a; }
+  #overlay {
+    position:fixed; inset:0; display:none; align-items:center; justify-content:center;
+    background:rgba(10,30,70,.55); backdrop-filter:blur(3px); z-index:10;
+  }
+  #overlay .box {
+    background:linear-gradient(180deg,#ffffff,#e8f2ff); border-radius:24px;
+    padding:40px 60px; text-align:center; box-shadow:0 20px 60px rgba(0,0,0,.4);
+    animation:pop .35s cubic-bezier(.2,1.6,.4,1);
+  }
+  @keyframes pop { from { transform:scale(.6); opacity:0; } }
+  #overlay h1 { font-size:42px; color:#1d4e9e; margin-bottom:10px; }
+  #overlay p { font-size:18px; color:#456; margin-bottom:24px; }
+  #overlay button {
+    background:linear-gradient(180deg,#ffb13b,#f3902a); border:none; color:#fff;
+    font-size:20px; font-weight:800; padding:14px 44px; border-radius:30px; cursor:pointer;
+    box-shadow:0 5px 0 #c46f12, 0 8px 16px rgba(0,0,0,.25); font-family:inherit; letter-spacing:4px;
+  }
+  #overlay button:active { transform:translateY(4px); box-shadow:0 1px 0 #c46f12; }
+</style>
+</head>
+<body>
+<div id="frame">
+  <canvas id="game"></canvas>
+  <div id="side">
+    <div class="panel" id="room">房號 ----</div>
+    <div class="panel" id="timerPanel"><span class="label">剩餘時間</span><span id="timer">03:00</span></div>
+    <div class="panel pcard"><span class="dot" style="background:#2f7fe0"></span>雷蒙
+      <span class="stats">🔥<span id="p1r">1</span> 🎈<span id="p1b">1</span> ❤️<span id="p1l">3</span></span></div>
+    <div class="panel pcard"><span class="dot" style="background:#e23b3b"></span>雷蒙 2號
+      <span class="stats">🔥<span id="p2r">1</span> 🎈<span id="p2b">1</span> ❤️<span id="p2l">3</span></span></div>
+    <div id="spacer"></div>
+    <button id="restart">再 來 一 局</button>
+  </div>
+</div>
+<div id="hint">👈 左（<kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> 移動 · <kbd>空白鍵</kbd> 放球）&nbsp;|&nbsp;
+  右（<kbd>↑</kbd><kbd>↓</kbd><kbd>←</kbd><kbd>→</kbd> 移動 · <kbd>Enter</kbd> 放球）👉</div>
+
+<div id="overlay"><div class="box">
+  <h1 id="winTitle"></h1><p id="winSub"></p>
+  <button onclick="resetGame()">再來一局</button>
+</div></div>
+
+<script>
+"use strict";
+/* ================= 基本設定 ================= */
+const COLS = 17, ROWS = 13, T = 52;           // 格數與格子大小
+const W = COLS * T, H = ROWS * T;
+const cv = document.getElementById("game");
+const ctx = cv.getContext("2d");
+const DPR = Math.min(window.devicePixelRatio || 1, 2);
+cv.width = W * DPR; cv.height = H * DPR;
+ctx.scale(DPR, DPR);
+// 依視窗縮放
+function fit() {
+  const availH = window.innerHeight - 120, availW = window.innerWidth - 320;
+  const s = Math.min(availW / W, availH / H, 1);
+  cv.style.width = (W * s) + "px"; cv.style.height = (H * s) + "px";
+}
+window.addEventListener("resize", fit); fit();
+
+document.getElementById("room").textContent =
+  "房號 " + Array.from({length:4},()=> "ABCDEFGHJKMNPQRSTUVWXYZ23456789"[Math.random()*31|0]).join(" ");
+
+/* 格子種類 */
+const EMPTY=0, HARD=1, SOFT=2;
+let grid, decor;          // decor: 硬塊外觀 / 草地裝飾
+let bombs, blasts, powerups, particles;
+let players, timeLeft, gameOver, lastTime;
+
+/* ================= 地圖生成 ================= */
+function genMap() {
+  grid  = Array.from({length:ROWS}, () => Array(COLS).fill(EMPTY));
+  decor = Array.from({length:ROWS}, () => Array(COLS).fill(null));
+  const midC = (COLS-1)/2;
+  for (let r=0;r<ROWS;r++) for (let c=0;c<COLS;c++) {
+    // 經典棋盤式硬塊
+    if (r%2===1 && c%2===1 && c!==midC) {
+      grid[r][c]=HARD;
+      // 外觀:磚塊/房子/樹 (左右對稱)
+      const key = Math.min(c, COLS-1-c)*31 + r*7;
+      const kinds = ["brickR","house","tree","brickY","houseB"];
+      decor[r][c] = kinds[key % kinds.length];
+    }
+  }
+  // 軟箱 (左右對稱擺放)
+  for (let r=0;r<ROWS;r++) for (let c=0;c<=midC;c++) {
+    if (grid[r][c]!==EMPTY || c===midC && false) continue;
+    if (Math.random()<0.62) {
+      grid[r][c]=SOFT; grid[r][COLS-1-c]=SOFT;
+    }
+  }
+  // 中央道路保持暢通
+  for (let r=0;r<ROWS;r++) grid[r][midC]= (r%2===1)? grid[r][midC] : grid[r][midC];
+  // 出生角落清空
+  const clear=[[0,0],[0,1],[1,0],[0,COLS-1],[0,COLS-2],[1,COLS-1],
+               [ROWS-1,0],[ROWS-1,1],[ROWS-2,0],[ROWS-1,COLS-1],[ROWS-1,COLS-2],[ROWS-2,COLS-1]];
+  for (const [r,c] of clear) grid[r][c]=EMPTY;
+  // 草地裝飾(小樹/亮草) 不影響行走
+  for (let r=0;r<ROWS;r++) for (let c=0;c<COLS;c++)
+    if (grid[r][c]===EMPTY && Math.random()<0.08) decor[r][c]="grassTuft";
+}
+
+/* ================= 玩家 ================= */
+function makePlayer(id,cell,color,dark,keys){
+  return { id, x:(cell.c+0.5)*T, y:(cell.r+0.5)*T, spawn:cell,
+    color, dark, keys, dir:"down", moving:false,
+    speed:160, range:1, maxBombs:1, lives:3, kills:0,
+    alive:true, invul:0, deadTimer:0, anim:0 };
+}
+const KEY1={up:"KeyW",down:"KeyS",left:"KeyA",right:"KeyD",bomb:"Space"};
+const KEY2={up:"ArrowUp",down:"ArrowDown",left:"ArrowLeft",right:"ArrowRight",bomb:"Enter"};
+
+function resetGame(){
+  genMap();
+  bombs=[]; blasts=[]; powerups=[]; particles=[];
+  players=[
+    makePlayer(0,{r:0,c:0},"#2f7fe0","#1b56a8",KEY1),
+    makePlayer(1,{r:0,c:COLS-1},"#e23b3b","#a81b1b",KEY2),
+  ];
+  players[1].spawn={r:0,c:COLS-1};
+  timeLeft=180; gameOver=false;
+  document.getElementById("overlay").style.display="none";
+  updateHUD();
+}
+document.getElementById("restart").onclick=resetGame;
+
+/* ================= 輸入 ================= */
+const keys={};
+addEventListener("keydown",e=>{
+  if(["Space","Enter","ArrowUp","ArrowDown","ArrowLeft","ArrowRight"].includes(e.code)) e.preventDefault();
+  if(!keys[e.code]){ // 放炸彈用按下瞬間
+    for(const p of players||[]) if(e.code===p.keys.bomb) tryBomb(p);
+  }
+  keys[e.code]=true;
+});
+addEventListener("keyup",e=>keys[e.code]=false);
+
+/* ================= 邏輯 ================= */
+const cellOf=p=>({r:Math.floor(p.y/T), c:Math.floor(p.x/T)});
+const solidAt=(r,c)=> r<0||c<0||r>=ROWS||c>=COLS || grid[r][c]!==EMPTY;
+const bombAt=(r,c)=> bombs.find(b=>b.r===r&&b.c===c);
+
+function tryBomb(p){
+  if(!p.alive||gameOver) return;
+  const {r,c}=cellOf(p);
+  if(bombAt(r,c)) return;
+  if(bombs.filter(b=>b.owner===p.id).length>=p.maxBombs) return;
+  bombs.push({r,c,owner:p.id,range:p.range,timer:2.2,t:0,walkable:true});
+}
+
+function moveBox(p,dx,dy,dt){
+  // 像素移動 + 圓角滑行
+  const R=T*0.34, step=p.speed*dt;
+  const tryAxis=(ax)=>{
+    let nx=p.x+(ax==="x"?dx*step:0), ny=p.y+(ax==="y"?dy*step:0);
+    const blocked=(x,y)=>{
+      const r=Math.floor(y/T), c=Math.floor(x/T);
+      if(solidAt(r,c)) return true;
+      const b=bombAt(r,c);
+      if(b && !(b.walkable && Math.floor(p.y/T)===b.r && Math.floor(p.x/T)===b.c)) return true;
+      return false;
+    };
+    const pts=[[nx-R,ny-R],[nx+R,ny-R],[nx-R,ny+R],[nx+R,ny+R]];
+    if(pts.some(([x,y])=>blocked(x,y))){
+      // 轉角輔助:靠近格子中線時自動對齊
+      if(ax==="x"&&dx!==0){
+        const cy=(Math.floor(p.y/T)+0.5)*T, off=cy-p.y;
+        if(Math.abs(off)>T*0.12 && Math.abs(off)<T*0.45){
+          const sy=Math.sign(off);
+          if(!blocked(p.x+dx*R*1.2, p.y+sy*step)) p.y+=sy*step;
+        }
+      } else if(ax==="y"&&dy!==0){
+        const cx=(Math.floor(p.x/T)+0.5)*T, off=cx-p.x;
+        if(Math.abs(off)>T*0.12 && Math.abs(off)<T*0.45){
+          const sx=Math.sign(off);
+          if(!blocked(p.x+sx*step, p.y+dy*R*1.2)) p.x+=sx*step;
+        }
+      }
+      return;
+    }
+    p.x=nx; p.y=ny;
+  };
+  if(dx) tryAxis("x");
+  if(dy) tryAxis("y");
+  p.x=Math.max(R,Math.min(W-R,p.x)); p.y=Math.max(R,Math.min(H-R,p.y));
+}
+
+function explode(b){
+  bombs.splice(bombs.indexOf(b),1);
+  const cells=[[b.r,b.c,"c"]];
+  const dirs=[[-1,0,"v"],[1,0,"v"],[0,-1,"h"],[0,1,"h"]];
+  for(const [dr,dc,o] of dirs){
+    for(let i=1;i<=b.range;i++){
+      const r=b.r+dr*i, c=b.c+dc*i;
+      if(r<0||c<0||r>=ROWS||c>=COLS) break;
+      if(grid[r][c]===HARD) break;
+      if(grid[r][c]===SOFT){
+        grid[r][c]=EMPTY; decor[r][c]=null;
+        spawnDebris(c,r);
+        if(Math.random()<0.32){
+          const types=["range","bomb","speed"];
+          powerups.push({r,c,type:types[Math.random()*3|0],t:0});
+        }
+        cells.push([r,c,o,i===b.range]);
+        break;
+      }
+      cells.push([r,c,o,i===b.range]);
+      const ob=bombAt(r,c);
+      if(ob){ ob.timer=Math.min(ob.timer,0.08); break; }
+    }
+  }
+  blasts.push({cells,t:0,life:0.45,owner:b.owner});
+}
+
+function spawnDebris(c,r){
+  for(let i=0;i<8;i++) particles.push({
+    x:(c+0.5)*T, y:(r+0.5)*T,
+    vx:(Math.random()-0.5)*220, vy:-Math.random()*240-60,
+    g:600, t:0, life:0.5+Math.random()*0.3,
+    col:["#d9a13f","#b67f25","#eec06a"][i%3], s:4+Math.random()*4
+  });
+}
+
+function hitPlayers(blast){
+  for(const p of players){
+    if(!p.alive||p.invul>0) continue;
+    const pc=cellOf(p);
+    if(blast.cells.some(([r,c])=>r===pc.r&&c===pc.c)){
+      p.alive=false; p.deadTimer=1.2; p.lives--;
+      if(blast.owner!==p.id) players[blast.owner].kills++;
+      for(let i=0;i<14;i++) particles.push({
+        x:p.x,y:p.y,vx:(Math.random()-0.5)*300,vy:-Math.random()*300,
+        g:500,t:0,life:0.7,col:p.color,s:5+Math.random()*4});
+      updateHUD();
+    }
+  }
+}
+
+function endGame(){
+  gameOver=true;
+  const [a,b]=players;
+  let title,sub;
+  if(a.lives>b.lives||(a.lives===b.lives&&a.kills>b.kills)) {title="🔵 雷蒙 獲勝！";sub=`擊倒 ${a.kills} 次 · 剩 ${a.lives} 條命`;}
+  else if(b.lives>a.lives||(a.lives===b.lives&&b.kills>a.kills)) {title="🔴 雷蒙 2號 獲勝！";sub=`擊倒 ${b.kills} 次 · 剩 ${b.lives} 條命`;}
+  else {title="🤝 平手！";sub="勢均力敵，再戰一場吧";}
+  document.getElementById("winTitle").textContent=title;
+  document.getElementById("winSub").textContent=sub;
+  document.getElementById("overlay").style.display="flex";
+}
+
+function updateHUD(){
+  const ids=[["p1r","p1b","p1l"],["p2r","p2b","p2l"]];
+  players.forEach((p,i)=>{
+    document.getElementById(ids[i][0]).textContent=p.range;
+    document.getElementById(ids[i][1]).textContent=p.maxBombs;
+    document.getElementById(ids[i][2]).textContent=Math.max(0,p.lives);
+  });
+}
+
+function update(dt){
+  if(gameOver) return;
+  timeLeft-=dt;
+  if(timeLeft<=0){timeLeft=0;endGame();}
+  const m=Math.floor(timeLeft/60), s=Math.floor(timeLeft%60);
+  document.getElementById("timer").textContent=`0${m}:${String(s).padStart(2,"0")}`;
+
+  for(const p of players){
+    p.anim+=dt;
+    if(p.invul>0) p.invul-=dt;
+    if(!p.alive){
+      p.deadTimer-=dt;
+      if(p.deadTimer<=0){
+        if(p.lives<=0){ endGame(); return; }
+        p.alive=true; p.invul=2;
+        p.x=(p.spawn.c+0.5)*T; p.y=(p.spawn.r+0.5)*T;
+      }
+      continue;
+    }
+    let dx=0,dy=0;
+    if(keys[p.keys.left])dx=-1; else if(keys[p.keys.right])dx=1;
+    if(keys[p.keys.up])dy=-1; else if(keys[p.keys.down])dy=1;
+    p.moving=!!(dx||dy);
+    if(dx<0)p.dir="left"; else if(dx>0)p.dir="right";
+    else if(dy<0)p.dir="up"; else if(dy>0)p.dir="down";
+    if(p.moving) moveBox(p,dx,dy,dt);
+    // 吃道具
+    const pc=cellOf(p);
+    for(let i=powerups.length-1;i>=0;i--){
+      const u=powerups[i];
+      if(u.r===pc.r&&u.c===pc.c){
+        if(u.type==="range")p.range=Math.min(8,p.range+1);
+        else if(u.type==="bomb")p.maxBombs=Math.min(8,p.maxBombs+1);
+        else p.speed=Math.min(280,p.speed+25);
+        powerups.splice(i,1); updateHUD();
+      }
+    }
+  }
+  // 炸彈
+  for(let i=bombs.length-1;i>=0;i--){
+    const b=bombs[i]; b.timer-=dt; b.t+=dt;
+    if(b.walkable){ // 離開後變不可穿越
+      const on=players.some(p=>p.alive&&cellOf(p).r===b.r&&cellOf(p).c===b.c);
+      if(!on) b.walkable=false;
+    }
+    if(b.timer<=0) explode(b);
+  }
+  // 爆風
+  for(let i=blasts.length-1;i>=0;i--){
+    const bl=blasts[i]; bl.t+=dt;
+    hitPlayers(bl);
+    if(bl.t>=bl.life) blasts.splice(i,1);
+  }
+  // 粒子
+  for(let i=particles.length-1;i>=0;i--){
+    const q=particles[i]; q.t+=dt;
+    q.vy+=q.g*dt; q.x+=q.vx*dt; q.y+=q.vy*dt;
+    if(q.t>=q.life) particles.splice(i,1);
+  }
+  for(const u of powerups) u.t+=dt;
+}
+
+/* ================= 繪圖 ================= */
+const DEPTH=10; // 立體高度
+function rr(x,y,w,h,r){ctx.beginPath();ctx.roundRect(x,y,w,h,r);}
+
+function drawGrass(c,r){
+  const x=c*T,y=r*T;
+  const even=(c+r)%2===0;
+  ctx.fillStyle=even?"#5cbb4e":"#54b047";
+  ctx.fillRect(x,y,T,T);
+  // 樂高凸點
+  ctx.fillStyle=even?"#6cc95e":"#63c055";
+  for(let i=0;i<2;i++)for(let j=0;j<2;j++){
+    const px=x+T*0.25+i*T*0.5, py=y+T*0.25+j*T*0.5;
+    ctx.beginPath();ctx.arc(px,py,T*0.13,0,7);ctx.fill();
+    ctx.fillStyle="rgba(255,255,255,.18)";
+    ctx.beginPath();ctx.arc(px-1.5,py-1.5,T*0.13,Math.PI,Math.PI*1.9);ctx.fill();
+    ctx.fillStyle=even?"#6cc95e":"#63c055";
+  }
+}
+function drawRoad(c,r){
+  const x=c*T,y=r*T;
+  ctx.fillStyle="#8a8f94";ctx.fillRect(x,y,T,T);
+  ctx.fillStyle="#7d8287";ctx.fillRect(x,y,4,T);ctx.fillRect(x+T-4,y,4,T);
+  ctx.strokeStyle="#f2f2f2";ctx.lineWidth=3;ctx.setLineDash([14,12]);
+  ctx.beginPath();ctx.moveTo(x+T/2,y);ctx.lineTo(x+T/2,y+T);ctx.stroke();
+  ctx.setLineDash([]);
+}
+function block3D(x,y,w,h,top,frontL,frontD){
+  // 上面
+  ctx.fillStyle=top; rr(x,y-DEPTH,w,h,6); ctx.fill();
+  // 前面
+  ctx.fillStyle=frontL; rr(x,y+h-DEPTH-4,w,DEPTH+4,4); ctx.fill();
+  ctx.fillStyle=frontD; ctx.fillRect(x+2,y+h-4,w-4,2);
+}
+function drawCrate(c,r){
+  const x=c*T+2,y=r*T+2,s=T-4;
+  block3D(x,y,s,s,"#e2a948","#b9822c","#8f6420");
+  // 木紋與交叉
+  ctx.strokeStyle="#9c6f23";ctx.lineWidth=3;
+  ctx.strokeRect(x+5,y-DEPTH+5,s-10,s-10);
+  ctx.beginPath();ctx.moveTo(x+7,y-DEPTH+7);ctx.lineTo(x+s-7,y-DEPTH+s-7);
+  ctx.moveTo(x+s-7,y-DEPTH+7);ctx.lineTo(x+7,y-DEPTH+s-7);ctx.stroke();
+  ctx.strokeStyle="rgba(255,255,255,.25)";ctx.lineWidth=1.5;
+  ctx.strokeRect(x+5,y-DEPTH+5,s-10,s-10);
+}
+function drawBrick(c,r,col,colD,colTop){
+  const x=c*T+1,y=r*T+1,s=T-2;
+  block3D(x,y,s,s,col,colD,"#00000033");
+  // 樂高凸點 x4
+  for(let i=0;i<2;i++)for(let j=0;j<2;j++){
+    const px=x+s*0.27+i*s*0.46, py=y-DEPTH+s*0.27+j*s*0.46;
+    ctx.fillStyle=colD;ctx.beginPath();ctx.arc(px,py+2,s*0.15,0,7);ctx.fill();
+    ctx.fillStyle=colTop;ctx.beginPath();ctx.arc(px,py,s*0.15,0,7);ctx.fill();
+    ctx.fillStyle="rgba(255,255,255,.35)";
+    ctx.beginPath();ctx.arc(px-2,py-2,s*0.07,0,7);ctx.fill();
+  }
+}
+function drawHouse(c,r,roof,roofD){
+  const x=c*T,y=r*T;
+  // 牆
+  ctx.fillStyle="#f3ede1"; rr(x+7,y+T*0.38,T-14,T*0.62-2,3); ctx.fill();
+  ctx.fillStyle="#d9d2c2"; ctx.fillRect(x+7,y+T-6,T-14,4);
+  // 門窗
+  ctx.fillStyle="#8a6b4a"; rr(x+T*0.40,y+T*0.66,T*0.2,T*0.3,3); ctx.fill();
+  ctx.fillStyle="#bfe3ff"; ctx.fillRect(x+T*0.16,y+T*0.5,T*0.16,T*0.14);
+  ctx.fillRect(x+T*0.68,y+T*0.5,T*0.16,T*0.14);
+  // 屋頂
+  ctx.fillStyle=roof;
+  ctx.beginPath();ctx.moveTo(x+2,y+T*0.42);ctx.lineTo(x+T/2,y+2-DEPTH);ctx.lineTo(x+T-2,y+T*0.42);
+  ctx.closePath();ctx.fill();
+  ctx.fillStyle=roofD;
+  ctx.beginPath();ctx.moveTo(x+2,y+T*0.42);ctx.lineTo(x+T/2,y+8-DEPTH);ctx.lineTo(x+T-2,y+T*0.42);
+  ctx.lineTo(x+T-2,y+T*0.46);ctx.lineTo(x+2,y+T*0.46);ctx.closePath();ctx.fill();
+  // 煙囪
+  ctx.fillStyle="#c9c2b2"; ctx.fillRect(x+T*0.68,y+T*0.06-DEPTH,7,12);
+}
+function drawTree(c,r){
+  const x=c*T+T/2,y=r*T;
+  ctx.fillStyle="#7a5230"; ctx.fillRect(x-4,y+T*0.72,8,T*0.22);
+  const greens=["#2e9e3f","#37b14a","#43c257"];
+  for(let i=0;i<3;i++){
+    const ry=y+T*0.62-i*T*0.22, rad=T*0.36-i*T*0.07;
+    ctx.fillStyle=greens[i];
+    ctx.beginPath();ctx.ellipse(x,ry-DEPTH/2,rad,rad*0.8,0,0,7);ctx.fill();
+    ctx.fillStyle="rgba(255,255,255,.15)";
+    ctx.beginPath();ctx.ellipse(x-rad*0.3,ry-DEPTH/2-rad*0.25,rad*0.35,rad*0.25,0,0,7);ctx.fill();
+  }
+}
+function drawTuft(c,r){
+  const x=c*T,y=r*T;
+  ctx.fillStyle="#79d365";
+  for(let i=0;i<3;i++){
+    ctx.beginPath();ctx.ellipse(x+T*0.3+i*T*0.18,y+T*0.6,4,7,(i-1)*0.4,0,7);ctx.fill();
+  }
+}
+function drawBomb(b){
+  const x=(b.c+0.5)*T, y=(b.r+0.5)*T;
+  const pulse=1+Math.sin(b.t*9)*0.06 + Math.max(0,(2.2-b.timer)/2.2)*0.12;
+  const R=T*0.36*pulse;
+  // 影子
+  ctx.fillStyle="rgba(0,0,0,.22)";
+  ctx.beginPath();ctx.ellipse(x,y+R*0.7,R*0.9,R*0.35,0,0,7);ctx.fill();
+  // 水球本體
+  const g=ctx.createRadialGradient(x-R*0.35,y-R*0.45,R*0.1,x,y,R);
+  const danger=b.timer<0.6;
+  g.addColorStop(0, danger?"#ffd5d5":"#cfeaff");
+  g.addColorStop(0.5,danger?"#ff7575":"#4fa6f5");
+  g.addColorStop(1, danger?"#d23b3b":"#1d6fd1");
+  ctx.fillStyle=g;
+  ctx.beginPath();ctx.arc(x,y-2,R,0,7);ctx.fill();
+  // 高光 + 綁口
+  ctx.fillStyle="rgba(255,255,255,.7)";
+  ctx.beginPath();ctx.ellipse(x-R*0.35,y-R*0.45,R*0.22,R*0.14,-0.6,0,7);ctx.fill();
+  ctx.fillStyle=danger?"#a82323":"#155a9e";
+  ctx.beginPath();ctx.arc(x,y-2-R,3.5,0,7);ctx.fill();
+}
+function drawBlast(bl){
+  const k=bl.t/bl.life;                  // 0→1
+  const grow=k<0.3?k/0.3:1, fade=k>0.7?1-(k-0.7)/0.3:1;
+  for(const [r,c,o] of bl.cells){
+    const x=(c+0.5)*T, y=(r+0.5)*T;
+    ctx.globalAlpha=fade;
+    const R=T*0.5*grow;
+    const g=ctx.createRadialGradient(x,y,0,x,y,R);
+    g.addColorStop(0,"#ffffff");
+    g.addColorStop(0.4,"#9fd8ff");
+    g.addColorStop(1,"rgba(64,150,235,0)");
+    ctx.fillStyle=g;
+    if(o==="h") {ctx.beginPath();ctx.ellipse(x,y,R*1.1,R*0.75,0,0,7);ctx.fill();}
+    else if(o==="v"){ctx.beginPath();ctx.ellipse(x,y,R*0.75,R*1.1,0,0,7);ctx.fill();}
+    else {ctx.beginPath();ctx.arc(x,y,R*1.15,0,7);ctx.fill();}
+    // 水花圈
+    ctx.strokeStyle="rgba(180,225,255,"+(0.8*fade)+")";
+    ctx.lineWidth=3;
+    ctx.beginPath();ctx.arc(x,y,R*(0.6+k*0.6),0,7);ctx.stroke();
+    ctx.globalAlpha=1;
+  }
+}
+function drawPowerup(u){
+  const x=(u.c+0.5)*T, y=(u.r+0.5)*T + Math.sin(u.t*4)*3;
+  ctx.fillStyle="rgba(0,0,0,.18)";
+  ctx.beginPath();ctx.ellipse(x,(u.r+0.85)*T,12,5,0,0,7);ctx.fill();
+  const cols={range:["#ff8a3d","#e05a10"],bomb:["#7e6bff","#4d3bd6"],speed:["#3ddc6c","#16a546"]};
+  const [c1,c2]=cols[u.type];
+  const g=ctx.createLinearGradient(x,y-14,x,y+14);
+  g.addColorStop(0,c1);g.addColorStop(1,c2);
+  ctx.fillStyle=g; rr(x-14,y-14,28,28,8); ctx.fill();
+  ctx.strokeStyle="rgba(255,255,255,.7)";ctx.lineWidth=2; rr(x-14,y-14,28,28,8); ctx.stroke();
+  ctx.font="16px sans-serif";ctx.textAlign="center";ctx.textBaseline="middle";
+  ctx.fillText(u.type==="range"?"🔥":u.type==="bomb"?"🎈":"👟",x,y+1);
+}
+function drawPlayer(p){
+  if(!p.alive) return;
+  if(p.invul>0 && Math.floor(p.invul*10)%2===0) ctx.globalAlpha=0.4;
+  const bob=p.moving?Math.sin(p.anim*14)*2.5:Math.sin(p.anim*3)*1;
+  const x=p.x, y=p.y+bob;
+  // 影子
+  ctx.fillStyle="rgba(0,0,0,.25)";
+  ctx.beginPath();ctx.ellipse(x,p.y+T*0.32,T*0.28,T*0.1,0,0,7);ctx.fill();
+  // 腳
+  const leg=p.moving?Math.sin(p.anim*14)*4:0;
+  ctx.fillStyle=p.dark;
+  rr(x-9,y+T*0.12+leg*0.5,8,10,3);ctx.fill();
+  rr(x+1,y+T*0.12-leg*0.5,8,10,3);ctx.fill();
+  // 身體
+  const g=ctx.createLinearGradient(x,y-T*0.1,x,y+T*0.2);
+  g.addColorStop(0,p.color);g.addColorStop(1,p.dark);
+  ctx.fillStyle=g; rr(x-T*0.22,y-T*0.08,T*0.44,T*0.28,8); ctx.fill();
+  // 手
+  ctx.fillStyle="#fff";
+  ctx.beginPath();ctx.arc(x-T*0.26,y+T*0.04,5,0,7);ctx.fill();
+  ctx.beginPath();ctx.arc(x+T*0.26,y+T*0.04,5,0,7);ctx.fill();
+  // 頭 (大頭+頭巾風)
+  const hy=y-T*0.26;
+  ctx.fillStyle=p.color;
+  ctx.beginPath();ctx.arc(x,hy,T*0.24,0,7);ctx.fill();
+  ctx.fillStyle="rgba(255,255,255,.25)";
+  ctx.beginPath();ctx.arc(x-4,hy-5,T*0.1,0,7);ctx.fill();
+  // 臉
+  ctx.fillStyle="#ffe7d1";
+  const fx = p.dir==="left"?-3 : p.dir==="right"?3 : 0;
+  ctx.beginPath();ctx.ellipse(x+fx,hy+3,T*0.15,T*0.13,0,0,7);ctx.fill();
+  if(p.dir!=="up"){
+    ctx.fillStyle="#222";
+    ctx.beginPath();ctx.arc(x+fx-4,hy+2,2.2,0,7);ctx.fill();
+    ctx.beginPath();ctx.arc(x+fx+4,hy+2,2.2,0,7);ctx.fill();
+    ctx.strokeStyle="#222";ctx.lineWidth=1.5;
+    ctx.beginPath();ctx.arc(x+fx,hy+6,3,0.2,Math.PI-0.2);ctx.stroke();
+  }
+  // 頭巾結
+  ctx.fillStyle=p.dark;
+  ctx.beginPath();ctx.arc(x,hy-T*0.22,5,0,7);ctx.fill();
+  ctx.globalAlpha=1;
+}
+
+function render(){
+  ctx.clearRect(0,0,W,H);
+  const midC=(COLS-1)/2;
+  // 地面
+  for(let r=0;r<ROWS;r++)for(let c=0;c<COLS;c++){
+    if(c===midC) drawRoad(c,r); else drawGrass(c,r);
+  }
+  // 道具
+  for(const u of powerups) drawPowerup(u);
+  // 依 y 排序的立體物件:方塊、玩家、炸彈
+  const items=[];
+  for(let r=0;r<ROWS;r++)for(let c=0;c<COLS;c++){
+    if(grid[r][c]===SOFT) items.push({y:r*T,f:()=>drawCrate(c,r)});
+    else if(grid[r][c]===HARD){
+      const d=decor[r][c];
+      if(d==="tree") items.push({y:r*T,f:()=>drawTree(c,r)});
+      else if(d==="house") items.push({y:r*T,f:()=>drawHouse(c,r,"#e34d3a","#b53322")});
+      else if(d==="houseB") items.push({y:r*T,f:()=>drawHouse(c,r,"#3a76e3","#2255b5")});
+      else if(d==="brickY") items.push({y:r*T,f:()=>drawBrick(c,r,"#f0b33a","#c98a18","#f6c75e")});
+      else items.push({y:r*T,f:()=>drawBrick(c,r,"#e6502e","#b93517","#ee6e50")});
+    } else if(decor[r][c]==="grassTuft") items.push({y:r*T,f:()=>drawTuft(c,r)});
+  }
+  for(const b of bombs) items.push({y:b.r*T+1,f:()=>drawBomb(b)});
+  for(const p of players) if(p.alive) items.push({y:p.y,f:()=>drawPlayer(p)});
+  items.sort((a,b)=>a.y-b.y);
+  for(const it of items) it.f();
+  // 爆風在最上層
+  for(const bl of blasts) drawBlast(bl);
+  // 粒子
+  for(const q of particles){
+    ctx.globalAlpha=1-q.t/q.life;
+    ctx.fillStyle=q.col;
+    ctx.fillRect(q.x-q.s/2,q.y-q.s/2,q.s,q.s);
+    ctx.globalAlpha=1;
+  }
+}
+
+/* ================= 主迴圈 ================= */
+function loop(ts){
+  if(lastTime===undefined) lastTime=ts;
+  const dt=Math.min((ts-lastTime)/1000,0.05);
+  lastTime=ts;
+  update(dt);
+  render();
+  requestAnimationFrame(loop);
+}
+resetGame();
+requestAnimationFrame(loop);
+</script>
+</body>
+</html>
