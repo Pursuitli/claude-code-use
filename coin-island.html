@@ -53,6 +53,23 @@
     background:rgba(255,255,255,.25);border:2px solid rgba(255,255,255,.5);}
   #stickKnob{position:absolute;left:35px;top:35px;width:50px;height:50px;border-radius:50%;
     background:rgba(255,255,255,.75);box-shadow:0 3px 8px rgba(0,0,0,.25);}
+  .tbtn{position:absolute;border-radius:50%;border:3px solid rgba(255,255,255,.6);
+    display:flex;align-items:center;justify-content:center;flex-direction:column;
+    font-family:inherit;font-weight:700;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.4);
+    box-shadow:0 4px 12px rgba(0,0,0,.25);-webkit-tap-highlight-color:transparent;
+    touch-action:none;pointer-events:auto;}
+  .tbtn:active,.tbtn.held{transform:scale(.92);filter:brightness(1.15);}
+  #btnGas{right:30px;bottom:34px;width:96px;height:96px;font-size:30px;
+    background:radial-gradient(circle at 35% 30%,#5dd97f,#16a546);}
+  #btnGas small{font-size:12px;letter-spacing:1px;}
+  #btnBrake{right:150px;bottom:34px;width:72px;height:72px;font-size:22px;
+    background:radial-gradient(circle at 35% 30%,#ff8a80,#d23b3b);}
+  #tiltBtn{position:fixed;top:118px;right:12px;z-index:6;border:none;border-radius:999px;
+    padding:9px 16px;font-family:inherit;font-weight:700;font-size:13px;color:#fff;
+    background:rgba(0,0,0,.4);backdrop-filter:blur(4px);display:none;
+    -webkit-tap-highlight-color:transparent;}
+  #tiltBtn.on{background:linear-gradient(180deg,#4f8fe8,#2f66c4);}
+  @media (pointer:coarse){#tiltBtn{display:block;}}
   #countdown{position:fixed;inset:0;display:none;align-items:center;justify-content:center;z-index:8;
     font-size:110px;font-weight:700;color:#fff;text-shadow:0 6px 24px rgba(0,0,0,.4);pointer-events:none;}
 </style>
@@ -79,7 +96,12 @@
 <div id="refuelBar"><div id="refuelFill"></div></div>
 <div id="vignette"></div>
 <div id="info">W/S：油門・煞車&nbsp;&nbsp;A/D：轉向&nbsp;&nbsp;限時 60 秒執金幣！</div>
-<div id="touchUI"><div id="stickBase"><div id="stickKnob"></div></div></div>
+<div id="touchUI">
+  <div id="stickBase"><div id="stickKnob"></div></div>
+  <div class="tbtn" id="btnGas">🏍️<small>油門</small></div>
+  <div class="tbtn" id="btnBrake">🛑</div>
+</div>
+<button id="tiltBtn">📱 傾斜轉向：關</button>
 <div id="countdown"></div>
 <div id="overlay"><div id="ovPanel">
   <div id="ovTitle">金幣衝刺！</div>
@@ -275,6 +297,52 @@ base.addEventListener("touchstart",e=>{stick.active=true;stickHandle(e);e.preven
 base.addEventListener("touchmove",e=>{stickHandle(e);e.preventDefault();},{passive:false});
 base.addEventListener("touchend",()=>{stick.active=false;stick.x=stick.y=0;knob.style.left="35px";knob.style.top="35px";});
 
+/* 油門/煞車按鈕 */
+const touchBtn={gas:false,brake:false};
+function bindBtn(id,key){
+  const el=document.getElementById(id);
+  const on=e=>{touchBtn[key]=true;el.classList.add("held");e.preventDefault();};
+  const off=()=>{touchBtn[key]=false;el.classList.remove("held");};
+  el.addEventListener("touchstart",on,{passive:false});
+  el.addEventListener("touchend",off); el.addEventListener("touchcancel",off);
+  el.addEventListener("mousedown",on); el.addEventListener("mouseup",off); el.addEventListener("mouseleave",off);
+}
+bindBtn("btnGas","gas"); bindBtn("btnBrake","brake");
+
+/* 傾斜轉向 (重力感應) */
+const tilt={on:false,steer:0};
+const tiltBtn=document.getElementById("tiltBtn");
+function onOrient(e){
+  if(!tilt.on) return;
+  // 按螢幕方向揀軸:直度用 gamma,橫度用 beta
+  const angle=(screen.orientation&&screen.orientation.angle)??(window.orientation||0);
+  let v;
+  if(angle===90) v=e.beta;
+  else if(angle===-90||angle===270) v=-e.beta;
+  else if(angle===180) v=-e.gamma;
+  else v=e.gamma;
+  // 傾側 ±22° = 全軚,中間有 3° 死區
+  const dz=3, max=22;
+  const mag=Math.max(0,Math.abs(v)-dz)/(max-dz);
+  tilt.steer=-Math.sign(v)*Math.min(1,mag);
+}
+addEventListener("deviceorientation",onOrient);
+tiltBtn.addEventListener("click",async()=>{
+  if(!tilt.on){
+    // iOS 13+ 要喺用戶手勢入面請求權限
+    if(typeof DeviceOrientationEvent!=="undefined"&&typeof DeviceOrientationEvent.requestPermission==="function"){
+      try{ if(await DeviceOrientationEvent.requestPermission()!=="granted"){
+        tiltBtn.textContent="📱 感應器權限被拒"; return;
+      }}catch(err){ tiltBtn.textContent="📱 感應器不可用"; return; }
+    }
+    tilt.on=true; tiltBtn.classList.add("on"); tiltBtn.textContent="📱 傾斜轉向：開";
+    document.getElementById("stickBase").style.opacity=".3";
+  } else {
+    tilt.on=false; tilt.steer=0; tiltBtn.classList.remove("on"); tiltBtn.textContent="📱 傾斜轉向：關";
+    document.getElementById("stickBase").style.opacity="1";
+  }
+});
+
 /* HUD */
 const $=id=>document.getElementById(id);
 function setFuelNeedle(f){
@@ -313,6 +381,9 @@ function tick(now){
     if(keys.KeyA||keys.ArrowLeft)steer=1;
     if(keys.KeyD||keys.ArrowRight)steer=-1;
     if(stick.active){throttle=-stick.y; steer=-stick.x;}
+    if(touchBtn.gas)throttle=1;
+    if(touchBtn.brake)throttle=-1;
+    if(tilt.on)steer=tilt.steer;
 
     // 油量
     const MAXV=state.outOfGas?3.2:26;       // 冇油得推車速度
