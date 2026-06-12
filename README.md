@@ -22,3 +22,7 @@ OPENAI_API_KEY=sk-... python generate_girls.py
 The repo currently contains illustrated placeholder portraits (from `make_placeholders.py`) because the build environment's network policy blocked `api.openai.com`. Re-running `generate_girls.py` overwrites them with the real photos — same filenames, no code changes needed.
 
 Three.js is vendored at `vendor/three.module.js` (the importmap points there) so the game also runs fully offline.
+
+## 宋韻 · Song Dynasty Aesthetics
+
+`songyun/index.html` is a standalone single-page scroll experience about Song-dynasty aesthetics (留白 · 天青 · 青綠 · 風骨 · 四藝) — vertical typography, Ru-ware glaze palette, and a parallax "千里江山" panorama. No build step; open it directly or serve the repo root and visit `/songyun/`.
