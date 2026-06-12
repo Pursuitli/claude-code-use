@@ -1,0 +1,419 @@
+/* 墨韻 — ink-wash canvas */
+
+.mz-root {
+  --paper: #f1ece0;
+  --paper-deep: #e7e0d0;
+  --ink: #2b2a26;
+  --ink-soft: #6b675c;
+  --seal: #a33327;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background:
+    radial-gradient(120% 90% at 50% 0%, rgba(255, 255, 255, 0.5), transparent 60%),
+    var(--paper-deep);
+  color: var(--ink);
+  font-family: 'Noto Serif TC', serif;
+  overflow: hidden;
+  user-select: none;
+}
+
+/* ---- top bar ---- */
+
+.mz-top {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 8px 16px;
+  border-bottom: 1px solid rgba(43, 42, 38, 0.14);
+  background: rgba(241, 236, 224, 0.7);
+  backdrop-filter: blur(6px);
+}
+
+.mz-logo {
+  font-family: 'Ma Shan Zheng', cursive;
+  font-size: 1.7rem;
+  font-weight: 400;
+  line-height: 1;
+  color: var(--ink);
+}
+
+.mz-logo::after {
+  content: '';
+  display: inline-block;
+  width: 0.55em;
+  height: 0.55em;
+  margin-left: 8px;
+  background: var(--seal);
+  border-radius: 2px;
+  vertical-align: 0.08em;
+  opacity: 0.9;
+}
+
+.mz-name {
+  flex: 1;
+  min-width: 0;
+  max-width: 320px;
+  border: none;
+  border-bottom: 1px dashed rgba(43, 42, 38, 0.3);
+  background: transparent;
+  font: inherit;
+  font-size: 1rem;
+  color: var(--ink);
+  padding: 2px 4px;
+  outline: none;
+}
+
+.mz-name:focus { border-bottom-color: var(--seal); }
+
+.mz-actions {
+  margin-left: auto;
+  display: flex;
+  gap: 8px;
+}
+
+.mz-actions button {
+  font: inherit;
+  font-size: 0.88rem;
+  color: var(--ink);
+  background: transparent;
+  border: 1px solid rgba(43, 42, 38, 0.28);
+  border-radius: 4px;
+  padding: 5px 12px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.mz-actions button:hover:not(:disabled) { background: rgba(43, 42, 38, 0.08); }
+.mz-actions button:disabled { opacity: 0.35; cursor: default; }
+.mz-actions button.mz-on { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+
+/* ---- body ---- */
+
+.mz-body {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  position: relative;
+}
+
+/* ---- tool strip ---- */
+
+.mz-tools {
+  width: 86px;
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 8px;
+  border-right: 1px solid rgba(43, 42, 38, 0.12);
+  overflow-y: auto;
+}
+
+.mz-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.mz-rule {
+  width: 42px;
+  height: 1px;
+  background: rgba(43, 42, 38, 0.2);
+}
+
+.mz-brush {
+  width: 56px;
+  padding: 7px 0;
+  font-family: 'Noto Serif TC', serif;
+  font-size: 0.95rem;
+  letter-spacing: 0.2em;
+  color: var(--ink-soft);
+  background: transparent;
+  border: 1px solid rgba(43, 42, 38, 0.22);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.mz-brush:hover { color: var(--ink); border-color: rgba(43, 42, 38, 0.5); }
+
+.mz-brush.mz-on {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+  box-shadow: 0 2px 8px rgba(43, 42, 38, 0.35);
+}
+
+.mz-dishes {
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 7px;
+  width: 70px;
+}
+
+.mz-dish {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.7);
+  box-shadow: 0 1px 4px rgba(43, 42, 38, 0.35), inset 0 -3px 6px rgba(0, 0, 0, 0.18);
+  cursor: pointer;
+  position: relative;
+  padding: 0;
+}
+
+.mz-dish span {
+  position: absolute;
+  left: 50%;
+  top: 110%;
+  transform: translateX(-50%);
+  font-size: 0.62rem;
+  color: var(--ink-soft);
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.15s;
+  pointer-events: none;
+}
+
+.mz-dish:hover span { opacity: 1; }
+
+.mz-dish.mz-on {
+  outline: 2px solid var(--seal);
+  outline-offset: 2px;
+}
+
+.mz-sliders {
+  gap: 12px;
+  width: 100%;
+}
+
+.mz-sliders label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  width: 100%;
+}
+
+.mz-sliders span {
+  font-size: 0.72rem;
+  color: var(--ink-soft);
+  letter-spacing: 0.15em;
+}
+
+.mz-sliders input[type='range'] {
+  width: 64px;
+  accent-color: var(--ink);
+}
+
+/* ---- stage ---- */
+
+.mz-stage {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  position: relative;
+}
+
+.mz-canvas {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  touch-action: none;
+  cursor: crosshair;
+  background: #f6f2e7;
+  box-shadow:
+    0 1px 2px rgba(43, 42, 38, 0.18),
+    0 12px 34px rgba(43, 42, 38, 0.22);
+}
+
+.mz-error {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  background: var(--paper);
+}
+
+.mz-error p {
+  max-width: 26em;
+  font-size: 1.05rem;
+  line-height: 2;
+  text-align: center;
+  color: var(--ink-soft);
+}
+
+/* ---- gallery drawer (冊頁) ---- */
+
+.mz-gallery {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 252px;
+  display: flex;
+  flex-direction: column;
+  background: rgba(241, 236, 224, 0.96);
+  border-left: 1px solid rgba(43, 42, 38, 0.16);
+  box-shadow: -10px 0 30px rgba(43, 42, 38, 0.15);
+  transform: translateX(105%);
+  transition: transform 0.28s ease;
+  z-index: 5;
+}
+
+.mz-gallery.mz-open { transform: translateX(0); }
+
+.mz-gallery > header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px;
+  border-bottom: 1px solid rgba(43, 42, 38, 0.14);
+}
+
+.mz-gallery h2 {
+  font-family: 'Ma Shan Zheng', cursive;
+  font-size: 1.25rem;
+  font-weight: 400;
+}
+
+.mz-new {
+  font: inherit;
+  font-size: 0.85rem;
+  color: var(--paper);
+  background: var(--ink);
+  border: none;
+  border-radius: 4px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.mz-gallery ul {
+  flex: 1;
+  overflow-y: auto;
+  list-style: none;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.mz-gallery li {
+  position: relative;
+  border: 1px solid rgba(43, 42, 38, 0.16);
+  border-radius: 6px;
+  overflow: hidden;
+  background: #f6f2e7;
+}
+
+.mz-gallery li.mz-on { border-color: var(--seal); box-shadow: 0 0 0 1px var(--seal); }
+
+.mz-leaf {
+  display: block;
+  width: 100%;
+  padding: 0 0 8px;
+  border: none;
+  background: transparent;
+  font: inherit;
+  color: var(--ink);
+  cursor: pointer;
+  text-align: left;
+}
+
+.mz-leaf img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-bottom: 1px solid rgba(43, 42, 38, 0.1);
+  margin-bottom: 7px;
+}
+
+.mz-blank {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 4 / 3;
+  color: rgba(43, 42, 38, 0.3);
+  letter-spacing: 0.3em;
+  border-bottom: 1px solid rgba(43, 42, 38, 0.1);
+  margin-bottom: 7px;
+}
+
+.mz-leaf-name {
+  display: block;
+  padding: 0 10px;
+  font-size: 0.92rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mz-leaf time {
+  display: block;
+  padding: 0 10px;
+  font-size: 0.72rem;
+  color: var(--ink-soft);
+}
+
+.mz-del {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 26px;
+  height: 26px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(163, 51, 39, 0.88);
+  color: #f6f2e7;
+  font-family: 'Noto Serif TC', serif;
+  font-size: 0.72rem;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+.mz-gallery li:hover .mz-del { opacity: 1; }
+
+/* ---- small screens ---- */
+
+@media (max-width: 720px) {
+  .mz-top { flex-wrap: wrap; gap: 8px; padding: 8px 10px; }
+  .mz-name { order: 3; max-width: none; flex-basis: 100%; }
+  .mz-actions button { padding: 4px 8px; font-size: 0.8rem; }
+
+  .mz-body { flex-direction: column-reverse; }
+
+  .mz-tools {
+    width: 100%;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 8px;
+    border-right: none;
+    border-top: 1px solid rgba(43, 42, 38, 0.12);
+    overflow-y: visible;
+  }
+
+  .mz-section { flex-direction: row; flex-wrap: wrap; justify-content: center; }
+  .mz-rule { width: 1px; height: 28px; }
+  .mz-brush { width: auto; padding: 6px 10px; font-size: 0.85rem; }
+  .mz-dishes { width: auto; }
+  .mz-dish { width: 24px; height: 24px; }
+  .mz-dish span { display: none; }
+  .mz-sliders { flex-direction: row; width: auto; gap: 10px; }
+  .mz-sliders label { width: auto; }
+  .mz-stage { padding: 10px; }
+  .mz-gallery { width: min(86vw, 300px); }
+}
