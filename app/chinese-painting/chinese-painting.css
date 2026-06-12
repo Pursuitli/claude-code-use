@@ -59,6 +59,25 @@
   to   { transform: scale(1.07) translateX(2.5vmax); opacity:.78; }
 }
 
+/* =================== InkImageLayer（gpt-image-2 圖層） ===================
+   生成圖畫在米白宣紙底上；multiply 疊印讓紙白消隱、墨色保留。
+   圖片 404 時 onError 移除 img，回退到內建 SVG。 */
+.ruhua-root .ink-img {
+  display:none; width:100%; height:auto; mix-blend-mode:multiply; pointer-events:none;
+  /* 羽化上緣，避免圖片紙色與舞台底色的細微差異形成可見邊界 */
+  -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 14%);
+  mask-image: linear-gradient(180deg, transparent 0, #000 14%);
+}
+.ruhua-root .has-img > .ink-img { display:block; }
+.ruhua-root .has-img > svg { display:none; }
+.ruhua-root.imgs-on .mountain.svg-only { display:none; }
+#bridge .ink-img { width:min(78vw, 900px); margin:0 auto; }
+.ruhua-root .bamboo .ink-img {
+  width:auto; height:52vh; transform-origin:50% 100%;
+  animation: rh-sway 9s ease-in-out infinite alternate;
+}
+.ruhua-root .bamboo.br .ink-img { animation-duration:11s; animation-delay:-4s; }
+
 /* =================== MountainLayer =================== */
 /* top:auto 蓋掉 .layer 的 inset:0，讓山錨在舞台底部，否則 SVG 會貼頂繪製 */
 .ruhua-root .mountain { position:absolute; left:-6vw; right:-6vw; top:auto; bottom:0; opacity:0; }
@@ -215,14 +234,14 @@
 
 @media (max-width: 640px) {
   #cap-wu { right:9vw; } #cap-shan { left:7vw; } #cap-shui { right:8vw; } #cap-yue { left:8vw; }
-  .ruhua-root .bamboo svg { height:38vh; }
+  .ruhua-root .bamboo svg, .ruhua-root .bamboo .ink-img { height:38vh; }
   #moon { right:10vw; }
   #hero-ru .cta { width:78px; height:78px; }
 }
 
 /* =================== Reduced motion =================== */
 @media (prefers-reduced-motion: reduce) {
-  .ruhua-root .mist .puff, .ruhua-root .bird, .ruhua-root .bamboo .sway, #stars i, #hero-ru .cta::after { animation:none !important; }
+  .ruhua-root .mist .puff, .ruhua-root .bird, .ruhua-root .bamboo .sway, .ruhua-root .bamboo .ink-img, #stars i, #hero-ru .cta::after { animation:none !important; }
   #hero-ru h1, #hero-ru .sub, #hero-ru .cta { animation-duration:.01s !important; animation-delay:0s !important; }
   .stamped #seal { animation:none; opacity:1; }
   .stamped #seal-halo { animation:none; opacity:0; }

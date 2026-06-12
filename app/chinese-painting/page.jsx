@@ -3,6 +3,23 @@
 import { useEffect } from 'react';
 import './chinese-painting.css';
 
+/* gpt-image-2 生成的水墨圖層（multiply 疊印，白紙自動消隱）。
+   圖片尚未生成或 404 時自動回退到內建 SVG。root=true 的那張載入成功後，
+   會隱藏純 SVG 的補間山層，避免畫風混雜。 */
+function inkLayer(src, root = false) {
+  return (
+    <img
+      src={src} alt="" className="ink-img" loading="lazy"
+      onLoad={(e) => {
+        const p = e.currentTarget.parentElement;
+        p.classList.add('has-img');
+        if (root) p.closest('.ruhua-root').classList.add('imgs-on');
+      }}
+      onError={(e) => e.currentTarget.remove()}
+    />
+  );
+}
+
 export default function ChinesePaintingPage() {
   /* =================== ScrollProgressController =================== */
   useEffect(() => {
@@ -233,6 +250,7 @@ export default function ChinesePaintingPage() {
 
           {/* 遠山 → 近山（MountainLayer ×5，data-depth 控制視差） */}
           <div className="mountain m1 layer" data-depth=".16" style={{ zIndex: 2 }}>
+            {inkLayer('/assets/painting/far.webp', true)}
             <svg viewBox="0 0 1440 460" preserveAspectRatio="xMidYMax meet">
               <defs><linearGradient id="g1" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="0" stopColor="var(--stone-1)" /><stop offset=".75" stopColor="var(--stone-1)" stopOpacity=".5" /><stop offset="1" stopColor="var(--stone-1)" stopOpacity="0" />
@@ -240,7 +258,7 @@ export default function ChinesePaintingPage() {
               <path fill="url(#g1)" d="M0 460 L0 300 Q90 210 170 268 Q250 140 350 232 Q430 170 510 240 Q620 110 740 226 Q830 160 920 234 Q1030 120 1150 230 Q1250 180 1340 244 L1440 210 L1440 460 Z" />
             </svg>
           </div>
-          <div className="mountain m2 layer" data-depth=".32" style={{ zIndex: 3 }}>
+          <div className="mountain m2 layer svg-only" data-depth=".32" style={{ zIndex: 3 }}>
             <svg viewBox="0 0 1440 420" preserveAspectRatio="xMidYMax meet">
               <defs><linearGradient id="g2" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="0" stopColor="var(--stone-2)" /><stop offset=".8" stopColor="var(--stone-2)" stopOpacity=".4" /><stop offset="1" stopColor="var(--stone-2)" stopOpacity="0" />
@@ -249,6 +267,7 @@ export default function ChinesePaintingPage() {
             </svg>
           </div>
           <div className="mountain layer" data-depth=".52" style={{ zIndex: 4 }}>
+            {inkLayer('/assets/painting/mid.webp')}
             <svg viewBox="0 0 1440 400" preserveAspectRatio="xMidYMax meet">
               <defs><linearGradient id="g3" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="0" stopColor="var(--stone-3)" /><stop offset=".82" stopColor="var(--stone-3)" stopOpacity=".35" /><stop offset="1" stopColor="var(--stone-3)" stopOpacity="0" />
@@ -257,7 +276,7 @@ export default function ChinesePaintingPage() {
               <path d="M250 240 Q280 300 340 330 M910 212 Q940 280 1000 312" stroke="var(--stone-4)" strokeWidth="3" fill="none" opacity=".4" />
             </svg>
           </div>
-          <div className="mountain layer" data-depth=".74" style={{ zIndex: 6 }}>
+          <div className="mountain layer svg-only" data-depth=".74" style={{ zIndex: 6 }}>
             <svg viewBox="0 0 1440 360" preserveAspectRatio="xMidYMax meet">
               <defs><linearGradient id="g4" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="0" stopColor="var(--stone-4)" /><stop offset=".85" stopColor="var(--stone-4)" stopOpacity=".3" /><stop offset="1" stopColor="var(--stone-4)" stopOpacity="0" />
@@ -267,6 +286,7 @@ export default function ChinesePaintingPage() {
             </svg>
           </div>
           <div className="mountain layer" data-depth="1" style={{ zIndex: 12 }}>
+            {inkLayer('/assets/painting/near.webp')}
             <svg viewBox="0 0 1440 240" preserveAspectRatio="xMidYMax meet">
               <defs><linearGradient id="g5" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="0" stopColor="var(--stone-5)" /><stop offset=".9" stopColor="var(--stone-5)" stopOpacity=".4" /><stop offset="1" stopColor="var(--stone-5)" stopOpacity="0" />
@@ -295,6 +315,7 @@ export default function ChinesePaintingPage() {
 
           {/* 橋（BridgeScene） */}
           <div id="bridge" className="layer" style={{ zIndex: 10 }}>
+            {inkLayer('/assets/painting/bridge.webp')}
             <svg viewBox="0 0 900 260" fill="none">
               {/* 橋身 */}
               <path d="M30 200 Q450 30 870 200 L870 216 Q450 56 30 216 Z" fill="var(--stone-5)" />
@@ -321,6 +342,7 @@ export default function ChinesePaintingPage() {
           <div id="night" className="layer" style={{ zIndex: 14 }} />
           <div id="moon" style={{ zIndex: 15 }} />
           <div className="bamboo bl" style={{ zIndex: 16 }}>
+            {inkLayer('/assets/painting/bamboo.webp')}
             <svg viewBox="0 0 220 560" fill="none"><g className="sway">
               <path d="M60 560 C58 420 64 260 84 90" stroke="#141b18" strokeWidth="10" strokeLinecap="round" />
               <path d="M118 560 C120 430 112 300 96 150" stroke="#141b18" strokeWidth="7" strokeLinecap="round" />
@@ -333,6 +355,7 @@ export default function ChinesePaintingPage() {
             </g></svg>
           </div>
           <div className="bamboo br" style={{ zIndex: 16 }}>
+            {inkLayer('/assets/painting/bamboo.webp')}
             <svg viewBox="0 0 220 560" fill="none"><g className="sway">
               <path d="M70 560 C66 410 76 250 96 110" stroke="#141b18" strokeWidth="9" strokeLinecap="round" />
               <g fill="#141b18">
