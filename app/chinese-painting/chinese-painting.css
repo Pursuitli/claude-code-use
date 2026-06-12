@@ -20,7 +20,9 @@
   --serif: 'Noto Serif TC', 'Songti TC', 'Songti SC', 'STSong', serif;
 
   font-family: var(--serif); background: var(--paper); color: var(--ink);
-  letter-spacing: .08em; overflow-x: hidden; min-height: 100vh;
+  letter-spacing: .08em; min-height: 100vh;
+  /* clip（而非 hidden）：裁掉橫向溢出但不建立滾動容器，否則 #stage 的 sticky 會失效 */
+  overflow-x: clip;
 }
 /* 紙的肌理（PaperGrain）：極淡，不髒 */
 .ruhua-root::after {
