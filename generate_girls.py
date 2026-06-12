@@ -16,8 +16,8 @@ import requests
 
 API_KEY = os.environ["OPENAI_API_KEY"]
 ROOT = os.path.dirname(os.path.abspath(__file__))
-OUT_DIR = os.path.join(ROOT, "assets", "girls")
-REF_IMG = os.path.join(ROOT, "assets", "reference", "kiki.png")
+OUT_DIR = os.path.join(ROOT, "public", "assets", "girls")
+REF_IMG = os.path.join(ROOT, "public", "assets", "reference", "kiki.png")
 FORCE = "--force" in sys.argv
 os.makedirs(OUT_DIR, exist_ok=True)
 

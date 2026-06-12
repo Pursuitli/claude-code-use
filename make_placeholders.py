@@ -4,7 +4,7 @@ Same filenames as generate_girls.py, so real photos can replace them later."""
 import os
 from PIL import Image, ImageDraw, ImageFilter
 
-OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "assets", "girls")
+OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "public", "assets", "girls")
 os.makedirs(OUT, exist_ok=True)
 W, H = 1024, 1536
 

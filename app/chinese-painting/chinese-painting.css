@@ -1,0 +1,226 @@
+/* =====================================================
+   入畫 · 山水隨行
+   A living scroll: one sticky stage, scroll-driven scenes.
+   ===================================================== */
+.ruhua-root {
+  --paper:   #f6f2e9;
+  --paper-2: #efe9db;
+  --ink:     #262d33;
+  --ink-soft:#5d6770;
+  --mist:    #e8e9e2;
+  --stone-1: #b3bfba;  /* 遠山 */
+  --stone-2: #95a8a2;
+  --stone-3: #6e8781;
+  --stone-4: #4b625d;
+  --stone-5: #2f3d3b;  /* 近山 */
+  --night:   #1b2430;
+  --moonlit: #ece5d2;
+  --seal:    #a63a2c;
+  --journey: 780vh;
+  --serif: 'Noto Serif TC', 'Songti TC', 'Songti SC', 'STSong', serif;
+
+  font-family: var(--serif); background: var(--paper); color: var(--ink);
+  letter-spacing: .08em; overflow-x: hidden; min-height: 100vh;
+}
+/* 紙的肌理（PaperGrain）：極淡，不髒 */
+.ruhua-root::after {
+  content:''; position:fixed; inset:0; z-index:60; pointer-events:none; opacity:.5;
+  background-image:
+    radial-gradient(rgba(38,45,51,.022) 1px, transparent 1px),
+    radial-gradient(rgba(38,45,51,.014) 1px, transparent 1px);
+  background-size:3px 3px, 8px 8px; background-position:0 0, 3px 4px;
+}
+.ruhua-root ::selection { background: var(--seal); color: var(--paper); }
+
+/* =================== LivingScrollPage =================== */
+#journey { height: var(--journey); position: relative; }
+#stage {
+  position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden;
+  background: linear-gradient(180deg, #f3efe4 0%, var(--paper) 45%, #ece7d8 100%);
+}
+.ruhua-root .layer { position:absolute; inset:0; will-change: transform, opacity; pointer-events:none; }
+
+/* =================== MistLayer =================== */
+.ruhua-root .mist { position:absolute; width:120vmax; height:60vmax; border-radius:50%; }
+.ruhua-root .mist .puff {
+  position:absolute; inset:0; border-radius:inherit;
+  background: radial-gradient(closest-side, rgba(243,240,231,.95), rgba(243,240,231,.55) 55%, transparent 75%);
+  animation: rh-breathe 14s ease-in-out infinite alternate;
+}
+.ruhua-root .mist.l { left:-46vmax; top:18vh; }
+.ruhua-root .mist.r { right:-46vmax; top:34vh; }
+.ruhua-root .mist.r .puff { animation-delay:-7s; animation-duration:18s; }
+.ruhua-root .mist.front { left:-10vmax; bottom:-34vmax; top:auto; width:140vmax; height:54vmax; opacity:.8; }
+.ruhua-root .mist.front .puff { animation-duration:22s; animation-delay:-4s; }
+@keyframes rh-breathe {
+  from { transform: scale(1) translateX(0);   opacity:.92; }
+  to   { transform: scale(1.07) translateX(2.5vmax); opacity:.78; }
+}
+
+/* =================== MountainLayer =================== */
+.ruhua-root .mountain { position:absolute; left:-6vw; right:-6vw; bottom:0; opacity:0; }
+.ruhua-root .mountain svg { display:block; width:100%; height:auto; }
+.ruhua-root .mountain.m1 { filter: blur(2.5px); }
+.ruhua-root .mountain.m2 { filter: blur(1.2px); }
+
+/* 飛鳥（tiny birds） */
+#birds { opacity:0; }
+.ruhua-root .bird { position:absolute; animation: rh-fly 30s linear infinite; }
+.ruhua-root .bird svg { width:34px; opacity:.75; }
+.ruhua-root .bird.b1 { top:24vh; animation-delay:0s; }
+.ruhua-root .bird.b2 { top:29vh; animation-delay:-3.5s; }
+.ruhua-root .bird.b2 svg { width:24px; }
+.ruhua-root .bird.b3 { top:21vh; animation-delay:-7s; }
+.ruhua-root .bird.b3 svg { width:18px; }
+@keyframes rh-fly {
+  0%   { transform: translateX(-12vw) translateY(0); }
+  50%  { transform: translateX(50vw)  translateY(-3.4vh); }
+  100% { transform: translateX(115vw) translateY(-1.2vh); }
+}
+
+/* =================== RiverScene =================== */
+#water { position:absolute; left:0; right:0; bottom:0; height:46vh; opacity:0; }
+#water .surface {
+  position:absolute; inset:0;
+  background: linear-gradient(180deg, rgba(214,223,215,0) 0%, rgba(205,216,209,.85) 16%, #c2d1c8 50%, #b3c4bb 100%);
+}
+#water canvas { position:absolute; inset:0; width:100%; height:100%; }
+
+/* =================== BridgeScene =================== */
+#bridge { position:absolute; left:0; right:0; bottom:8vh; opacity:0; transform-origin: 50% 100%; }
+#bridge svg { display:block; width:min(78vw, 900px); margin:0 auto; }
+
+/* =================== MoonScene =================== */
+#night {
+  position:absolute; inset:0; opacity:0; mix-blend-mode:multiply;
+  background: linear-gradient(180deg, #2a3440 0%, #202b36 55%, var(--night) 100%);
+}
+#moon {
+  position:absolute; right:16vw; top:30vh; width:13vmin; height:13vmin; min-width:84px; min-height:84px;
+  border-radius:50%; opacity:0;
+  background: radial-gradient(circle at 40% 36%, #faf4e3, var(--moonlit) 62%, rgba(236,229,210,0) 74%);
+  box-shadow: 0 0 70px 26px rgba(238,229,202,.28), 0 0 160px 70px rgba(238,229,202,.12);
+}
+#stars { opacity:0; }
+#stars i {
+  position:absolute; width:2px; height:2px; border-radius:50%; background:#efe9d8;
+  animation: rh-twinkle 4.5s ease-in-out infinite alternate;
+}
+@keyframes rh-twinkle { from { opacity:.15; } to { opacity:.85; } }
+.ruhua-root .bamboo { position:absolute; bottom:-2vh; opacity:0; transform-origin: 50% 100%; }
+.ruhua-root .bamboo svg { display:block; height:52vh; width:auto; }
+.ruhua-root .bamboo.bl { left:-3vw; }
+.ruhua-root .bamboo.br { right:-4vw; transform: scaleX(-1); }
+.ruhua-root .bamboo .sway { transform-origin: 50% 100%; animation: rh-sway 9s ease-in-out infinite alternate; }
+.ruhua-root .bamboo.br .sway { animation-duration:11s; animation-delay:-4s; }
+@keyframes rh-sway { from { transform: rotate(-1.1deg); } to { transform: rotate(1.3deg); } }
+
+/* =================== HeroScene =================== */
+#hero-ru {
+  position:absolute; inset:0; display:flex; flex-direction:column;
+  align-items:center; justify-content:center; gap:3.4vh; z-index:30;
+}
+#hero-ru h1 {
+  font-size: clamp(76px, 16vw, 190px); font-weight: 900; line-height:1;
+  letter-spacing:.2em; text-indent:.2em; color:var(--ink);
+  animation: rh-inkIn 2.6s cubic-bezier(.2,.65,.25,1) .5s both;
+}
+#hero-ru .sub {
+  font-size: clamp(14px, 1.9vw, 19px); font-weight:300; color:var(--ink-soft);
+  letter-spacing:.85em; text-indent:.85em;
+  animation: rh-softIn 2s ease 2s both;
+}
+#hero-ru .cta {
+  margin-top:2.5vh; width:88px; height:88px; border-radius:50%;
+  border:1px solid rgba(38,45,51,.55); background:transparent; cursor:pointer;
+  font-family:var(--serif); font-size:16px; letter-spacing:.4em; text-indent:.4em;
+  color:var(--ink); display:flex; align-items:center; justify-content:center;
+  pointer-events:auto; position:relative;
+  transition: background .6s, color .6s, border-color .6s;
+  animation: rh-softIn 1.8s ease 3s both;
+}
+#hero-ru .cta::after {
+  content:''; position:absolute; inset:-9px; border-radius:50%;
+  border:1px solid rgba(38,45,51,.18); animation: rh-ripplering 3.5s ease-out infinite;
+}
+@keyframes rh-ripplering {
+  0% { transform:scale(.86); opacity:0; } 35% { opacity:1; }
+  100% { transform:scale(1.25); opacity:0; }
+}
+#hero-ru .cta:hover { background:var(--ink); color:var(--paper); border-color:var(--ink); }
+@keyframes rh-inkIn {
+  from { opacity:0; filter:blur(18px); letter-spacing:.55em; text-indent:.55em; }
+  to   { opacity:1; filter:blur(0);    letter-spacing:.2em;  text-indent:.2em; }
+}
+@keyframes rh-softIn { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:none; } }
+
+/* =================== MinimalChineseText（captions） =================== */
+.ruhua-root .caption { position:absolute; z-index:32; opacity:0; display:flex; flex-direction:row; }
+.ruhua-root .caption h2 {
+  writing-mode: vertical-rl; font-size: clamp(46px, 7.4vw, 76px);
+  font-weight:900; letter-spacing:.3em; color:var(--ink);
+}
+.ruhua-root .caption p {
+  writing-mode: vertical-rl; font-size: clamp(13px, 1.6vw, 16px); font-weight:300;
+  letter-spacing:.42em; color:var(--ink-soft); margin-right:22px; padding-top:8px;
+}
+.ruhua-root .caption.light h2 { color: var(--moonlit); }
+.ruhua-root .caption.light p  { color: rgba(236,229,210,.75); }
+#cap-wu    { right:14vw; top:18vh; }
+#cap-shan  { left:12vw;  top:14vh; }
+#cap-shui  { right:13vw; top:12vh; }
+#cap-qiao  { left:50%;   top:13vh; transform:translateX(-50%); }
+#cap-yue   { left:13vw;  top:16vh; }
+
+/* =================== SealStamp（final） =================== */
+#ending {
+  min-height:100vh; position:relative; display:flex; flex-direction:column;
+  align-items:center; justify-content:center; text-align:center; gap:4.5vh;
+  padding:14vh 24px 12vh;
+  background: linear-gradient(180deg, var(--night) 0%, #4d4f49 9%, #d8d2c0 22%, var(--paper) 38%, var(--paper-2) 100%);
+}
+#ending h2 {
+  font-size: clamp(40px, 6vw, 60px); font-weight:900; letter-spacing:.5em; text-indent:.5em;
+}
+#ending .line { font-size: clamp(15px, 1.9vw, 18px); font-weight:300; color:var(--ink-soft); letter-spacing:.5em; text-indent:.5em; }
+#seal-wrap { position:relative; width:150px; height:150px; margin-top:1vh; }
+#seal { position:absolute; inset:0; opacity:0; }
+#seal-halo {
+  position:absolute; inset:-12px; border-radius:18px; opacity:0;
+  background: radial-gradient(closest-side, rgba(166,58,44,.32), transparent 72%);
+}
+.stamped #seal { animation: rh-sealDrop 1.15s cubic-bezier(.3,.9,.3,1) .25s both; }
+.stamped #seal-halo { animation: rh-absorb 1.5s ease-out .78s both; }
+@keyframes rh-sealDrop {
+  0%   { opacity:0; transform: translateY(-9vh) scale(1.32) rotate(-4deg); filter:blur(3px); }
+  55%  { opacity:1; transform: translateY(0) scale(.94) rotate(.6deg); filter:blur(0); }
+  72%  { transform: scale(1.05) rotate(-.4deg); }
+  100% { opacity:1; transform: scale(1) rotate(0); }
+}
+@keyframes rh-absorb {
+  0% { opacity:0; transform:scale(.6); } 30% { opacity:.9; }
+  100% { opacity:0; transform:scale(1.7); }
+}
+#again {
+  margin-top:1vh; background:none; border:none; cursor:pointer;
+  font-family:var(--serif); font-size:16px; color:var(--ink); letter-spacing:.5em; text-indent:.5em;
+  padding:10px 6px 8px; border-bottom:1px solid rgba(38,45,51,.4);
+  transition: color .5s, border-color .5s;
+}
+#again:hover { color:var(--seal); border-color:var(--seal); }
+#ending .colophon { margin-top:5vh; font-size:11px; letter-spacing:.45em; color:var(--ink-soft); opacity:.7; }
+
+@media (max-width: 640px) {
+  #cap-wu { right:9vw; } #cap-shan { left:7vw; } #cap-shui { right:8vw; } #cap-yue { left:8vw; }
+  .ruhua-root .bamboo svg { height:38vh; }
+  #moon { right:10vw; }
+  #hero-ru .cta { width:78px; height:78px; }
+}
+
+/* =================== Reduced motion =================== */
+@media (prefers-reduced-motion: reduce) {
+  .ruhua-root .mist .puff, .ruhua-root .bird, .ruhua-root .bamboo .sway, #stars i, #hero-ru .cta::after { animation:none !important; }
+  #hero-ru h1, #hero-ru .sub, #hero-ru .cta { animation-duration:.01s !important; animation-delay:0s !important; }
+  .stamped #seal { animation:none; opacity:1; }
+  .stamped #seal-halo { animation:none; opacity:0; }
+}
