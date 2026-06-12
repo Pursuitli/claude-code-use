@@ -3,18 +3,22 @@
 import { useEffect } from 'react';
 import './chinese-painting.css';
 
-/* gpt-image-2 生成的水墨圖層（multiply 疊印，白紙自動消隱）。
-   圖片尚未生成或 404 時自動回退到內建 SVG。root=true 的那張載入成功後，
-   會隱藏純 SVG 的補間山層，避免畫風混雜。 */
+/* gpt-image-2 / 程序化生成的水墨圖層（multiply 疊印，白紙自動消隱）。
+   圖片 404 時回退到內建 SVG。root 標記的那張載入成功後，
+   會隱藏純 SVG 的補間山層，避免畫風混雜。
+   注意：不能用 loading="lazy"（隱藏圖不會被抓取），且 hydration 前
+   就載入完成的圖不觸發 onLoad，由 effect 裡的 img.complete 補處理。 */
+function markInkImg(img) {
+  const p = img.parentElement;
+  p.classList.add('has-img');
+  if (img.dataset.root) p.closest('.ruhua-root').classList.add('imgs-on');
+}
+
 function inkLayer(src, root = false) {
   return (
     <img
-      src={src} alt="" className="ink-img" loading="lazy"
-      onLoad={(e) => {
-        const p = e.currentTarget.parentElement;
-        p.classList.add('has-img');
-        if (root) p.closest('.ruhua-root').classList.add('imgs-on');
-      }}
+      src={src} alt="" className="ink-img" data-root={root ? '1' : undefined}
+      onLoad={(e) => markInkImg(e.currentTarget)}
       onError={(e) => e.currentTarget.remove()}
     />
   );
@@ -45,6 +49,13 @@ export default function ChinesePaintingPage() {
     const bridge = $('#bridge');
     const night  = $('#night'), moon = $('#moon'), stars = $('#stars');
     const bamboos = document.querySelectorAll('.ruhua-root .bamboo');
+
+    /* hydration 前就載入完成的水墨圖層不會觸發 onLoad，這裡補處理 */
+    document.querySelectorAll('.ruhua-root .ink-img').forEach((img) => {
+      if (!img.complete) return;
+      if (img.naturalWidth > 0) markInkImg(img);
+      else img.remove();
+    });
 
     /* 滾動劇本（p ∈ 0..1）
        0.00–.08 hero ｜ .06–.22 霧起 ｜ .22–.42 山現
