@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>入畫 — 山水隨行</title>
+<meta name="description" content="一卷會呼吸的山水。霧起、山現、水動、橋過、月升、印落。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600;900&display=swap" rel="stylesheet">
+<style>
+/* =====================================================
+   入畫 · 山水隨行
+   A living scroll: one sticky stage, scroll-driven scenes.
+   ===================================================== */
+:root {
+  --paper:   #f6f2e9;
+  --paper-2: #efe9db;
+  --ink:     #262d33;
+  --ink-soft:#5d6770;
+  --mist:    #e8e9e2;
+  --stone-1: #b3bfba;  /* 遠山 */
+  --stone-2: #95a8a2;
+  --stone-3: #6e8781;
+  --stone-4: #4b625d;
+  --stone-5: #2f3d3b;  /* 近山 */
+  --night:   #1b2430;
+  --moonlit: #ece5d2;
+  --seal:    #a63a2c;
+  --journey: 780vh;
+  --serif: 'Noto Serif TC', 'Songti TC', 'Songti SC', 'STSong', serif;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  font-family: var(--serif); background: var(--paper); color: var(--ink);
+  letter-spacing:.08em; overflow-x:hidden;
+}
+/* 紙的肌理（PaperGrain）：極淡，不髒 */
+body::after {
+  content:''; position:fixed; inset:0; z-index:60; pointer-events:none; opacity:.5;
+  background-image:
+    radial-gradient(rgba(38,45,51,.022) 1px, transparent 1px),
+    radial-gradient(rgba(38,45,51,.014) 1px, transparent 1px);
+  background-size:3px 3px, 8px 8px; background-position:0 0, 3px 4px;
+}
+::selection { background: var(--seal); color: var(--paper); }
+
+/* =================== LivingScrollPage =================== */
+#journey { height: var(--journey); position: relative; }
+#stage {
+  position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden;
+  background: linear-gradient(180deg, #f3efe4 0%, var(--paper) 45%, #ece7d8 100%);
+}
+.layer { position:absolute; inset:0; will-change: transform, opacity; pointer-events:none; }
+
+/* =================== MistLayer =================== */
+.mist { position:absolute; width:120vmax; height:60vmax; border-radius:50%; }
+.mist .puff {
+  position:absolute; inset:0; border-radius:inherit;
+  background: radial-gradient(closest-side, rgba(243,240,231,.95), rgba(243,240,231,.55) 55%, transparent 75%);
+  animation: breathe 14s ease-in-out infinite alternate;
+}
+.mist.l { left:-46vmax; top:18vh; }
+.mist.r { right:-46vmax; top:34vh; }
+.mist.r .puff { animation-delay:-7s; animation-duration:18s; }
+.mist.front { left:-10vmax; bottom:-34vmax; top:auto; width:140vmax; height:54vmax; opacity:.8; }
+.mist.front .puff { animation-duration:22s; animation-delay:-4s; }
+@keyframes breathe {
+  from { transform: scale(1) translateX(0);   opacity:.92; }
+  to   { transform: scale(1.07) translateX(2.5vmax); opacity:.78; }
+}
+
+/* =================== MountainLayer =================== */
+.mountain { position:absolute; left:-6vw; right:-6vw; bottom:0; opacity:0; }
+.mountain svg { display:block; width:100%; height:auto; }
+.mountain.m1 { filter: blur(2.5px); }
+.mountain.m2 { filter: blur(1.2px); }
+
+/* 飛鳥（tiny birds） */
+#birds { opacity:0; }
+.bird { position:absolute; animation: fly 30s linear infinite; }
+.bird svg { width:34px; opacity:.75; }
+.bird.b1 { top:24vh; animation-delay:0s; }
+.bird.b2 { top:29vh; animation-delay:-3.5s; }
+.bird.b2 svg { width:24px; }
+.bird.b3 { top:21vh; animation-delay:-7s; }
+.bird.b3 svg { width:18px; }
+@keyframes fly {
+  0%   { transform: translateX(-12vw) translateY(0); }
+  50%  { transform: translateX(50vw)  translateY(-3.4vh); }
+  100% { transform: translateX(115vw) translateY(-1.2vh); }
+}
+
+/* =================== RiverScene =================== */
+#water { position:absolute; left:0; right:0; bottom:0; height:46vh; opacity:0; }
+#water .surface {
+  position:absolute; inset:0;
+  background: linear-gradient(180deg, rgba(214,223,215,0) 0%, rgba(205,216,209,.85) 16%, #c2d1c8 50%, #b3c4bb 100%);
+}
+#water canvas { position:absolute; inset:0; width:100%; height:100%; }
+
+/* =================== BridgeScene =================== */
+#bridge { position:absolute; left:0; right:0; bottom:8vh; opacity:0; transform-origin: 50% 100%; }
+#bridge svg { display:block; width:min(78vw, 900px); margin:0 auto; }
+
+/* =================== MoonScene =================== */
+#night {
+  position:absolute; inset:0; opacity:0; mix-blend-mode:multiply;
+  background: linear-gradient(180deg, #2a3440 0%, #202b36 55%, var(--night) 100%);
+}
+#moon {
+  position:absolute; right:16vw; top:30vh; width:13vmin; height:13vmin; min-width:84px; min-height:84px;
+  border-radius:50%; opacity:0;
+  background: radial-gradient(circle at 40% 36%, #faf4e3, var(--moonlit) 62%, rgba(236,229,210,0) 74%);
+  box-shadow: 0 0 70px 26px rgba(238,229,202,.28), 0 0 160px 70px rgba(238,229,202,.12);
+}
+#stars { opacity:0; }
+#stars i {
+  position:absolute; width:2px; height:2px; border-radius:50%; background:#efe9d8;
+  animation: twinkle 4.5s ease-in-out infinite alternate;
+}
+@keyframes twinkle { from { opacity:.15; } to { opacity:.85; } }
+.bamboo { position:absolute; bottom:-2vh; opacity:0; transform-origin: 50% 100%; }
+.bamboo svg { display:block; height:52vh; width:auto; }
+.bamboo.bl { left:-3vw; }
+.bamboo.br { right:-4vw; transform: scaleX(-1); }
+.bamboo .sway { transform-origin: 50% 100%; animation: sway 9s ease-in-out infinite alternate; }
+.bamboo.br .sway { animation-duration:11s; animation-delay:-4s; }
+@keyframes sway { from { transform: rotate(-1.1deg); } to { transform: rotate(1.3deg); } }
+
+/* =================== HeroScene =================== */
+#hero {
+  position:absolute; inset:0; display:flex; flex-direction:column;
+  align-items:center; justify-content:center; gap:3.4vh; z-index:30;
+}
+#hero h1 {
+  font-size: clamp(76px, 16vw, 190px); font-weight: 900; line-height:1;
+  letter-spacing:.2em; text-indent:.2em; color:var(--ink);
+  animation: inkIn 2.6s cubic-bezier(.2,.65,.25,1) .5s both;
+}
+#hero .sub {
+  font-size: clamp(14px, 1.9vw, 19px); font-weight:300; color:var(--ink-soft);
+  letter-spacing:.85em; text-indent:.85em;
+  animation: softIn 2s ease 2s both;
+}
+#hero .cta {
+  margin-top:2.5vh; width:88px; height:88px; border-radius:50%;
+  border:1px solid rgba(38,45,51,.55); background:transparent; cursor:pointer;
+  font-family:var(--serif); font-size:16px; letter-spacing:.4em; text-indent:.4em;
+  color:var(--ink); display:flex; align-items:center; justify-content:center;
+  pointer-events:auto; position:relative;
+  transition: background .6s, color .6s, border-color .6s;
+  animation: softIn 1.8s ease 3s both;
+}
+#hero .cta::after {
+  content:''; position:absolute; inset:-9px; border-radius:50%;
+  border:1px solid rgba(38,45,51,.18); animation: ripplering 3.5s ease-out infinite;
+}
+@keyframes ripplering {
+  0% { transform:scale(.86); opacity:0; } 35% { opacity:1; }
+  100% { transform:scale(1.25); opacity:0; }
+}
+#hero .cta:hover { background:var(--ink); color:var(--paper); border-color:var(--ink); }
+@keyframes inkIn {
+  from { opacity:0; filter:blur(18px); letter-spacing:.55em; text-indent:.55em; }
+  to   { opacity:1; filter:blur(0);    letter-spacing:.2em;  text-indent:.2em; }
+}
+@keyframes softIn { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:none; } }
+
+/* =================== MinimalChineseText（captions） =================== */
+.caption { position:absolute; z-index:32; opacity:0; }
+.caption h2 {
+  writing-mode: vertical-rl; font-size: clamp(46px, 7.4vw, 76px);
+  font-weight:900; letter-spacing:.3em; color:var(--ink);
+}
+.caption p {
+  writing-mode: vertical-rl; font-size: clamp(13px, 1.6vw, 16px); font-weight:300;
+  letter-spacing:.42em; color:var(--ink-soft); margin-right:22px; padding-top:8px;
+}
+.caption { display:flex; flex-direction:row; }
+.caption.light h2 { color: var(--moonlit); }
+.caption.light p  { color: rgba(236,229,210,.75); }
+#cap-wu    { right:14vw; top:18vh; }
+#cap-shan  { left:12vw;  top:14vh; }
+#cap-shui  { right:13vw; top:12vh; }
+#cap-qiao  { left:50%;   top:13vh; transform:translateX(-50%); }
+#cap-yue   { left:13vw;  top:16vh; }
+
+/* =================== SealStamp（final） =================== */
+#ending {
+  min-height:100vh; position:relative; display:flex; flex-direction:column;
+  align-items:center; justify-content:center; text-align:center; gap:4.5vh;
+  padding:14vh 24px 12vh;
+  background: linear-gradient(180deg, var(--night) 0%, #4d4f49 9%, #d8d2c0 22%, var(--paper) 38%, var(--paper-2) 100%);
+}
+#ending h2 {
+  font-size: clamp(40px, 6vw, 60px); font-weight:900; letter-spacing:.5em; text-indent:.5em;
+}
+#ending .line { font-size: clamp(15px, 1.9vw, 18px); font-weight:300; color:var(--ink-soft); letter-spacing:.5em; text-indent:.5em; }
+#seal-wrap { position:relative; width:150px; height:150px; margin-top:1vh; }
+#seal { position:absolute; inset:0; opacity:0; }
+#seal-halo {
+  position:absolute; inset:-12px; border-radius:18px; opacity:0;
+  background: radial-gradient(closest-side, rgba(166,58,44,.32), transparent 72%);
+}
+.stamped #seal { animation: sealDrop 1.15s cubic-bezier(.3,.9,.3,1) .25s both; }
+.stamped #seal-halo { animation: absorb 1.5s ease-out .78s both; }
+@keyframes sealDrop {
+  0%   { opacity:0; transform: translateY(-9vh) scale(1.32) rotate(-4deg); filter:blur(3px); }
+  55%  { opacity:1; transform: translateY(0) scale(.94) rotate(.6deg); filter:blur(0); }
+  72%  { transform: scale(1.05) rotate(-.4deg); }
+  100% { opacity:1; transform: scale(1) rotate(0); }
+}
+@keyframes absorb {
+  0% { opacity:0; transform:scale(.6); } 30% { opacity:.9; }
+  100% { opacity:0; transform:scale(1.7); }
+}
+#again {
+  margin-top:1vh; background:none; border:none; cursor:pointer;
+  font-family:var(--serif); font-size:16px; color:var(--ink); letter-spacing:.5em; text-indent:.5em;
+  padding:10px 6px 8px; border-bottom:1px solid rgba(38,45,51,.4);
+  transition: color .5s, border-color .5s;
+}
+#again:hover { color:var(--seal); border-color:var(--seal); }
+#ending .colophon { margin-top:5vh; font-size:11px; letter-spacing:.45em; color:var(--ink-soft); opacity:.7; }
+
+@media (max-width: 640px) {
+  #cap-wu { right:9vw; } #cap-shan { left:7vw; } #cap-shui { right:8vw; } #cap-yue { left:8vw; }
+  .bamboo svg { height:38vh; }
+  #moon { right:10vw; }
+  #hero .cta { width:78px; height:78px; }
+}
+
+/* =================== Reduced motion =================== */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior:auto; }
+  .mist .puff, .bird, .bamboo .sway, #stars i, #hero .cta::after { animation:none !important; }
+  #hero h1, #hero .sub, #hero .cta { animation-duration:.01s !important; animation-delay:0s !important; }
+  .stamped #seal { animation:none; opacity:1; }
+  .stamped #seal-halo { animation:none; opacity:0; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============ LivingScrollPage：一卷長畫 ============ -->
+<div id="journey">
+  <div id="stage">
+
+    <!-- 月夜（MoonScene 底層星空，僅夜段可見） -->
+    <div class="layer" id="stars" style="z-index:15">
+      <i style="left:12%;top:14%"></i><i style="left:26%;top:9%;animation-delay:-2s"></i>
+      <i style="left:44%;top:18%;animation-delay:-1s"></i><i style="left:58%;top:7%;animation-delay:-3s"></i>
+      <i style="left:71%;top:22%;animation-delay:-1.6s"></i><i style="left:84%;top:12%;animation-delay:-2.7s"></i>
+      <i style="left:35%;top:26%;animation-delay:-.8s"></i><i style="left:92%;top:30%;animation-delay:-2.2s"></i>
+    </div>
+
+    <!-- 遠山 → 近山（MountainLayer ×5，data-depth 控制視差） -->
+    <div class="mountain m1 layer" data-depth=".16" style="z-index:2">
+      <svg viewBox="0 0 1440 460" preserveAspectRatio="xMidYMax meet">
+        <defs><linearGradient id="g1" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="var(--stone-1)"/><stop offset=".75" stop-color="var(--stone-1)" stop-opacity=".5"/><stop offset="1" stop-color="var(--stone-1)" stop-opacity="0"/>
+        </linearGradient></defs>
+        <path fill="url(#g1)" d="M0 460 L0 300 Q90 210 170 268 Q250 140 350 232 Q430 170 510 240 Q620 110 740 226 Q830 160 920 234 Q1030 120 1150 230 Q1250 180 1340 244 L1440 210 L1440 460 Z"/>
+      </svg>
+    </div>
+    <div class="mountain m2 layer" data-depth=".32" style="z-index:3">
+      <svg viewBox="0 0 1440 420" preserveAspectRatio="xMidYMax meet">
+        <defs><linearGradient id="g2" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="var(--stone-2)"/><stop offset=".8" stop-color="var(--stone-2)" stop-opacity=".4"/><stop offset="1" stop-color="var(--stone-2)" stop-opacity="0"/>
+        </linearGradient></defs>
+        <path fill="url(#g2)" d="M0 420 L0 290 Q110 170 210 250 Q290 120 400 224 Q500 160 590 232 Q700 90 830 220 Q930 150 1030 226 Q1140 120 1260 224 L1360 190 L1440 240 L1440 420 Z"/>
+      </svg>
+    </div>
+    <div class="mountain layer" data-depth=".52" style="z-index:4">
+      <svg viewBox="0 0 1440 400" preserveAspectRatio="xMidYMax meet">
+        <defs><linearGradient id="g3" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="var(--stone-3)"/><stop offset=".82" stop-color="var(--stone-3)" stop-opacity=".35"/><stop offset="1" stop-color="var(--stone-3)" stop-opacity="0"/>
+        </linearGradient></defs>
+        <path fill="url(#g3)" d="M0 400 L0 280 Q130 140 250 240 Q340 100 460 216 Q560 150 660 224 Q780 70 910 212 Q1010 140 1120 220 Q1230 130 1330 224 L1440 200 L1440 400 Z"/>
+        <path d="M250 240 Q280 300 340 330 M910 212 Q940 280 1000 312" stroke="var(--stone-4)" stroke-width="3" fill="none" opacity=".4"/>
+      </svg>
+    </div>
+    <div class="mountain layer" data-depth=".74" style="z-index:6">
+      <svg viewBox="0 0 1440 360" preserveAspectRatio="xMidYMax meet">
+        <defs><linearGradient id="g4" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="var(--stone-4)"/><stop offset=".85" stop-color="var(--stone-4)" stop-opacity=".3"/><stop offset="1" stop-color="var(--stone-4)" stop-opacity="0"/>
+        </linearGradient></defs>
+        <path fill="url(#g4)" d="M0 360 L0 250 Q150 110 290 220 Q390 80 520 200 Q640 130 750 206 Q880 50 1020 196 Q1130 130 1250 206 L1360 170 L1440 220 L1440 360 Z"/>
+        <path d="M520 200 Q495 260 440 292 M1020 196 Q1050 256 1110 286" stroke="var(--stone-5)" stroke-width="3.5" fill="none" opacity=".45"/>
+      </svg>
+    </div>
+    <div class="mountain layer" data-depth="1" style="z-index:12">
+      <svg viewBox="0 0 1440 240" preserveAspectRatio="xMidYMax meet">
+        <defs><linearGradient id="g5" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="var(--stone-5)"/><stop offset=".9" stop-color="var(--stone-5)" stop-opacity=".4"/><stop offset="1" stop-color="var(--stone-5)" stop-opacity="0"/>
+        </linearGradient></defs>
+        <path fill="url(#g5)" d="M0 240 L0 170 Q120 60 250 150 Q330 100 420 152 L520 120 Q640 70 760 142 Q880 100 990 148 Q1110 60 1240 144 L1440 110 L1440 240 Z"/>
+        <!-- 山腰小亭 -->
+        <g fill="var(--stone-5)" opacity=".9">
+          <path d="M1216 96 l22 -14 l22 14 l-6 0 l0 18 l-32 0 l0 -18 Z"/>
+          <rect x="1224" y="114" width="4" height="10"/><rect x="1250" y="114" width="4" height="10"/>
+        </g>
+      </svg>
+    </div>
+
+    <!-- 飛鳥 -->
+    <div class="layer" id="birds" style="z-index:7">
+      <div class="bird b1"><svg viewBox="0 0 40 14" fill="none"><path d="M2 10 Q11 1 20 9 Q29 1 38 10" stroke="var(--ink)" stroke-width="2" stroke-linecap="round"/></svg></div>
+      <div class="bird b2"><svg viewBox="0 0 40 14" fill="none"><path d="M2 10 Q11 2 20 9 Q29 2 38 10" stroke="var(--ink)" stroke-width="2.4" stroke-linecap="round"/></svg></div>
+      <div class="bird b3"><svg viewBox="0 0 40 14" fill="none"><path d="M2 10 Q11 2 20 9 Q29 2 38 10" stroke="var(--ink)" stroke-width="2.8" stroke-linecap="round"/></svg></div>
+    </div>
+
+    <!-- 水（RiverScene：CSS 水面 + canvas 漣漪） -->
+    <div id="water" style="z-index:8">
+      <div class="surface"></div>
+      <canvas id="ripples"></canvas>
+    </div>
+
+    <!-- 橋（BridgeScene） -->
+    <div id="bridge" class="layer" style="z-index:10">
+      <svg viewBox="0 0 900 260" fill="none">
+        <!-- 橋身 -->
+        <path d="M30 200 Q450 30 870 200 L870 216 Q450 56 30 216 Z" fill="var(--stone-5)"/>
+        <path d="M120 188 Q450 64 780 188 Q450 88 120 188 Z" fill="var(--paper)" opacity=".14"/>
+        <!-- 欄杆 -->
+        <g stroke="var(--stone-5)" stroke-width="7" stroke-linecap="round">
+          <path d="M90 196 L90 156"/><path d="M230 154 L230 116"/><path d="M380 124 L380 88"/>
+          <path d="M520 122 L520 86"/><path d="M668 150 L668 112"/><path d="M810 194 L810 154"/>
+        </g>
+        <path d="M84 152 Q450 -8 816 150" stroke="var(--stone-5)" stroke-width="9" fill="none" stroke-linecap="round"/>
+        <!-- 行人 -->
+        <g fill="var(--stone-5)">
+          <ellipse cx="430" cy="78" rx="7.5" ry="11"/>
+          <circle cx="430" cy="62" r="5"/>
+          <path d="M421 60 Q430 52 440 60 L430 65 Z"/>
+          <path d="M436 70 L452 52" stroke="var(--stone-5)" stroke-width="2.4" stroke-linecap="round" fill="none"/>
+        </g>
+        <!-- 倒影 -->
+        <path d="M30 226 Q450 110 870 226" stroke="var(--stone-4)" stroke-width="5" opacity=".22" fill="none"/>
+      </svg>
+    </div>
+
+    <!-- 月與夜（MoonScene） -->
+    <div id="night" class="layer" style="z-index:14"></div>
+    <div id="moon" style="z-index:15"></div>
+    <div class="bamboo bl" style="z-index:16">
+      <svg viewBox="0 0 220 560" fill="none"><g class="sway">
+        <path d="M60 560 C58 420 64 260 84 90" stroke="#141b18" stroke-width="10" stroke-linecap="round"/>
+        <path d="M118 560 C120 430 112 300 96 150" stroke="#141b18" stroke-width="7" stroke-linecap="round"/>
+        <g fill="#141b18">
+          <path d="M84 96 q-44 -10 -70 16 q40 6 70 -16 Z"/><path d="M86 92 q10 -44 52 -56 q-8 42 -52 56 Z"/>
+          <path d="M80 170 q-40 -4 -62 22 q38 4 62 -22 Z"/><path d="M98 152 q40 -10 62 12 q-36 10 -62 -12 Z"/>
+          <path d="M70 280 q-36 -2 -54 22 q34 2 54 -22 Z"/><path d="M104 250 q34 -14 58 4 q-30 14 -58 -4 Z"/>
+        </g>
+        <g stroke="#141b18" stroke-width="3" opacity=".7"><path d="M56 470 l10 -2 M62 330 l12 -2 M74 200 l12 -3 M114 460 l-12 -2 M108 320 l-12 -3"/></g>
+      </g></svg>
+    </div>
+    <div class="bamboo br" style="z-index:16">
+      <svg viewBox="0 0 220 560" fill="none"><g class="sway">
+        <path d="M70 560 C66 410 76 250 96 110" stroke="#141b18" stroke-width="9" stroke-linecap="round"/>
+        <g fill="#141b18">
+          <path d="M96 116 q-42 -12 -68 12 q38 8 68 -12 Z"/><path d="M98 110 q14 -40 54 -48 q-10 40 -54 48 Z"/>
+          <path d="M88 210 q-38 -6 -58 18 q34 6 58 -18 Z"/><path d="M104 190 q38 -12 60 8 q-34 12 -60 -8 Z"/>
+        </g>
+        <g stroke="#141b18" stroke-width="3" opacity=".7"><path d="M66 450 l11 -2 M74 300 l12 -3"/></g>
+      </g></svg>
+    </div>
+
+    <!-- 霧（MistLayer ×3：左右兩岸 + 前景） -->
+    <div class="layer" id="mist-l" style="z-index:5"><div class="mist l"><div class="puff"></div></div></div>
+    <div class="layer" id="mist-r" style="z-index:9"><div class="mist r"><div class="puff"></div></div></div>
+    <div class="layer" id="mist-f" style="z-index:13"><div class="mist front"><div class="puff"></div></div></div>
+
+    <!-- 文案（MinimalChineseText） -->
+    <div class="caption" id="cap-wu"><h2>霧起</h2><p>遠山浮現。</p></div>
+    <div class="caption" id="cap-shan"><h2>山現</h2><p>層巒隨你後退。</p></div>
+    <div class="caption" id="cap-shui"><h2>水動</h2><p>指尖掠過，漣漪自生。</p></div>
+    <div class="caption" id="cap-qiao"><h2>橋過</h2><p>一步入深處。</p></div>
+    <div class="caption light" id="cap-yue"><h2>月升</h2><p>世界安靜下來。</p></div>
+
+    <!-- HeroScene -->
+    <div id="hero">
+      <h1>入畫</h1>
+      <p class="sub">山水隨行</p>
+      <button class="cta" id="begin" aria-label="開始入畫">開始</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- ============ 印落（SealStamp） ============ -->
+<section id="ending">
+  <h2>印落</h2>
+  <p class="line">你來過，畫記得。</p>
+  <div id="seal-wrap" aria-label="印：入畫">
+    <div id="seal-halo"></div>
+    <svg id="seal" viewBox="0 0 150 150">
+      <defs>
+        <filter id="rough" x="-8%" y="-8%" width="116%" height="116%">
+          <feTurbulence type="fractalNoise" baseFrequency=".08" numOctaves="3" seed="7" result="n"/>
+          <feDisplacementMap in="SourceGraphic" in2="n" scale="5.5"/>
+        </filter>
+      </defs>
+      <g filter="url(#rough)">
+        <rect x="10" y="10" width="130" height="130" rx="14" fill="var(--seal)"/>
+        <text x="75" y="64" text-anchor="middle" font-size="52" font-weight="900" font-family="'Noto Serif TC',serif" fill="var(--paper)">入</text>
+        <text x="75" y="122" text-anchor="middle" font-size="52" font-weight="900" font-family="'Noto Serif TC',serif" fill="var(--paper)">畫</text>
+      </g>
+    </svg>
+  </div>
+  <button id="again">再入畫</button>
+  <p class="colophon">入畫 · 山水隨行</p>
+</section>
+
+<script>
+/* =================== ScrollProgressController =================== */
+(() => {
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const M = reduced ? 0 : 1;                    // 動作幅度（reduced 時僅保留透明度變化）
+  const $ = s => document.querySelector(s);
+  const journey = $('#journey'), stage = $('#stage');
+  let vh = innerHeight, vw = innerWidth;
+
+  const clamp01 = x => x < 0 ? 0 : x > 1 ? 1 : x;
+  const seg  = (a, b) => p => clamp01((p - a) / (b - a));
+  const ease = t => t < .5 ? 2*t*t : 1 - Math.pow(-2*t + 2, 2) / 2;
+  const lerp = (a, b, t) => a + (b - a) * t;
+
+  const hero   = $('#hero');
+  const mistL  = $('#mist-l'), mistR = $('#mist-r'), mistF = $('#mist-f');
+  const mounts = [...document.querySelectorAll('.mountain')].map(el => ({ el, d: +el.dataset.depth, i: 0 }));
+  mounts.forEach((m, i) => m.i = i);
+  const birds  = $('#birds');
+  const water  = $('#water'), canvas = $('#ripples');
+  const bridge = $('#bridge');
+  const night  = $('#night'), moon = $('#moon'), stars = $('#stars');
+  const bamboos = document.querySelectorAll('.bamboo');
+
+  /* 滾動劇本（p ∈ 0..1）
+     0.00–.08 hero ｜ .06–.22 霧起 ｜ .22–.42 山現
+     .42–.60 水動 ｜ .56–.76 橋過 ｜ .72–.92 月升 */
+  const captions = [
+    { el: $('#cap-wu'),   a:.10, b:.15, c:.19, d:.23 },
+    { el: $('#cap-shan'), a:.26, b:.31, c:.38, d:.42 },
+    { el: $('#cap-shui'), a:.46, b:.51, c:.56, d:.60 },
+    { el: $('#cap-qiao'), a:.60, b:.65, c:.71, d:.75 },
+    { el: $('#cap-yue'),  a:.79, b:.84, c:.90, d:.94 },
+  ];
+
+  let waterOn = false;
+  const boot = performance.now();
+
+  function update() {
+    const r = journey.getBoundingClientRect();
+    const p = clamp01(-r.top / (r.height - vh));
+
+    /* 開卷：遠山自空白宣紙中緩緩滲出（時間驅動，與滾動無關） */
+    const faint = clamp01((performance.now() - boot - 1400) / 3800) * .38;
+
+    /* Hero 退場 */
+    const hOut = seg(.015, .07)(p);
+    hero.style.opacity = 1 - hOut;
+    hero.style.transform = `translateY(${-hOut * 8 * M}vh)`;
+    hero.style.pointerEvents = hOut > .5 ? 'none' : 'auto';
+
+    /* 霧散：兩岸霧向外讓開 */
+    const part = ease(seg(.05, .22)(p));
+    mistL.style.transform = `translateX(${-part * 34 * M}vw)`;
+    mistR.style.transform = `translateX(${ part * 34 * M}vw)`;
+    mistL.style.opacity = mistR.style.opacity = .96 - part * .55;
+    const fmist = ease(seg(.30, .48)(p));                 // 前景霧在水段前退去
+    mistF.style.transform = `translateY(${fmist * 30 * M}vh)`;
+    mistF.style.opacity = .85 - fmist * .55;
+
+    /* 山：浮現 → 層巒散開 → 鏡頭下沉看水 */
+    const spread = ease(seg(.22, .42)(p));
+    const sink   = ease(seg(.42, .60)(p));
+    for (const m of mounts) {
+      const show = ease(seg(.06 + m.d * .07, .17 + m.d * .07)(p));
+      const ty = (1 - show) * m.d * 16            // 自霧中升起
+               - spread * m.d * 9                  // 層巒後退散開
+               - sink   * m.d * 24                 // 下沉至水畔
+               - p * m.d * 4;                      // 全程基礎視差
+      const tx = spread * (m.i % 2 ? 1 : -1) * m.d * 3.5;
+      const sc = 1 + (spread * .10 + sink * .06) * m.d;
+      m.el.style.opacity = m.d <= .35 ? Math.max(show, faint) : show;
+      m.el.style.transform = `translate(${tx * M}vw, ${ty * M}vh) scale(${1 + (sc - 1) * M})`;
+    }
+
+    /* 飛鳥 */
+    birds.style.opacity = seg(.24, .29)(p) * (1 - seg(.40, .45)(p));
+
+    /* 水 */
+    const wIn = ease(seg(.42, .52)(p));
+    water.style.opacity = wIn * (1 - seg(.93, .98)(p) * .4);
+    water.style.transform = `translateY(${(1 - wIn) * 14 * M}vh)`;
+    waterOn = wIn > .08 && p < .95;
+
+    /* 橋：自遠處迎來，再被走過 */
+    const bT = ease(seg(.56, .76)(p));
+    bridge.style.opacity = seg(.56, .61)(p) * (1 - seg(.73, .77)(p));
+    bridge.style.transform =
+      `translate(${lerp(38, -58, bT) * M}vw, ${lerp(4, 16, bT) * M}vh) scale(${lerp(.55, 1.85, reduced ? .35 : bT)})`;
+
+    /* 夜與月 */
+    night.style.opacity = ease(seg(.72, .86)(p)) * .94;
+    moon.style.opacity  = seg(.75, .81)(p);
+    moon.style.transform = `translateY(${lerp(26, -4, ease(seg(.73, .88)(p))) * M}vh)`;
+    stars.style.opacity = seg(.79, .89)(p) * .9;
+    bamboos.forEach(b => b.style.opacity = seg(.77, .85)(p));
+
+    /* 文案 */
+    for (const c of captions) {
+      const o = seg(c.a, c.b)(p) * (1 - seg(c.c, c.d)(p));
+      c.el.style.opacity = o;
+      const base = c.el.id === 'cap-qiao' ? 'translateX(-50%) ' : '';
+      c.el.style.transform = base + `translateY(${(1 - seg(c.a, c.b)(p)) * 3 * M}vh)`;
+    }
+  }
+
+  let ticking = false;
+  addEventListener('scroll', () => {
+    if (!ticking) { ticking = true; requestAnimationFrame(() => { ticking = false; update(); }); }
+  }, { passive: true });
+  addEventListener('resize', () => { vh = innerHeight; vw = innerWidth; sizeCanvas(); update(); });
+  update();
+  /* 開卷的前幾秒持續重繪，讓遠山不靠滾動也能浮現 */
+  (function bootLoop() {
+    if (performance.now() - boot < 7000) { update(); requestAnimationFrame(bootLoop); }
+  })();
+
+  /* CTA：開始 → 滑入霧起 */
+  $('#begin').addEventListener('click', () => {
+    const target = (journey.scrollHeight - vh) * .14;
+    scrollTo({ top: target, behavior: reduced ? 'auto' : 'smooth' });
+  });
+
+  /* =================== RiverScene · canvas 漣漪 =================== */
+  const ctx = canvas.getContext('2d');
+  let dpr = 1, ripples = [], tick = 0;
+  function sizeCanvas() {
+    dpr = Math.min(devicePixelRatio || 1, 2);
+    canvas.width  = canvas.clientWidth * dpr;
+    canvas.height = canvas.clientHeight * dpr;
+  }
+  sizeCanvas();
+
+  function spawn(x, y, big) {
+    if (ripples.length > 28) ripples.shift();
+    ripples.push({ x, y, r: big ? 8 : 3, v: big ? 1.7 : 1.15, a: big ? .42 : .3 });
+  }
+
+  let lastSpawn = 0;
+  function pointerRipple(e) {
+    if (!waterOn || reduced) return;
+    const now = performance.now();
+    if (now - lastSpawn < 70) return;
+    const rect = canvas.getBoundingClientRect();
+    const pt = e.touches ? e.touches[0] : e;
+    const x = (pt.clientX - rect.left) * dpr, y = (pt.clientY - rect.top) * dpr;
+    if (y < 0 || y > canvas.height) return;
+    lastSpawn = now;
+    spawn(x, y, false);
+  }
+  addEventListener('pointermove', pointerRipple, { passive: true });
+  addEventListener('touchmove', pointerRipple, { passive: true });
+
+  function drawWater() {
+    requestAnimationFrame(drawWater);
+    if (!waterOn || reduced) { if (ripples.length) { ripples = []; ctx.clearRect(0,0,canvas.width,canvas.height); } return; }
+    tick++;
+    const w = canvas.width, h = canvas.height;
+    ctx.clearRect(0, 0, w, h);
+
+    /* 水光：緩慢漂移的微波線 */
+    ctx.strokeStyle = 'rgba(38,45,51,.06)';
+    ctx.lineWidth = dpr;
+    for (let i = 0; i < 5; i++) {
+      const y0 = h * (.2 + i * .17);
+      ctx.beginPath();
+      for (let x = 0; x <= w; x += 14 * dpr) {
+        const y = y0 + Math.sin(x / (90 * dpr) + tick / 90 + i * 1.7) * 3.2 * dpr;
+        x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+      }
+      ctx.stroke();
+    }
+
+    /* 漣漪：扁橢圓雙環 */
+    for (const rp of ripples) {
+      for (const k of [1, .58]) {
+        ctx.beginPath();
+        ctx.ellipse(rp.x, rp.y, rp.r * k * dpr, rp.r * k * .3 * dpr, 0, 0, Math.PI * 2);
+        ctx.strokeStyle = `rgba(38,45,51,${rp.a * k})`;
+        ctx.lineWidth = 1.2 * dpr;
+        ctx.stroke();
+      }
+      rp.r += rp.v; rp.a *= .965;
+    }
+    ripples = ripples.filter(rp => rp.a > .015);
+
+    /* 無人撫水時，偶有雨點自生 */
+    if (tick % 170 === 0) spawn(Math.random() * w, h * (.25 + Math.random() * .6), true);
+  }
+  drawWater();
+
+  /* =================== SealStamp =================== */
+  const ending = $('#ending');
+  const sealIO = new IntersectionObserver(es => {
+    for (const e of es) if (e.isIntersecting) { ending.classList.add('stamped'); }
+  }, { threshold: .45 });
+  sealIO.observe($('#seal-wrap'));
+
+  $('#again').addEventListener('click', () => {
+    scrollTo({ top: 0, behavior: reduced ? 'auto' : 'smooth' });
+    setTimeout(() => ending.classList.remove('stamped'), 1200);   // 下次抵達可重新落印
+  });
+})();
+</script>
+</body>
+</html>
