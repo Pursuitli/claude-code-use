@@ -83,10 +83,14 @@
     box-shadow:0 4px 12px rgba(40,80,120,.25); }
   #resGrid .gi span { font-size:13px; font-weight:600; color:#546e7a; display:block; }
   #joy { position:fixed; bottom:30px; left:30px; width:130px; height:130px; border-radius:50%;
-    background:rgba(255,255,255,.3); border:2px solid rgba(255,255,255,.6); display:none; z-index:6; touch-action:none; }
+    background:rgba(255,255,255,.3); border:2px solid rgba(255,255,255,.6); display:block; z-index:6; touch-action:none; }
   #joyKnob { position:absolute; left:40px; top:40px; width:50px; height:50px; border-radius:50%;
     background:rgba(255,255,255,.8); box-shadow:0 4px 12px rgba(40,80,120,.3); }
-  @media (pointer:coarse) { #joy{display:block;} #hint{display:none;} }
+  #tiltBtn { position:fixed; bottom:30px; right:30px; z-index:6; display:none;
+    pointer-events:auto; cursor:pointer; font-size:15px; font-family:'Fredoka'; }
+  #tiltBtn.on { background:rgba(81,207,102,.65); }
+  #tiltBtn .msr { color:#37474f; }
+  @media (pointer:coarse) { #hint{display:none;} #tiltBtn{display:flex;} }
 </style>
 <script type="importmap">
 { "imports": { "three": "./vendor/three.module.js" } }
@@ -106,6 +110,7 @@
   <div id="card"><img id="cardImg" alt=""><div id="cardName"></div><div id="cardPts"></div></div>
 </div>
 <div id="joy"><div id="joyKnob"></div></div>
+<button id="tiltBtn" class="pill"><span class="msr">screen_rotation</span><span id="tiltState">Tilt: OFF</span></button>
 
 <div class="overlay" id="title">
   <div class="panel">
@@ -479,31 +484,97 @@ function boat(x,z,c){
 }
 boat(PIER.x-PIER.len-4, PIER.z+4, 0xff8787); boat(PIER.x-PIER.len-7, PIER.z-3, 0x74c0fc); boat(70,55,0xffd43b);
 
-/* ============ scooter boy ============ */
+/* ============ motorbike rider ============ */
 const player = new THREE.Group();
 {
-  const body = new THREE.Group();
-  // scooter
-  body.add(mesh(new THREE.BoxGeometry(.5,.18,1.7), mat(0xe03131), 0,.45,0));           // deck
-  body.add(mesh(new THREE.CylinderGeometry(.09,.09,.9,8), mat(0xe03131), 0,.95,.75));   // steering col
-  body.children[1].rotation.x = -.35;
-  body.add(mesh(new THREE.BoxGeometry(.8,.09,.09), mat(0x37474f), 0,1.4,.9));           // handlebar
-  const wG = new THREE.CylinderGeometry(.28,.28,.18,12); wG.rotateZ(Math.PI/2);
-  body.add(mesh(wG, mat(0x37474f), 0,.28,.8)); body.add(mesh(wG, mat(0x37474f), 0,.28,-.7));
-  body.add(mesh(new THREE.BoxGeometry(.46,.4,.6), mat(0xffffff), 0,.62,-.55));          // rear fender/seatbox
-  // boy
-  const boy = new THREE.Group();
-  boy.add(mesh(new THREE.BoxGeometry(.42,.55,.3), mat(0x4dabf7), 0,1.05,0));            // torso
-  boy.add(mesh(new THREE.SphereGeometry(.27,10,9), mat(0xffd5b3), 0,1.55,0));           // head
-  boy.add(mesh(new THREE.SphereGeometry(.285,10,6,0,Math.PI*2,0,1.2), mat(0x6d4c2f), 0,1.6,0)); // hair
-  const legG = new THREE.BoxGeometry(.14,.5,.14);
-  boy.add(mesh(legG, mat(0x37474f), .12,.6,.05)); boy.add(mesh(legG, mat(0x37474f), -.12,.6,.05));
-  const armG = new THREE.BoxGeometry(.11,.45,.11);
-  const aL = mesh(armG, mat(0x4dabf7), .26,1.15,.25); aL.rotation.x=-1.1; boy.add(aL);
-  const aR = mesh(armG, mat(0x4dabf7), -.26,1.15,.25); aR.rotation.x=-1.1; boy.add(aR);
-  boy.position.z = -.15;
-  body.add(boy);
-  body.rotation.y = Math.PI; // face -z? we drive along +forward computed below
+  const body = new THREE.Group();          // bike local: front = +z
+  const red=mat(0xe03131), dark=mat(0x263238), chrome=mat(0xcfd8dc), steel=mat(0x90a4ae);
+
+  /* wheels: fat tire + silver hub */
+  function wheel(z,r){
+    const tG=new THREE.CylinderGeometry(r,r,.22,16); tG.rotateZ(Math.PI/2);
+    body.add(mesh(tG, dark, 0,r,z));
+    const hG=new THREE.CylinderGeometry(r*.45,r*.45,.24,10); hG.rotateZ(Math.PI/2);
+    body.add(mesh(hG, chrome, 0,r,z));
+  }
+  wheel(1.05,.34); wheel(-.85,.36);
+
+  /* raked front fork + steering stem */
+  for(const sx of [-1,1]){
+    const f=mesh(new THREE.CylinderGeometry(.045,.045,1.0,8), chrome, sx*.13,.75,.89);
+    f.rotation.x=-.4; body.add(f);
+  }
+  const stem=mesh(new THREE.CylinderGeometry(.065,.065,.45,8), red, 0,1.13,.74);
+  stem.rotation.x=-.4; body.add(stem);
+
+  /* handlebar, grips, mirrors */
+  body.add(mesh(new THREE.BoxGeometry(.85,.075,.075), dark, 0,1.33,.66));
+  const gripG=new THREE.CylinderGeometry(.05,.05,.16,8); gripG.rotateZ(Math.PI/2);
+  body.add(mesh(gripG, mat(0xff8787), .45,1.33,.66)); body.add(mesh(gripG, mat(0xff8787), -.45,1.33,.66));
+  for(const sx of [-1,1]){
+    const mr=mesh(new THREE.SphereGeometry(.045,7,6), chrome, sx*.34,1.5,.62);
+    body.add(mr);
+    const mst=mesh(new THREE.CylinderGeometry(.015,.015,.16,5), dark, sx*.32,1.42,.64);
+    mst.rotation.z=sx*.5; body.add(mst);
+  }
+
+  /* headlight + small windscreen */
+  body.add(mesh(new THREE.SphereGeometry(.115,9,8), new THREE.MeshBasicMaterial({color:0xfff3bf}), 0,1.08,.98));
+  const ws=mesh(new THREE.BoxGeometry(.5,.3,.04), new THREE.MeshLambertMaterial({color:0xa5d8ff,transparent:true,opacity:.55}), 0,1.46,.74);
+  ws.rotation.x=-.35; body.add(ws);
+
+  /* frame, tank, engine, seat, tail cowl */
+  body.add(mesh(new THREE.BoxGeometry(.3,.26,1.5), red, 0,.6,.05));                  // spine
+  const tank=mesh(new THREE.SphereGeometry(.26,10,8), red, 0,.94,.3);
+  tank.scale.set(1,.75,1.5); body.add(tank);
+  body.add(mesh(new THREE.BoxGeometry(.32,.1,.5), mat(0xffffff), 0,1.02,.3));        // tank stripe
+  body.add(mesh(new THREE.BoxGeometry(.42,.36,.55), steel, 0,.48,.12));              // engine block
+  body.add(mesh(new THREE.BoxGeometry(.38,.1,.66), dark, 0,.95,-.32));               // seat
+  const cowl=mesh(new THREE.BoxGeometry(.36,.2,.5), red, 0,1.0,-.78);
+  cowl.rotation.x=.2; body.add(cowl);
+  body.add(mesh(new THREE.BoxGeometry(.18,.08,.05), new THREE.MeshBasicMaterial({color:0xff6b6b}), 0,1.05,-1.02)); // taillight
+
+  /* fenders */
+  const fF=mesh(new THREE.SphereGeometry(.42,10,6,0,Math.PI*2,0,Math.PI*.4), red, 0,.34,1.05);
+  body.add(fF);
+  const fR=mesh(new THREE.SphereGeometry(.45,10,6,0,Math.PI*2,0,Math.PI*.35), red, 0,.36,-.85);
+  body.add(fR);
+
+  /* swingarm + exhaust pipes */
+  for(const sx of [-1,1]){
+    body.add(mesh(new THREE.BoxGeometry(.06,.08,.6), dark, sx*.2,.4,-.55));
+    const pipe=mesh(new THREE.CylinderGeometry(.045,.045,.95,8), chrome, sx*.24,.45,-.4);
+    pipe.rotation.x=Math.PI/2+.1; body.add(pipe);
+    const tip=mesh(new THREE.CylinderGeometry(.07,.075,.4,8), steel, sx*.24,.52,-.92);
+    tip.rotation.x=Math.PI/2+.1; body.add(tip);
+  }
+
+  /* rider: sporty lean, helmet + visor */
+  const rider=new THREE.Group();
+  const suit=mat(0x4dabf7);
+  for(const sx of [-1,1]){
+    const th=mesh(new THREE.BoxGeometry(.15,.4,.16), mat(0x37474f), sx*.22,1.0,-.08);
+    th.rotation.x=1.25; rider.add(th);                                   // thigh forward
+    rider.add(mesh(new THREE.BoxGeometry(.13,.42,.13), mat(0x37474f), sx*.25,.68,.12)); // shin
+    const boot=mesh(new THREE.SphereGeometry(.085,7,6), dark, sx*.25,.44,.16);
+    boot.scale.set(1,.65,1.5); rider.add(boot);
+  }
+  const torso=mesh(new THREE.BoxGeometry(.44,.62,.3), suit, 0,1.32,-.08);
+  torso.rotation.x=.45; rider.add(torso);                                // lean forward
+  for(const sx of [-1,1]){
+    const arm=mesh(new THREE.CylinderGeometry(.055,.06,.56,7), suit, sx*.32,1.4,.3);
+    arm.rotation.x=1.25; arm.rotation.z=sx*-.35; rider.add(arm);
+    rider.add(mesh(new THREE.SphereGeometry(.062,7,6), dark, sx*.43,1.34,.58)); // glove on grip
+  }
+  rider.add(mesh(new THREE.SphereGeometry(.2,10,8), mat(0xffd5b3), 0,1.66,.14));      // head
+  rider.add(mesh(new THREE.SphereGeometry(.26,12,10), red, 0,1.7,.12));               // helmet
+  const visor=mesh(new THREE.SphereGeometry(.17,10,8), mat(0xa5d8ff), 0,1.68,.3);
+  visor.scale.set(1.1,.65,.5); rider.add(visor);
+  rider.add(mesh(new THREE.BoxGeometry(.09,.06,.44), mat(0xffffff), 0,1.93,.1));      // helmet stripe
+  rider.position.z=-.12;
+  body.add(rider);
+
+  body.rotation.y = Math.PI; // forward is player -z
   player.add(body);
 }
 scene.add(player);
@@ -714,19 +785,57 @@ const keys={};
 addEventListener('keydown',e=>keys[e.key.toLowerCase()]=true);
 addEventListener('keyup',e=>keys[e.key.toLowerCase()]=false);
 
-/* touch joystick */
+/* joystick: pointer events work for both touch and mouse */
 const joy=document.getElementById('joy'), knob=document.getElementById('joyKnob');
-let joyVec={x:0,y:0};
-joy.addEventListener('touchstart',e=>e.preventDefault(),{passive:false});
-joy.addEventListener('touchmove',e=>{
-  e.preventDefault();
-  const r=joy.getBoundingClientRect(), t=e.touches[0];
-  let dx=(t.clientX-r.left-65)/50, dy=(t.clientY-r.top-65)/50;
+let joyVec={x:0,y:0}, joyActive=false;
+function joyMove(e){
+  const r=joy.getBoundingClientRect();
+  let dx=(e.clientX-r.left-65)/50, dy=(e.clientY-r.top-65)/50;
   const m=Math.hypot(dx,dy); if(m>1){dx/=m;dy/=m;}
   joyVec={x:dx,y:dy};
   knob.style.left=(40+dx*40)+'px'; knob.style.top=(40+dy*40)+'px';
-},{passive:false});
-joy.addEventListener('touchend',()=>{ joyVec={x:0,y:0}; knob.style.left='40px'; knob.style.top='40px'; });
+}
+function joyReset(){ joyActive=false; joyVec={x:0,y:0}; knob.style.left='40px'; knob.style.top='40px'; }
+joy.addEventListener('pointerdown',e=>{ e.preventDefault(); joyActive=true; joy.setPointerCapture(e.pointerId); joyMove(e); });
+joy.addEventListener('pointermove',e=>{ if(joyActive) joyMove(e); });
+joy.addEventListener('pointerup',joyReset);
+joy.addEventListener('pointercancel',joyReset);
+
+/* tilt steering (mobile gyroscope) */
+let tiltOn=false, tiltBound=false, tiltSteer=0;
+function handleOrient(e){
+  if(!tiltOn) return;
+  const ang = (screen.orientation && screen.orientation.angle) ?? window.orientation ?? 0;
+  let raw;                                  // degrees of left/right phone tilt
+  if(ang===90) raw=e.beta;
+  else if(ang===-90 || ang===270) raw=-e.beta;
+  else if(ang===180) raw=-e.gamma;
+  else raw=e.gamma;
+  if(raw==null) return;
+  const dead=3, max=26;                     // ±3° deadzone, full lock at ±26°
+  const v=Math.sign(raw)*Math.max(0,Math.abs(raw)-dead)/(max-dead);
+  tiltSteer=Math.max(-1,Math.min(1,-v));
+}
+async function toggleTilt(){
+  if(tiltOn){
+    tiltOn=false; tiltSteer=0;
+    document.getElementById('tiltState').textContent='Tilt: OFF';
+    document.getElementById('tiltBtn').classList.remove('on');
+    return;
+  }
+  try{
+    // iOS 13+ requires explicit permission from a user gesture
+    if(typeof DeviceOrientationEvent!=='undefined' && DeviceOrientationEvent.requestPermission){
+      const r=await DeviceOrientationEvent.requestPermission();
+      if(r!=='granted') return;
+    }
+    if(!tiltBound){ addEventListener('deviceorientation', handleOrient); tiltBound=true; }
+    tiltOn=true;
+    document.getElementById('tiltState').textContent='Tilt: ON';
+    document.getElementById('tiltBtn').classList.add('on');
+  }catch(err){ /* sensor unavailable: stay off */ }
+}
+document.getElementById('tiltBtn').addEventListener('click', toggleTilt);
 
 /* HUD */
 const $=id=>document.getElementById(id);
@@ -819,6 +928,7 @@ function animate(){
     if(keys['d']||keys['arrowright']) steer=-1;
     if(Math.abs(joyVec.y)>.15) throttle=-joyVec.y;
     if(Math.abs(joyVec.x)>.15) steer=-joyVec.x;
+    else if(tiltOn && Math.abs(tiltSteer)>.05) steer=tiltSteer;
   }
 
   /* physics */
