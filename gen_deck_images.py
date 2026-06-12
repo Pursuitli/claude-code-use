@@ -10,11 +10,11 @@ from PIL import Image, ImageDraw, ImageFilter, ImageChops
 
 W, H = 1400, 720
 SS = 2  # supersample
-NAVY = (5, 28, 44)
-BLUE = (34, 81, 255)
-CYAN = (0, 169, 244)
-SKY = (153, 217, 240)
-WHITE = (230, 245, 255)
+NAVY = (30, 34, 64)
+BLUE = (124, 108, 240)
+CYAN = (169, 156, 247)
+SKY = (211, 206, 252)
+WHITE = (242, 240, 255)
 OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "deck-assets")
 os.makedirs(OUT, exist_ok=True)
 
@@ -31,9 +31,9 @@ def canvas():
     g = Image.new("RGB", (W * SS, H * SS), (0, 0, 0))
     gd = ImageDraw.Draw(g)
     for x in range(0, W * SS, 70 * SS):
-        gd.line([(x, 0), (x, H * SS)], fill=(10, 30, 46), width=SS)
+        gd.line([(x, 0), (x, H * SS)], fill=(46, 50, 92), width=SS)
     for y in range(0, H * SS, 70 * SS):
-        gd.line([(0, y), (W * SS, y)], fill=(10, 30, 46), width=SS)
+        gd.line([(0, y), (W * SS, y)], fill=(46, 50, 92), width=SS)
     return ImageChops.screen(img, g)
 
 
@@ -150,9 +150,9 @@ img = glow_lines(img, lines)
 # dark wall
 wall = Image.new("RGB", img.size, (0, 0, 0))
 wd = ImageDraw.Draw(wall)
-wd.rectangle([int(W * .55) * SS, 0, int(W * .585) * SS, H * SS], fill=(2, 10, 18))
+wd.rectangle([int(W * .55) * SS, 0, int(W * .585) * SS, H * SS], fill=(16, 18, 38))
 img = Image.composite(wall, img, wall.convert("L").point(lambda v: 255 if v > 0 else 0))
-img = glow_rects(img, [(W * .55, 0, W * .585, H, (40, 90, 140), .5, 1.5)])
+img = glow_rects(img, [(W * .55, 0, W * .585, H, (110, 100, 200), .5, 1.5)])
 # gateway + clean beam
 img = fill_rects(img, [(W * .55, H * .46, W * .585, H * .54, CYAN, .9)])
 img = glow_lines(img, [([(W * .585, H * .5), (W + 60, H * .5)], SKY, 2.2, 12, .5)])
@@ -185,7 +185,7 @@ random.seed(21)
 while x < W:
     bw = random.randint(40, 110)
     bh = random.randint(90, 300)
-    sd.rectangle([x * SS, (H - bh) * SS, (x + bw - 8) * SS, H * SS], fill=(3, 14, 24))
+    sd.rectangle([x * SS, (H - bh) * SS, (x + bw - 8) * SS, H * SS], fill=(21, 24, 48))
     for _ in range(int(bw * bh / 700)):
         wx = random.uniform(x + 4, x + bw - 14)
         wy = random.uniform(H - bh + 6, H - 10)
