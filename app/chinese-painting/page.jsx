@@ -5,22 +5,35 @@ import './chinese-painting.css';
 
 /* gpt-image-2 生成的水墨圖層（multiply 疊印，白紙自動消隱）。
    圖片尚未生成或 404 時自動回退到內建 SVG。root=true 的那張載入成功後，
-   會隱藏純 SVG 的補間山層，避免畫風混雜。 */
+   會隱藏純 SVG 的補間山層，避免畫風混雜。
+   使用 eager 載入：lazy + display:none 會讓瀏覽器根本不發請求，造成死鎖。 */
+function activateInkImg(img) {
+  const p = img.parentElement;
+  if (!p) return;
+  p.classList.add('has-img');
+  if (img.dataset.root) p.closest('.ruhua-root')?.classList.add('imgs-on');
+}
+
 function inkLayer(src, root = false) {
   return (
     <img
-      src={src} alt="" className="ink-img" loading="lazy"
-      onLoad={(e) => {
-        const p = e.currentTarget.parentElement;
-        p.classList.add('has-img');
-        if (root) p.closest('.ruhua-root').classList.add('imgs-on');
-      }}
+      src={src} alt="" className="ink-img" loading="eager"
+      data-root={root ? '1' : undefined}
+      onLoad={(e) => activateInkImg(e.currentTarget)}
       onError={(e) => e.currentTarget.remove()}
     />
   );
 }
 
 export default function ChinesePaintingPage() {
+  /* 補觸發：靜態匯出時圖片可能在 React hydration 前就已載入完，
+     onLoad 不再觸發，需要在 mount 後手動檢查 img.complete。 */
+  useEffect(() => {
+    document.querySelectorAll('.ruhua-root .ink-img').forEach((img) => {
+      if (img.complete && img.naturalWidth > 0) activateInkImg(img);
+    });
+  }, []);
+
   /* =================== ScrollProgressController =================== */
   useEffect(() => {
     const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
