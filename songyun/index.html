@@ -84,12 +84,15 @@
     font-size: clamp(64px, 13vw, 150px); line-height: 1.18; letter-spacing: .28em;
     color: var(--ink);
   }
-  #hero .sub {
-    writing-mode: vertical-rl; font-weight: 300; margin-top: 14px;
-    font-size: clamp(14px, 1.8vw, 18px); letter-spacing: .42em; color: var(--ink-soft);
-    height: clamp(280px, 52vh, 460px);
+  #hero .inscription {
+    display: flex; flex-direction: column; align-items: center;
+    gap: 36px; margin-top: 14px;
   }
-  #hero .seal-block { writing-mode: vertical-rl; margin-top: 8px; }
+  #hero .sub {
+    writing-mode: vertical-rl; font-weight: 300;
+    font-size: clamp(14px, 1.8vw, 18px); letter-spacing: .42em; color: var(--ink-soft);
+    max-height: 76vh;
+  }
   #hero .scroll-hint {
     position: absolute; bottom: 34px; left: 50%; transform: translateX(-50%);
     font-size: 12px; letter-spacing: .5em; color: var(--ink-soft); text-indent: .5em;
@@ -229,8 +232,8 @@
   <div class="mist"></div>
   <div class="inner">
     <h1 class="reveal">宋韻</h1>
-    <p class="sub reveal d1">中國美學的天花板，不在金碧，而在收斂。</p>
-    <div class="seal-block reveal d2">
+    <div class="inscription reveal d1">
+      <p class="sub">中國美學的天花板，不在金碧，而在收斂。</p>
       <svg class="seal" style="width:42px;height:42px" viewBox="0 0 64 64" aria-label="印：宋韻">
         <rect x="3" y="3" width="58" height="58" rx="6" fill="#b03a2e"/>
         <text x="32" y="27" text-anchor="middle" font-size="22" fill="#f4efe4" font-family="serif" font-weight="700">宋</text>
