@@ -236,6 +236,8 @@ export class InkEngine {
     this.lastSplatTime = 0;
     this.running = false;
     this.replaying = false;
+    this._acc = 0;        // accumulated wall-clock time owed to the sim (ms)
+    this._lastFrame = 0;  // timestamp of previous frame (0 = needs reseed)
     this.onStrokeEnd = null;
     this._raf = this._raf || null;
     this._frame = this._frame.bind(this);
@@ -349,6 +351,7 @@ export class InkEngine {
     this.stroke = {
       brush, x, y, time,
       dist: 0, speed: 0,
+      pressure, // low-pass filtered below to smooth pencil sensor jitter
       width: this._strokeWidth(brush, pressure, 0),
     };
     this._stamp(x, y, this.stroke.width, 0);
@@ -363,7 +366,8 @@ export class InkEngine {
     if(d < 0.3) return;
     const dt = Math.max(time - s.time, 1);
     s.speed = s.speed * 0.7 + (d / dt) * 0.3;
-    const targetW = this._strokeWidth(s.brush, pressure, s.speed);
+    s.pressure += (pressure - s.pressure) * 0.35; // smooth jittery pencil pressure
+    const targetW = this._strokeWidth(s.brush, s.pressure, s.speed);
     const spacing = Math.max(1.4, s.width * 0.22);
     const steps = Math.ceil(d / spacing);
     for(let i = 1; i <= steps; i++){
@@ -439,6 +443,8 @@ export class InkEngine {
     this.lastSplatTime = performance.now();
     if(!this.running){
       this.running = true;
+      this._lastFrame = 0; // reseed dt on the next frame; drop any stale backlog
+      this._acc = 0;
       this._raf = requestAnimationFrame(this._frame);
     }
   }
@@ -465,11 +471,27 @@ export class InkEngine {
     this.render();
   }
 
-  _frame(){
+  _frame(now){
     if(!this.running) return;
+    if(now === undefined) now = performance.now();
     this._flushSplats();
-    this._stepSim(2);
+
+    // Advance the sim by elapsed wall-clock time, not a fixed count per frame,
+    // so the ink dries/bleeds at the same real-world rate on a 60Hz desktop
+    // and a 120Hz iPad. Without this, ProMotion runs the physics 2x too fast
+    // and fast strokes fix into beads before they can bleed together.
+    if(!this._lastFrame) this._lastFrame = now;
+    let dt = now - this._lastFrame;
+    this._lastFrame = now;
+    if(dt < 0) dt = 0;
+    if(dt > 64) dt = 64; // clamp after a stall / backgrounded tab
+    const SUBSTEP = 1000 / 120; // target 120 substeps/sec (== old 60Hz × 2)
+    this._acc = Math.min(this._acc + dt, SUBSTEP * 6); // bound the backlog
+    const n = Math.floor(this._acc / SUBSTEP);
+    this._acc -= n * SUBSTEP;
+    if(n > 0) this._stepSim(n);
     this.render();
+
     // keep simulating until the paper has had time to dry, then sleep
     if(performance.now() - this.lastSplatTime > 22000 && !this.stroke){
       this.running = false;
