@@ -65,3 +65,58 @@ export async function blobToPacked(blob, w, h){
   const n = w * h * 4;
   return out.length === n ? out : out.slice(0, n);
 }
+
+/* ---- .painting document (vector stroke log, JSON) ----
+ * Records intent — brush / colour / points / timing — not pixels.
+ * Opening one replays the strokes through the ink engine. */
+
+export const PAINTING_FORMAT = 'moyun-painting';
+export const PAINTING_VERSION = 1;
+
+export function buildPaintingDoc({ name, width, height, createdAt, actions }){
+  return {
+    format: PAINTING_FORMAT,
+    version: PAINTING_VERSION,
+    name: name || '',
+    width, height,
+    createdAt: createdAt || Date.now(),
+    savedAt: Date.now(),
+    actions,
+  };
+}
+
+export function parsePaintingDoc(text){
+  let d;
+  try { d = JSON.parse(text); }
+  catch { throw new Error('檔案無法解析：不是有效的 JSON'); }
+  if(!d || d.format !== PAINTING_FORMAT) throw new Error('這不是 .painting 畫稿檔');
+  if(!(Number.isFinite(d.width) && d.width > 0 && Number.isFinite(d.height) && d.height > 0))
+    throw new Error('畫稿尺寸無效');
+  if(!Array.isArray(d.actions)) throw new Error('畫稿缺少筆觸記錄');
+  if(d.version > PAINTING_VERSION) throw new Error('此畫稿來自較新版本，請更新後再開啟');
+  return d;
+}
+
+export async function savePaintingFile(filename, doc){
+  const blob = new Blob([JSON.stringify(doc)], { type: 'application/json' });
+  if(window.showSaveFilePicker){
+    try {
+      const handle = await window.showSaveFilePicker({
+        suggestedName: filename,
+        types: [{ description: '墨韻畫稿', accept: { 'application/json': ['.painting'] } }],
+      });
+      const w = await handle.createWritable();
+      await w.write(blob);
+      await w.close();
+      return;
+    } catch (e) {
+      if(e.name === 'AbortError') return;
+      // fall through to anchor download on any picker failure
+    }
+  }
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = filename;
+  a.click();
+  setTimeout(() => URL.revokeObjectURL(a.href), 5000);
+}
