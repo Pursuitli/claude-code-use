@@ -6,6 +6,7 @@ import { InkEngine, colorToAbsorbance } from './ink-engine';
 import {
   listPaintings, getPainting, putPainting, deletePainting,
   packedToBlob, blobToPacked,
+  buildPaintingDoc, parsePaintingDoc, savePaintingFile,
 } from './store';
 
 /* 筆 — each preset maps to physical splat parameters in the engine.
@@ -38,12 +39,55 @@ function rgbCss([r, g, b]){
   return `rgb(${Math.round(r * 255)}, ${Math.round(g * 255)}, ${Math.round(b * 255)})`;
 }
 
+/* Resolve a stored stroke intent into engine splat parameters. Shared by
+   live painting (makeBrush) and .painting replay so they match exactly. */
+function buildBrush({ brushId, color, size, conc, pointer }){
+  const b = BRUSHES.find((x) => x.id === brushId) || BRUSHES[0];
+  return {
+    size,
+    wet: b.wet * (1.15 - 0.45 * conc),
+    flow: b.flow * Math.pow(conc, 1.4),
+    dry: b.dry,
+    depletion: b.depletion,
+    abs: colorToAbsorbance(color),
+    pointer,
+  };
+}
+
+/* Replay one recorded action through the engine, re-running the fluid sim.
+   Stroke points carry relative ms timestamps; we step the sim every ~16ms
+   of stroke time (matching the live rAF cadence) and settle for the gap
+   that preceded the action, so wet-into-wet vs dry interactions reproduce. */
+function replayAction(eng, a){
+  if(a.t === 'clear'){
+    eng.clear();
+  } else if(a.t === 'stroke' && a.pts && a.pts.length){
+    const brush = buildBrush(a);
+    const [x0, y0, pr0] = a.pts[0];
+    eng.beginStroke(x0, y0, pr0 ?? 0.5, 0, brush);
+    let last = a.pts[0][3] || 0, acc = 0;
+    for(let i = 1; i < a.pts.length; i++){
+      const [x, y, pr, t] = a.pts[i];
+      eng.moveStroke(x, y, pr ?? 0.5, t);
+      acc += (t - last); last = t;
+      if(acc >= 16){ eng.simulate(2); acc = 0; }
+    }
+    eng.endStroke();
+  }
+  const settle = Math.min(Math.round((a.gap || 0) / 8), 300);
+  if(settle > 0) eng.simulate(settle);
+}
+
 export default function PaintingPage(){
   const canvasRef = useRef(null);
   const stageRef = useRef(null);
   const engineRef = useRef(null);
   const currentRef = useRef(null); // { id, name, width, height, createdAt }
   const undoRef = useRef({ stack: [], redo: [] });
+  const logRef = useRef({ actions: [], redo: [] }); // vector stroke log (.painting)
+  const recRef = useRef(null);                      // stroke being recorded
+  const lastActionEndRef = useRef(0);               // for inter-stroke gap timing
+  const fileInputRef = useRef(null);
   const saveTimerRef = useRef(null);
   const thumbUrlsRef = useRef([]);
 
@@ -56,6 +100,7 @@ export default function PaintingPage(){
   const [galleryOpen, setGalleryOpen] = useState(false);
   const [histLens, setHistLens] = useState([0, 0]);
   const [error, setError] = useState(null);
+  const [replayPct, setReplayPct] = useState(-1); // -1 = idle, 0..100 while opening a .painting
 
   /* ---- persistence ------------------------------------------------- */
 
@@ -84,6 +129,7 @@ export default function PaintingPage(){
     await putPainting({
       id: cur.id, name: cur.name, width: cur.width, height: cur.height,
       createdAt: cur.createdAt, updatedAt: Date.now(), thumb, state,
+      actions: logRef.current.actions,
     });
     refreshList();
   }, [refreshList]);
@@ -119,6 +165,9 @@ export default function PaintingPage(){
     currentRef.current = rec;
     setCurrent(rec);
     undoRef.current = { stack: [], redo: [] };
+    logRef.current = { actions: [], redo: [] };
+    recRef.current = null;
+    lastActionEndRef.current = 0;
     setHistLens([0, 0]);
     try { localStorage.setItem(LAST_KEY, rec.id); } catch {}
   }, []);
@@ -132,6 +181,7 @@ export default function PaintingPage(){
       eng.restore(await blobToPacked(rec.state, rec.width, rec.height));
     }
     setCurrentBoth({ id: rec.id, name: rec.name, width: rec.width, height: rec.height, createdAt: rec.createdAt });
+    logRef.current = { actions: rec.actions ? rec.actions.slice() : [], redo: [] };
     setGalleryOpen(false);
   }, [flushSave, ensureEngine, setCurrentBoth]);
 
@@ -147,7 +197,7 @@ export default function PaintingPage(){
       id: crypto.randomUUID(),
       name: `無題之${['一','二','三','四','五','六','七','八','九','十'][count % 10] || count + 1}`,
       width: w, height: h, createdAt: Date.now(), updatedAt: Date.now(),
-      thumb: null, state: null,
+      thumb: null, state: null, actions: [],
     };
     await putPainting(rec);
     ensureEngine(w, h);
@@ -220,6 +270,8 @@ export default function PaintingPage(){
     if(!eng || !h.stack.length) return;
     h.redo.push(eng.snapshot());
     eng.restore(h.stack.pop());
+    const L = logRef.current;           // keep the .painting log in step
+    if(L.actions.length) L.redo.push(L.actions.pop());
     syncHist();
     scheduleSave();
   }, [scheduleSave]);
@@ -229,6 +281,8 @@ export default function PaintingPage(){
     if(!eng || !h.redo.length) return;
     h.stack.push(eng.snapshot());
     eng.restore(h.redo.pop());
+    const L = logRef.current;
+    if(L.redo.length) L.actions.push(L.redo.pop());
     syncHist();
     scheduleSave();
   }, [scheduleSave]);
@@ -249,23 +303,22 @@ export default function PaintingPage(){
     if(!eng) return;
     pushUndo();
     eng.clear();
+    const L = logRef.current;
+    L.actions.push({ t: 'clear', gap: 0 });
+    L.redo = [];
+    lastActionEndRef.current = 0;
     scheduleSave();
   };
 
   /* ---- stroke input -------------------------------------------------- */
 
-  const makeBrush = (pointerType) => {
-    const b = BRUSHES.find((x) => x.id === brushId);
-    return {
-      size,
-      wet: b.wet * (1.15 - 0.45 * conc),
-      flow: b.flow * Math.pow(conc, 1.4),
-      dry: b.dry,
-      depletion: b.depletion,
-      abs: colorToAbsorbance(PIGMENTS[pigment].rgb),
-      pointer: pointerType === 'pen' ? 'pen' : 'mouse',
-    };
-  };
+  const strokeIntent = (pointerType) => ({
+    brushId,
+    color: [...PIGMENTS[pigment].rgb],
+    size,
+    conc,
+    pointer: pointerType === 'pen' ? 'pen' : 'mouse',
+  });
 
   const toCanvas = (e) => {
     const c = canvasRef.current;
@@ -278,25 +331,49 @@ export default function PaintingPage(){
 
   const onPointerDown = (e) => {
     const eng = engineRef.current;
-    if(!eng || (e.pointerType === 'mouse' && e.button !== 0)) return;
+    if(!eng || eng.replaying || (e.pointerType === 'mouse' && e.button !== 0)) return;
     e.preventDefault();
     e.currentTarget.setPointerCapture(e.pointerId);
     pushUndo();
     const { x, y } = toCanvas(e);
-    eng.beginStroke(x, y, e.pressure || 0.5, e.timeStamp, makeBrush(e.pointerType));
+    const p = e.pressure || 0.5;
+    const intent = strokeIntent(e.pointerType);
+    eng.beginStroke(x, y, p, e.timeStamp, buildBrush(intent));
+    recRef.current = {
+      t: 'stroke', ...intent,
+      gap: Math.min(Math.max(e.timeStamp - lastActionEndRef.current, 0), 8000),
+      pts: [[Math.round(x), Math.round(y), Math.round(p * 100) / 100, 0]],
+      _t0: e.timeStamp,
+    };
   };
 
   const onPointerMove = (e) => {
     const eng = engineRef.current;
     if(!eng || !eng.stroke) return;
+    const rec = recRef.current;
     const events = e.nativeEvent.getCoalescedEvents?.() ?? [e];
     for(const ev of events){
       const { x, y } = toCanvas(ev);
-      eng.moveStroke(x, y, ev.pressure || 0.5, ev.timeStamp);
+      const p = ev.pressure || 0.5;
+      eng.moveStroke(x, y, p, ev.timeStamp);
+      if(rec) rec.pts.push([Math.round(x), Math.round(y), Math.round(p * 100) / 100, Math.round(ev.timeStamp - rec._t0)]);
     }
   };
 
-  const onPointerUp = () => engineRef.current?.endStroke();
+  const onPointerUp = (e) => {
+    const eng = engineRef.current;
+    if(!eng) return;
+    const rec = recRef.current;
+    recRef.current = null;
+    if(rec && eng.stroke){
+      delete rec._t0;
+      const L = logRef.current;
+      L.actions.push(rec);
+      L.redo = [];
+      lastActionEndRef.current = e?.timeStamp ?? performance.now();
+    }
+    eng.endStroke();
+  };
 
   /* ---- misc actions --------------------------------------------------- */
 
@@ -311,6 +388,66 @@ export default function PaintingPage(){
       a.click();
       setTimeout(() => URL.revokeObjectURL(a.href), 5000);
     }, 'image/png');
+  };
+
+  const savePainting = async () => {
+    const cur = currentRef.current;
+    if(!cur) return;
+    await savePaintingFile(
+      `${cur.name || '墨韻'}.painting`,
+      buildPaintingDoc({
+        name: cur.name, width: cur.width, height: cur.height,
+        createdAt: cur.createdAt, actions: logRef.current.actions,
+      }),
+    );
+  };
+
+  const importDoc = useCallback(async (doc) => {
+    flushSave();
+    const rec = {
+      id: crypto.randomUUID(),
+      name: doc.name || '匯入畫稿',
+      width: doc.width, height: doc.height,
+      createdAt: Date.now(), updatedAt: Date.now(),
+      thumb: null, state: null, actions: [],
+    };
+    await putPainting(rec);
+    const eng = ensureEngine(doc.width, doc.height);
+    eng.clear();
+    setCurrentBoth({ id: rec.id, name: rec.name, width: doc.width, height: doc.height, createdAt: rec.createdAt });
+    setGalleryOpen(false);
+
+    const L = logRef.current; // reset to empty by setCurrentBoth
+    const n = doc.actions.length;
+    setReplayPct(0);
+    eng.replaying = true;
+    try {
+      for(let i = 0; i < n; i++){
+        replayAction(eng, doc.actions[i]);
+        L.actions.push(doc.actions[i]);
+        if(i % 2 === 0 || i === n - 1){
+          setReplayPct(Math.round(((i + 1) / n) * 100));
+          await new Promise((r) => requestAnimationFrame(r)); // let the canvas repaint
+        }
+      }
+    } finally {
+      eng.replaying = false;
+      setReplayPct(-1);
+      eng.wake();
+      scheduleSave();
+    }
+  }, [flushSave, ensureEngine, setCurrentBoth, scheduleSave]);
+
+  const onFilePicked = async (e) => {
+    const file = e.target.files?.[0];
+    e.target.value = '';
+    if(!file) return;
+    try {
+      const doc = parsePaintingDoc(await file.text());
+      await importDoc(doc);
+    } catch (err) {
+      window.alert(err.message || '開啟失敗');
+    }
   };
 
   const renameCurrent = (name) => {
@@ -338,12 +475,18 @@ export default function PaintingPage(){
           <button onClick={undo} disabled={!histLens[0]} title="復原 (Ctrl+Z)">復原</button>
           <button onClick={redo} disabled={!histLens[1]} title="重做 (Ctrl+Shift+Z)">重做</button>
           <button onClick={clearPaper} title="清紙">清紙</button>
-          <button onClick={exportPNG} title="輸出 PNG">存圖</button>
+          <button onClick={exportPNG} title="輸出 PNG 圖檔">存圖</button>
+          <button onClick={savePainting} title="存成可再編輯的 .painting 畫稿">存稿</button>
+          <button onClick={() => fileInputRef.current?.click()} title="開啟 .painting 畫稿">開稿</button>
           <button
             className={galleryOpen ? 'mz-on' : ''}
             onClick={() => setGalleryOpen((v) => !v)} title="畫冊"
           >冊頁</button>
         </div>
+        <input
+          ref={fileInputRef} type="file" accept=".painting,application/json"
+          hidden onChange={onFilePicked}
+        />
       </header>
 
       <div className="mz-body">
@@ -400,6 +543,12 @@ export default function PaintingPage(){
           {error && (
             <div className="mz-error">
               <p>{error}</p>
+            </div>
+          )}
+          {replayPct >= 0 && (
+            <div className="mz-replay">
+              <p>重現筆墨…</p>
+              <div className="mz-replay-bar"><i style={{ width: `${replayPct}%` }} /></div>
             </div>
           )}
         </main>

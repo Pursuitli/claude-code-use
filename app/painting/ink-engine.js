@@ -235,6 +235,7 @@ export class InkEngine {
     this.stroke = null;
     this.lastSplatTime = 0;
     this.running = false;
+    this.replaying = false;
     this.onStrokeEnd = null;
     this._raf = this._raf || null;
     this._frame = this._frame.bind(this);
@@ -434,6 +435,7 @@ export class InkEngine {
   /* ---- simulation loop --------------------------------------------- */
 
   wake(){
+    if(this.replaying) return; // replay drives the sim explicitly via simulate()
     this.lastSplatTime = performance.now();
     if(!this.running){
       this.running = true;
@@ -441,11 +443,9 @@ export class InkEngine {
     }
   }
 
-  _frame(){
-    if(!this.running) return;
-    this._flushSplats();
+  _stepSim(iters){
     const gl = this.gl;
-    for(let i = 0; i < 2; i++){
+    for(let i = 0; i < iters; i++){
       gl.bindFramebuffer(gl.FRAMEBUFFER, this.dst.fbo);
       gl.drawBuffers([gl.COLOR_ATTACHMENT0, gl.COLOR_ATTACHMENT1, gl.COLOR_ATTACHMENT2]);
       gl.viewport(0, 0, this.w, this.h);
@@ -455,6 +455,20 @@ export class InkEngine {
       this._drawQuad();
       const tmp = this.src; this.src = this.dst; this.dst = tmp;
     }
+  }
+
+  // Advance the simulation by `iters` substeps and show the result.
+  // Used during .painting replay, where rAF is paused (replaying = true).
+  simulate(iters){
+    this._flushSplats();
+    this._stepSim(iters);
+    this.render();
+  }
+
+  _frame(){
+    if(!this.running) return;
+    this._flushSplats();
+    this._stepSim(2);
     this.render();
     // keep simulating until the paper has had time to dry, then sleep
     if(performance.now() - this.lastSplatTime > 22000 && !this.stroke){
