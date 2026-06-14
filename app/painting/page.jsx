@@ -118,6 +118,10 @@ export default function PaintingPage(){
   const saveCurrent = useCallback(async () => {
     const eng = engineRef.current, cur = currentRef.current;
     if(!eng || !cur) return;
+    // Capture all mutable refs synchronously before any await — concurrent state
+    // switches (setCurrentBoth) reset logRef between awaits which would corrupt
+    // the saved action log for whichever painting was current at call time.
+    const actions = logRef.current.actions.slice();
     const packed = eng.snapshot();
     const state = await packedToBlob(packed);
     const tc = document.createElement('canvas');
@@ -129,14 +133,17 @@ export default function PaintingPage(){
     await putPainting({
       id: cur.id, name: cur.name, width: cur.width, height: cur.height,
       createdAt: cur.createdAt, updatedAt: Date.now(), thumb, state,
-      actions: logRef.current.actions,
+      actions,
     });
     refreshList();
   }, [refreshList]);
 
   const scheduleSave = useCallback(() => {
     clearTimeout(saveTimerRef.current);
-    saveTimerRef.current = setTimeout(() => { saveCurrent().catch(console.error); }, 1200);
+    saveTimerRef.current = setTimeout(() => {
+      saveTimerRef.current = null; // must be null before saveCurrent so flushSave doesn't re-fire it
+      saveCurrent().catch(console.error);
+    }, 1200);
   }, [saveCurrent]);
 
   const flushSave = useCallback(() => {
@@ -179,9 +186,12 @@ export default function PaintingPage(){
     const eng = ensureEngine(rec.width, rec.height);
     if(rec.state){
       eng.restore(await blobToPacked(rec.state, rec.width, rec.height));
+    } else {
+      eng.clear();
     }
     setCurrentBoth({ id: rec.id, name: rec.name, width: rec.width, height: rec.height, createdAt: rec.createdAt });
     logRef.current = { actions: rec.actions ? rec.actions.slice() : [], redo: [] };
+    syncHist(); // enable undo for strokes already in this painting
     setGalleryOpen(false);
   }, [flushSave, ensureEngine, setCurrentBoth]);
 
@@ -254,7 +264,12 @@ export default function PaintingPage(){
 
   /* ---- history ------------------------------------------------------ */
 
-  const syncHist = () => setHistLens([undoRef.current.stack.length, undoRef.current.redo.length]);
+  // Log is the source of truth for undo count: both live strokes and strokes
+  // loaded from the gallery/file are in logRef.actions. Raster snapshots in
+  // undoRef are a fast-path cache for recent strokes — when they run out
+  // (i.e. undoing into history that predates this session), we replay the log.
+  const syncHist = () =>
+    setHistLens([logRef.current.actions.length, logRef.current.redo.length]);
 
   const pushUndo = () => {
     const eng = engineRef.current;
@@ -262,30 +277,59 @@ export default function PaintingPage(){
     h.stack.push(eng.snapshot());
     if(h.stack.length > UNDO_CAP) h.stack.shift();
     h.redo = [];
-    syncHist();
+    // Note: syncHist called by onPointerUp after the action lands in the log.
   };
 
+  // Replay all actions in logRef up to their current count. Used when raster
+  // snapshots are exhausted and we need to reconstruct an earlier state.
+  const replayFromLog = useCallback((actions) => {
+    const eng = engineRef.current;
+    if(!eng) return;
+    eng.stroke = null;
+    eng.splatCount = 0;
+    eng.replaying = true;
+    eng.clear();
+    try {
+      for(const a of actions) replayAction(eng, a);
+    } finally {
+      eng.replaying = false;
+      eng.wake();
+    }
+  }, []);
+
   const undo = useCallback(() => {
-    const eng = engineRef.current, h = undoRef.current;
-    if(!eng || !h.stack.length) return;
-    h.redo.push(eng.snapshot());
-    eng.restore(h.stack.pop());
-    const L = logRef.current;           // keep the .painting log in step
-    if(L.actions.length) L.redo.push(L.actions.pop());
+    const eng = engineRef.current, h = undoRef.current, L = logRef.current;
+    if(!eng || !L.actions.length) return;
+    if(h.stack.length){
+      // Fast path: raster snapshot covers this stroke
+      h.redo.push(eng.snapshot());
+      eng.restore(h.stack.pop());
+      L.redo.push(L.actions.pop());
+    } else {
+      // Slow path: no raster snapshot — pop from log and replay remaining
+      L.redo.push(L.actions.pop());
+      replayFromLog(L.actions);
+    }
     syncHist();
     scheduleSave();
-  }, [scheduleSave]);
+  }, [scheduleSave, replayFromLog]);
 
   const redo = useCallback(() => {
-    const eng = engineRef.current, h = undoRef.current;
-    if(!eng || !h.redo.length) return;
-    h.stack.push(eng.snapshot());
-    eng.restore(h.redo.pop());
-    const L = logRef.current;
-    if(L.redo.length) L.actions.push(L.redo.pop());
+    const eng = engineRef.current, h = undoRef.current, L = logRef.current;
+    if(!eng || !L.redo.length) return;
+    if(h.redo.length){
+      // Fast path: raster snapshot covers this redo step
+      h.stack.push(eng.snapshot());
+      eng.restore(h.redo.pop());
+      L.actions.push(L.redo.pop());
+    } else {
+      // Slow path: replay with one more action re-applied
+      L.actions.push(L.redo.pop());
+      replayFromLog(L.actions);
+    }
     syncHist();
     scheduleSave();
-  }, [scheduleSave]);
+  }, [scheduleSave, replayFromLog]);
 
   useEffect(() => {
     const onKey = (e) => {
@@ -307,6 +351,7 @@ export default function PaintingPage(){
     L.actions.push({ t: 'clear', gap: 0 });
     L.redo = [];
     lastActionEndRef.current = 0;
+    syncHist();
     scheduleSave();
   };
 
@@ -371,6 +416,7 @@ export default function PaintingPage(){
       L.actions.push(rec);
       L.redo = [];
       lastActionEndRef.current = e?.timeStamp ?? performance.now();
+      syncHist(); // log just grew; update undo button
     }
     eng.endStroke();
   };
@@ -434,6 +480,7 @@ export default function PaintingPage(){
       eng.replaying = false;
       setReplayPct(-1);
       eng.wake();
+      syncHist(); // enable undo for all replayed strokes
       scheduleSave();
     }
   }, [flushSave, ensureEngine, setCurrentBoth, scheduleSave]);
