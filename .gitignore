@@ -4,3 +4,7 @@ node_modules/
 .next/
 out/
 public/assets/painting/_*.png
+
+# Next.js generated
+next-env.d.ts
+.next/
