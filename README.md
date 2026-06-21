@@ -50,9 +50,21 @@ The repo currently contains illustrated placeholder portraits (from `make_placeh
 
 A full, mobile-first Hong Kong **KMB bus route checker** built on the public
 [KMB Open Data API](https://data.etabus.gov.hk/) (`https://data.etabus.gov.hk/v1/transport/kmb`).
-No API key is required and the API is CORS-enabled, so **all fetching happens
-client-side in the browser** — this keeps the app a pure static export
-(deployable to Vercel/Netlify/Cloudflare/any static host) with no backend.
+No API key is required (the API is CORS-enabled and key-less).
+
+**Hybrid data path** (deployed on Vercel):
+
+- **Semi-static data** (route list, stop list, route-stop mapping) is served
+  through Vercel **Route Handlers** at `/api/kmb/*` that fetch KMB once and
+  return an **edge-cached** (`s-maxage=86400`), trimmed payload. So KMB is hit
+  ~once a day per region instead of once per visitor, and the ~1 MB stop list is
+  slimmed to the fields the UI uses.
+- **Live ETA** is fetched **client-direct** from KMB for lowest latency and
+  maximum freshness (no server hop), and is never cached.
+
+> Because of the server Route Handlers this app is **not** a static export; it
+> runs as a Next.js app on Vercel. (The rest of the site still pre-renders to
+> static pages — only `/api/kmb/*` runs on the server.)
 
 Theme colour is the KMB red **`#E70013`**, sampled directly from the KMB logo.
 
@@ -81,6 +93,7 @@ Theme colour is the KMB red **`#E70013`**, sampled directly from the KMB logo.
 | Concern | Where |
 | --- | --- |
 | Typed API client | `lib/kmb/api.ts` (`getRoutes`, `getStops`, `getStop`, `getRouteStops`, `getEta`, `getStopEta`, `getRouteEta`) |
+| Server proxy (edge-cached static data) | `app/api/kmb/{routes,stops,route-stop}/…` + `lib/kmb/server.ts` |
 | API response types | `lib/kmb/types.ts` |
 | Static-data cache (route/stop/route-stop, **1×/day**) | `lib/kmb/cache.ts` (localStorage, with stale-on-error fallback) |
 | Data hooks | `lib/kmb/hooks.ts` (`useAsync`, `usePolling` — 30s ETA refresh) |
@@ -96,11 +109,11 @@ query strings (not dynamic route segments) so the whole app stays statically
 exportable.
 
 > **Stack note:** the brief suggested Tailwind + React Query/SWR + TypeScript.
-> This app is integrated into an existing **non-Tailwind, statically-exported**
-> Next.js site, so styling is scoped plain CSS namespaced under `.kmb`
-> (`app/bus/bus.css`) to avoid leaking into the other pages, and data fetching
-> uses small purpose-built hooks instead of an extra dependency. TypeScript is
-> used throughout the bus app and its API layer.
+> This app is integrated into an existing **non-Tailwind** Next.js site, so
+> styling is scoped plain CSS namespaced under `.kmb` (`app/bus/bus.css`) to
+> avoid leaking into the other pages, and data fetching uses small purpose-built
+> hooks instead of an extra dependency. TypeScript is used throughout the bus
+> app, its API client, and the server proxy.
 
 ### Try it
 
