@@ -1,0 +1,138 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------
+   Self-hosted variable fonts. Bundled rather than linked so the page
+   renders identically offline, behind a proxy, and on first paint.
+------------------------------------------------------------------- */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/fonts/inter-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+    U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/fonts/inter-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308,
+    U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113,
+    U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 100 800;
+  font-display: swap;
+  src: url('/fonts/jetbrains-mono-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+    U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 100 800;
+  font-display: swap;
+  src: url('/fonts/jetbrains-mono-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308,
+    U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113,
+    U+2C60-2C7F, U+A720-A7FF;
+}
+
+@source "./";
+@source "../../lib/packaging/";
+
+/* ------------------------------------------------------------------
+   Design tokens. Light is the default; `.pk-dark` re-binds the same
+   variables so every Tailwind utility built from them flips at once.
+   Palette is deliberately narrow: paper, ink, grey, one copper accent.
+------------------------------------------------------------------- */
+@theme {
+  --color-paper:   #ffffff;
+  --color-surface: #fafaf9;
+  --color-raised:  #f4f4f2;
+  --color-sunk:    #eeeeec;
+  --color-line:    #e2e2df;
+  --color-hairline:#ededea;
+  --color-ink:     #111113;
+  --color-body:    #3f3f46;
+  --color-muted:   #6d6d76;
+  --color-faint:   #9a9aa2;
+  --color-accent:  #a4551f;
+  --color-accentsoft: #f6ede5;
+  --color-pos:     #3f6b4e;
+  --color-mid:     #8a6d2f;
+  --color-neg:     #94413c;
+  --color-possoft: #eaf0ea;
+  --color-midsoft: #f6f0e2;
+  --color-negsoft: #f7eceb;
+
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", "IBM Plex Mono", Menlo, Consolas, monospace;
+}
+
+.pk-dark {
+  --color-paper:   #0b0c0d;
+  --color-surface: #121315;
+  --color-raised:  #17181b;
+  --color-sunk:    #1d1e22;
+  --color-line:    #292a2e;
+  --color-hairline:#212227;
+  --color-ink:     #f2f2f0;
+  --color-body:    #c8c8c6;
+  --color-muted:   #8f9097;
+  --color-faint:   #66676e;
+  --color-accent:  #d08a4e;
+  --color-accentsoft: #26190f;
+  --color-pos:     #7fae8c;
+  --color-mid:     #cbab66;
+  --color-neg:     #cf8580;
+  --color-possoft: #16211a;
+  --color-midsoft: #201c11;
+  --color-negsoft: #221414;
+}
+
+html { -webkit-text-size-adjust: 100%; }
+
+.pk-root {
+  background: var(--color-paper);
+  color: var(--color-body);
+  font-family: var(--font-sans);
+  font-feature-settings: "cv05" 1, "ss01" 1, "tnum" 0;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.pk-root ::selection { background: var(--color-accentsoft); color: var(--color-ink); }
+
+/* Compact, legible scrollbars for the dense panes */
+.pk-root *::-webkit-scrollbar { width: 9px; height: 9px; }
+.pk-root *::-webkit-scrollbar-track { background: transparent; }
+.pk-root *::-webkit-scrollbar-thumb { background: var(--color-line); border-radius: 99px; }
+.pk-root *::-webkit-scrollbar-thumb:hover { background: var(--color-faint); }
+
+.pk-num { font-variant-numeric: tabular-nums; font-family: var(--font-mono); }
+
+/* Hairline grid used by tables and matrices */
+.pk-grid-line { border-color: var(--color-hairline); }
+
+@keyframes pk-fade-up {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: none; }
+}
+.pk-fade { animation: pk-fade-up .18s ease-out both; }
+
+@media (prefers-reduced-motion: reduce) {
+  .pk-fade { animation: none; }
+  .pk-root * { transition-duration: .001ms !important; }
+}
+
+/* Print: flatten the app chrome so the manual can be read on paper */
+@media print {
+  .pk-noprint { display: none !important; }
+  .pk-root { background: #fff; color: #000; }
+}

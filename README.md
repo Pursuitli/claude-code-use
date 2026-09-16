@@ -8,6 +8,7 @@ A Next.js (App Router) site with three pages, statically exported (`output: 'exp
 | `/songyun` | **宋韻** — Song-dynasty aesthetics scroll page |
 | `/chinese-painting` | **入畫 · 山水隨行** — immersive scroll-journey landscape |
 | `/bus` | **KMB 巴士到站 · Bus ETA** — real-time Hong Kong KMB bus checker ([details](#kmb-bus-eta-bus)) |
+| `/packaging` | **Advanced Packaging — A Founder Operating Manual** — interactive semiconductor packaging primer ([details](#advanced-packaging-packaging)) |
 
 ## Develop
 
@@ -129,3 +130,51 @@ npm install && npm run dev   # http://localhost:3000/bus
 
 > Stop ids such as `E7133179F5800E85` are **discovered through the API**
 > (route-stop → stop join), never hardcoded.
+
+## Advanced Packaging (`/packaging`)
+
+A single-page, interactive primer on the semiconductor advanced-packaging industry,
+written for a commercially strong reader with no engineering background. Eighteen
+sections across six groups (Fundamentals, Technology, Manufacturing, Economics,
+Ecosystem, Startup opportunities, Reference), 64 knowledge-check questions and a
+115-term glossary.
+
+### Structure
+
+- `lib/packaging/*.ts` — **all content lives here as typed data**, separate from the
+  components that render it. Figures drift (CoWoS capacity, HBM bandwidth, gross
+  margins), so each one is editable in exactly one place. `types.ts` defines the shapes;
+  `nav.ts` is the section registry that drives the left rail.
+- `app/packaging/_components/ui.tsx` — design-system primitives (`Section`, `Panel`,
+  `Matrix`, `Disclosure`, `DepthBlock`, `KnowledgeCheck`, `ScoreDots`, `Conf`).
+- `app/packaging/_components/diagrams.tsx` — every diagram is hand-built inline SVG
+  (package cross-section, HBM stack, cost/density scatter, supply-chain flow, hub map,
+  yield curve); no external images.
+- `app/packaging/_components/sections/*.tsx` — the eighteen sections, grouped by theme.
+- `app/packaging/packaging.css` — Tailwind v4 entry plus the design tokens. Tokens are
+  declared in `@theme` and re-bound under `.pk-dark`, so light/dark flips by swapping
+  variable values rather than duplicating utilities.
+
+### Confidence labelling
+
+Every quantity is tagged `FACT` (published spec or filing), `EST` (industry estimate or
+reported range) or `MODEL` (arithmetic constructed to illustrate a mechanism). The
+bill-of-materials breakdown and the yield lab are both models — they teach the shape of
+the relationship, not anyone's actual cost.
+
+### Two reading modes
+
+**Learning** shows the sequential teaching scaffolding; **Reference** strips it out and
+raises information density. Independently, `Simple ⇄ Founder depth` toggles sit on every
+hard concept. Reading mode, colour scheme and progress persist in `localStorage`.
+
+### Notes
+
+- Tailwind CSS v4 (`@tailwindcss/postcss`) and `lucide-react` were added for this route.
+  The stylesheet is imported by `app/packaging/layout.tsx`, so Tailwind's preflight is
+  scoped to this route segment and does not affect the other pages.
+- `app/globals.css` declares its `*` reset inside `@layer base`. This matters: cascade
+  layers always lose to unlayered author styles, so an unlayered `* { padding: 0 }` would
+  silently defeat every Tailwind spacing utility on this route.
+- Inter and JetBrains Mono are self-hosted (`public/fonts/`, ~180 KB of woff2) rather than
+  linked from a CDN, so the page renders identically offline and on first paint.

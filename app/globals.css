@@ -1,2 +1,12 @@
-* { margin: 0; padding: 0; box-sizing: border-box; }
-html, body { min-height: 100%; }
+/* Base reset for every page.
+ *
+ * Declared inside `@layer base` deliberately: CSS cascade layers always lose to
+ * unlayered author styles, so an unlayered `* { padding: 0 }` would silently
+ * defeat every layered utility class (Tailwind emits its utilities in a layer,
+ * and /packaging uses them). Layering the reset keeps it ahead of UA defaults
+ * while letting real rules — including single-class utilities — win normally.
+ */
+@layer base {
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { min-height: 100%; }
+}
