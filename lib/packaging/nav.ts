@@ -19,8 +19,16 @@ export const GROUPS = [
 
 export const SECTIONS: NavSection[] = [
   {
-    id: 'fundamentals',
+    id: 'objects',
     n: 1,
+    title: 'The physical objects',
+    short: 'Physical objects',
+    group: 'Fundamentals',
+    dek: 'Before any of the economics makes sense: what a transistor actually is, what a wafer is, what a fab does all day, and the ten orders of magnitude between a switch and a server rack.',
+  },
+  {
+    id: 'fundamentals',
+    n: 2,
     title: 'The industry in five minutes',
     short: 'Industry in 5 minutes',
     group: 'Fundamentals',
@@ -28,7 +36,7 @@ export const SECTIONS: NavSection[] = [
   },
   {
     id: 'valuechain',
-    n: 2,
+    n: 3,
     title: 'The value chain, layer by layer',
     short: 'Value chain map',
     group: 'Fundamentals',
@@ -36,7 +44,7 @@ export const SECTIONS: NavSection[] = [
   },
   {
     id: 'ladder',
-    n: 3,
+    n: 4,
     title: 'The packaging technology ladder',
     short: 'Technology ladder',
     group: 'Technology',
@@ -44,7 +52,7 @@ export const SECTIONS: NavSection[] = [
   },
   {
     id: 'anatomy',
-    n: 4,
+    n: 5,
     title: 'Anatomy of an AI accelerator package',
     short: 'Accelerator anatomy',
     group: 'Technology',
@@ -52,7 +60,7 @@ export const SECTIONS: NavSection[] = [
   },
   {
     id: 'cowos',
-    n: 5,
+    n: 6,
     title: 'CoWoS deep dive',
     short: 'CoWoS',
     group: 'Technology',
@@ -60,7 +68,7 @@ export const SECTIONS: NavSection[] = [
   },
   {
     id: 'hbm',
-    n: 6,
+    n: 7,
     title: 'HBM and the memory wall',
     short: 'HBM & memory',
     group: 'Technology',
@@ -68,7 +76,7 @@ export const SECTIONS: NavSection[] = [
   },
   {
     id: 'process',
-    n: 7,
+    n: 8,
     title: 'The packaging line, step by step',
     short: 'Process line',
     group: 'Manufacturing',
@@ -76,7 +84,7 @@ export const SECTIONS: NavSection[] = [
   },
   {
     id: 'materials',
-    n: 8,
+    n: 9,
     title: 'Materials map',
     short: 'Materials',
     group: 'Manufacturing',
@@ -84,7 +92,7 @@ export const SECTIONS: NavSection[] = [
   },
   {
     id: 'equipment',
-    n: 9,
+    n: 10,
     title: 'Equipment landscape',
     short: 'Equipment',
     group: 'Manufacturing',
@@ -92,7 +100,7 @@ export const SECTIONS: NavSection[] = [
   },
   {
     id: 'economics',
-    n: 10,
+    n: 11,
     title: 'Economics & the yield lab',
     short: 'Economics + yield lab',
     group: 'Economics',
@@ -100,7 +108,7 @@ export const SECTIONS: NavSection[] = [
   },
   {
     id: 'qualification',
-    n: 11,
+    n: 12,
     title: 'Qualification & switching costs',
     short: 'Qualification moat',
     group: 'Economics',
@@ -108,7 +116,7 @@ export const SECTIONS: NavSection[] = [
   },
   {
     id: 'players',
-    n: 12,
+    n: 13,
     title: 'Players & strategic positioning',
     short: 'Major players',
     group: 'Ecosystem',
@@ -116,7 +124,7 @@ export const SECTIONS: NavSection[] = [
   },
   {
     id: 'geography',
-    n: 13,
+    n: 14,
     title: 'Geography of packaging',
     short: 'Geography',
     group: 'Ecosystem',
@@ -124,7 +132,7 @@ export const SECTIONS: NavSection[] = [
   },
   {
     id: 'customers',
-    n: 14,
+    n: 15,
     title: 'What customers actually care about',
     short: 'Customer priorities',
     group: 'Ecosystem',
@@ -132,7 +140,7 @@ export const SECTIONS: NavSection[] = [
   },
   {
     id: 'opportunities',
-    n: 15,
+    n: 16,
     title: 'Where startups can actually enter',
     short: 'Opportunity matrix',
     group: 'Startup opportunities',
@@ -140,7 +148,7 @@ export const SECTIONS: NavSection[] = [
   },
   {
     id: 'bottlenecks',
-    n: 16,
+    n: 17,
     title: 'What is broken right now',
     short: 'Bottleneck dashboard',
     group: 'Startup opportunities',
@@ -148,7 +156,7 @@ export const SECTIONS: NavSection[] = [
   },
   {
     id: 'glossary',
-    n: 17,
+    n: 18,
     title: 'Founder vocabulary',
     short: 'Glossary',
     group: 'Reference',
@@ -156,7 +164,7 @@ export const SECTIONS: NavSection[] = [
   },
   {
     id: 'cheatsheet',
-    n: 18,
+    n: 19,
     title: 'The cheat sheet',
     short: 'Cheat sheet',
     group: 'Reference',

@@ -17,6 +17,8 @@ import {
   Prose, ScoreDots, Section, SplitList, SubHead, Td, Th, Tabs, RefOnly,
 } from '../ui';
 import { FlowRail } from '../diagrams';
+import { Figure, Mark, Photo } from '../Figure';
+import { PitchAreaFigure } from '../figures-a';
 
 const meta = (id: string) => SECTIONS.find((s) => s.id === id)!;
 const quiz = (id: string) => QUIZZES.find((q) => q.sectionId === id)!.questions;
@@ -73,6 +75,16 @@ export function FundamentalsSection() {
             </div>
           </div>
         </Panel>
+      </div>
+
+      {/* -------- the central claim, as a picture -------- */}
+      <div>
+        <SubHead note="If you only look at one diagram on this page, make it this one.">
+          Why packaging exists, in one figure
+        </SubHead>
+        <Figure id="pitch">
+          <PitchAreaFigure />
+        </Figure>
       </div>
 
       {/* -------- the three explainers -------- */}
@@ -222,9 +234,14 @@ export function ValueChainSection() {
                   <Eyebrow>Who operates here</Eyebrow>
                   <ul className="mt-1.5 space-y-1.5">
                     {l.companies.map((c) => (
-                      <li key={c.name} className="text-[12.5px] leading-snug">
-                        <span className="font-medium text-ink">{c.name}</span>
-                        <span className="text-muted"> — {c.note}</span>
+                      <li key={c.name} className="flex items-start gap-2 text-[12.5px] leading-snug">
+                        <span className="mt-[1px]">
+                          <Mark name={c.name} />
+                        </span>
+                        <span>
+                          <span className="font-medium text-ink">{c.name}</span>
+                          <span className="text-muted"> — {c.note}</span>
+                        </span>
                       </li>
                     ))}
                   </ul>

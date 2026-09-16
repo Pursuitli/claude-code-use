@@ -134,10 +134,10 @@ npm install && npm run dev   # http://localhost:3000/bus
 ## Advanced Packaging (`/packaging`)
 
 A single-page, interactive primer on the semiconductor advanced-packaging industry,
-written for a commercially strong reader with no engineering background. Eighteen
-sections across six groups (Fundamentals, Technology, Manufacturing, Economics,
-Ecosystem, Startup opportunities, Reference), 64 knowledge-check questions and a
-115-term glossary.
+written for a commercially strong reader with no engineering background. Nineteen
+sections across seven groups (Fundamentals, Technology, Manufacturing, Economics,
+Ecosystem, Startup opportunities, Reference), 68 knowledge-check questions, a
+115-term glossary, and fourteen hand-built explanatory figures.
 
 ### Structure
 
@@ -147,9 +147,14 @@ Ecosystem, Startup opportunities, Reference), 64 knowledge-check questions and a
   `nav.ts` is the section registry that drives the left rail.
 - `app/packaging/_components/ui.tsx` — design-system primitives (`Section`, `Panel`,
   `Matrix`, `Disclosure`, `DepthBlock`, `KnowledgeCheck`, `ScoreDots`, `Conf`).
-- `app/packaging/_components/diagrams.tsx` — every diagram is hand-built inline SVG
-  (package cross-section, HBM stack, cost/density scatter, supply-chain flow, hub map,
-  yield curve); no external images.
+- `app/packaging/_components/diagrams.tsx`, `primer.tsx`, `figures-a.tsx`,
+  `figures-b.tsx` — every diagram is hand-built inline SVG: package cross-section, HBM
+  stack, cost/density scatter, supply-chain flow, hub map, yield curve, plus the
+  explanatory figures (interconnect area at true relative scale, perimeter vs area I/O,
+  defects on a wafer, reticle stitching, energy per bit, warpage, fan-out geometry, the
+  chiplet trade, true-scale package sizes, and material state through the line).
+- `app/packaging/_components/Figure.tsx` — the frame every figure shares, the photo
+  slot, and `Mark`, the typographic company mark.
 - `app/packaging/_components/sections/*.tsx` — the eighteen sections, grouped by theme.
 - `app/packaging/packaging.css` — Tailwind v4 entry plus the design tokens. Tokens are
   declared in `@theme` and re-bound under `.pk-dark`, so light/dark flips by swapping
@@ -178,3 +183,43 @@ hard concept. Reading mode, colour scheme and progress persist in `localStorage`
   silently defeat every Tailwind spacing utility on this route.
 - Inter and JetBrains Mono are self-hosted (`public/fonts/`, ~180 KB of woff2) rather than
   linked from a CDN, so the page renders identically offline and on first paint.
+
+### Figures
+
+Diagrams are drawn, not generated. Diffusion models cannot render accurate technical
+cross-sections or legible labels, and a plausible-but-wrong diagram on a page whose
+premise is "every number is tagged for confidence" would undermine the diagrams that
+are correct.
+
+The figures are interactive where interaction teaches something — drag the die size on
+the wafer figure and watch good-die count collapse; toggle the warpage figure between
+reflow and room temperature.
+
+One figure is worth reading the code for. `ChipletFigure` in `figures-b.tsx` deliberately
+states the result most chiplet explanations get wrong: under Poisson yield the
+probability that all four chiplets are good is *identical* to the monolith's yield,
+because the exponents add. The real benefit is harvesting tested dies, so the figure
+measures silicon consumed per working part instead of quoting a yield percentage.
+
+### Photographs
+
+Six curated Creative Commons photographs sit alongside the diagrams where physical
+intuition matters. They are **not committed** — they are third-party works, so
+`public/figures/` is gitignored apart from its credits file. Install them with:
+
+```sh
+node scripts/fetch-figures.mjs
+```
+
+The script resolves each image through the Wikimedia Commons API, downloads a 1200px
+rendition, and writes `public/figures/CREDITS.md` with the author and licence it read
+back from the API rather than from memory. Review that file before publishing and keep
+the attribution visible.
+
+Without the images the page is fully readable — each photo slot renders a labelled
+placeholder telling you how to install them.
+
+Company marks are typographic rather than real logos. Reproducing corporate logos on a
+published site is a per-company trademark question (Apple's mark in particular is not
+freely licensed), and a set of mismatched raster logos would look worse here than one
+consistent treatment.

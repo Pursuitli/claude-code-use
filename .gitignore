@@ -11,3 +11,7 @@ next-env.d.ts
 
 # TypeScript incremental build info
 tsconfig.tsbuildinfo
+
+# Third-party figure images are fetched, not committed (scripts/fetch-figures.mjs)
+public/figures/*
+!public/figures/CREDITS.md

@@ -2,6 +2,29 @@ import type { SectionQuiz } from './types';
 
 export const QUIZZES: SectionQuiz[] = [
   {
+    sectionId: 'objects',
+    questions: [
+      {
+        q: 'What does a transistor actually do?',
+        a: 'It is an electrically operated switch with no moving parts: a voltage on the gate either permits or blocks current flowing from source to drain through a channel. Everything else — logic, memory, arithmetic — is built from billions of these switching billions of times a second.',
+        trap: '"It amplifies signals" describes one use of one kind of transistor. The switch is the thing that matters for digital logic.',
+      },
+      {
+        q: 'Why is chip cost quoted per wafer rather than per chip?',
+        a: 'Because the fab processes the whole wafer at once — the same thousand-plus steps run regardless of how the wafer is divided up. Cost per die is therefore wafer price divided by the number of *good* dies on it, which is why die size and yield drive cost far more than the chip\'s complexity does.',
+      },
+      {
+        q: 'A vendor says their chip is on a "3 nm" node. What does 3 nm measure?',
+        a: 'Nothing physical on the device. Node names stopped corresponding to any actual dimension years ago; they are generation labels. The useful questions are transistor density, performance per watt and cost per transistor — ask for those instead.',
+        trap: 'Assuming it is the gate length or the smallest feature. It has not been either for over a decade.',
+      },
+      {
+        q: 'Why does the fab process take three to four months per wafer?',
+        a: 'Because it is a loop — deposit, coat, expose, develop, etch, clean — repeated more than a thousand times to build the device up in layers a few atoms thick. The time is sequential and largely irreducible, which is why fab capacity cannot be surged in response to demand.',
+      },
+    ],
+  },
+  {
     sectionId: 'fundamentals',
     questions: [
       {

@@ -3,6 +3,7 @@
 import React from 'react';
 import { Shell } from './_components/Shell';
 import { Eyebrow } from './_components/ui';
+import { ObjectsSection } from './_components/sections/Objects';
 import { FundamentalsSection, ValueChainSection } from './_components/sections/Fundamentals';
 import { LadderSection, AnatomySection, CowosSection, HbmSection } from './_components/sections/Technology';
 import { ProcessSection, MaterialsSection, EquipmentSection } from './_components/sections/Manufacturing';
@@ -90,6 +91,7 @@ export default function PackagingPage() {
   return (
     <Shell>
       <Masthead />
+      <ObjectsSection />
       <FundamentalsSection />
       <ValueChainSection />
       <LadderSection />

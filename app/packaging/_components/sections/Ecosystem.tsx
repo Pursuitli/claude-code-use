@@ -11,6 +11,7 @@ import {
   ScoreDots, Section, SplitList, SubHead, Tabs,
 } from '../ui';
 import { WorldMap } from '../diagrams';
+import { Mark } from '../Figure';
 
 const meta = (id: string) => SECTIONS.find((s) => s.id === id)!;
 const quiz = (id: string) => QUIZZES.find((q) => q.sectionId === id)!.questions;
@@ -38,14 +39,18 @@ export function PlayersSection() {
         selected={sel}
         onSelect={setSel}
         renderLabel={(c, on) => (
-          <div>
-            <div className={`text-[13px] font-medium ${on ? 'text-accent' : 'text-ink'}`}>{c.name}</div>
-            <div className="pk-num mt-0.5 text-[10px] leading-tight text-muted">{c.layer}</div>
+          <div className="flex items-center gap-2.5">
+            <Mark name={c.name} size="md" />
+            <div className="min-w-0">
+              <div className={`truncate text-[13px] font-medium ${on ? 'text-accent' : 'text-ink'}`}>{c.name}</div>
+              <div className="pk-num mt-0.5 truncate text-[10px] leading-tight text-muted">{c.layer}</div>
+            </div>
           </div>
         )}
         renderDetail={(c) => (
           <>
             <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+              <span className="translate-y-[3px]"><Mark name={c.name} size="md" /></span>
               <h4 className="text-[17px] font-semibold tracking-[-0.01em] text-ink">{c.name}</h4>
               {c.ticker && <span className="pk-num text-[11px] text-faint">{c.ticker}</span>}
               <span className="pk-num text-[11px] text-muted">· {c.hq}</span>

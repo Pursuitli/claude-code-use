@@ -14,6 +14,9 @@ import {
   Note, Panel, Prose, Section, SubHead, Td, Th,
 } from '../ui';
 import { StackedCost, YieldCurve } from '../diagrams';
+import { Figure } from '../Figure';
+import { YieldWaferFigure } from '../figures-a';
+import { ChipletFigure } from '../figures-b';
 
 const meta = (id: string) => SECTIONS.find((s) => s.id === id)!;
 const quiz = (id: string) => QUIZZES.find((q) => q.sectionId === id)!.questions;
@@ -76,6 +79,7 @@ export function EconomicsSection() {
   const r = useMemo(() => computeYield(inputs), [inputs]);
   const baseline = useMemo(() => computeYield(DEFAULT_YIELD_INPUTS), []);
 
+  const [dieMm, setDieMm] = useState(20);
   const [bomLevel, setBomLevel] = useState<'low' | 'mid' | 'high'>('mid');
   const bomValues = BOM_ITEMS.map((b) => ({
     ...b,
@@ -155,6 +159,21 @@ export function EconomicsSection() {
               <p className="text-[12.5px] leading-relaxed text-body">{t}</p>
             </div>
           ))}
+        </div>
+      </div>
+
+      {/* ---------------- why yield behaves this way ---------------- */}
+      <div>
+        <SubHead note="Before the sliders: the physical reason yield and die size are linked at all.">
+          Where the yield problem comes from
+        </SubHead>
+        <div className="space-y-4">
+          <Figure id="yield">
+            <YieldWaferFigure dieMm={dieMm} onChange={setDieMm} />
+          </Figure>
+          <Figure id="chiplet">
+            <ChipletFigure />
+          </Figure>
         </div>
       </div>
 

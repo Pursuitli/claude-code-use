@@ -21,6 +21,9 @@ import {
   BarChart, C, HBMStackDiagram, LadderScatter, PackageCrossSection, PackageTopDown,
   StepChart, SupplyFlow,
 } from '../diagrams';
+import { Figure, Photo } from '../Figure';
+import { EnergyFigure, PerimeterFigure, ReticleFigure } from '../figures-a';
+import { FanOutFigure, PackageScaleFigure } from '../figures-b';
 
 const meta = (id: string) => SECTIONS.find((s) => s.id === id)!;
 const quiz = (id: string) => QUIZZES.find((q) => q.sectionId === id)!.questions;
@@ -55,6 +58,22 @@ export function LadderSection() {
           span — and the entire cost, thermal and yield story follows from where on that span you choose to sit.
         </Note>
       </LearnOnly>
+
+      {/* Both are wide-format drawings — side by side they scale below legible
+          label size on anything narrower than a desktop, so they stack. */}
+      <div className="space-y-4">
+        <Figure id="perimeter">
+          <PerimeterFigure />
+        </Figure>
+        <Figure id="fanout">
+          <FanOutFigure />
+        </Figure>
+      </div>
+
+      <div className="grid gap-4 sm:grid-cols-2">
+        <Photo id="wirebond" />
+        <Photo id="flipchip" />
+      </div>
 
       <Tabs
         tabs={[
@@ -270,6 +289,34 @@ export function AnatomySection() {
         </Panel>
       )}
 
+      <Figure id="scale">
+        <PackageScaleFigure />
+      </Figure>
+
+      <div className="grid gap-4 sm:grid-cols-[minmax(0,300px)_minmax(0,1fr)]">
+        <Photo id="package" />
+        <Panel tone="sunk" className="p-4">
+          <Eyebrow>Hold the physical fact</Eyebrow>
+          <p className="mt-2 text-[13px] leading-relaxed text-body">
+            A flagship accelerator package is roughly the footprint of a drink coaster, about two millimetres of it is
+            substrate, and it dissipates more than a kilowatt through a contact patch a few centimetres across.
+          </p>
+          <p className="mt-2.5 text-[13px] leading-relaxed text-body">
+            Every constraint in this section — warpage, thermal density, power delivery, package size limits — is a
+            consequence of those three numbers sitting together in one object.
+          </p>
+        </Panel>
+      </div>
+
+      <div className="grid gap-4">
+        <Figure id="energy">
+          <EnergyFigure />
+        </Figure>
+        <Figure id="reticle">
+          <ReticleFigure />
+        </Figure>
+      </div>
+
       {/* system-level quantities */}
       <div>
         <SubHead note="Six numbers that determine whether a package works. Each has a Simple and a Founder-depth explanation.">
@@ -389,6 +436,21 @@ export function CowosSection() {
           </div>
           <p className="mt-1.5 text-[12.5px] text-muted">{active.role} · {active.suppliers}</p>
           <p className="mt-2.5 max-w-[76ch] text-[13px] leading-relaxed text-body">{active.why}</p>
+        </Panel>
+      </div>
+
+      <div className="grid gap-4 sm:grid-cols-[minmax(0,320px)_minmax(0,1fr)]">
+        <Photo id="cleanroom" />
+        <Panel tone="sunk" className="p-4">
+          <Eyebrow>The thing the capacity debate keeps missing</Eyebrow>
+          <p className="mt-2 text-[13px] leading-relaxed text-body">
+            Advanced packaging happens in a room like this one, not on an assembly floor. Class 100–1000 cleanroom,
+            lithography, plating, CMP, metrology — the same class of plant as a fab, at the same construction timescale.
+          </p>
+          <p className="mt-2.5 text-[13px] leading-relaxed text-body">
+            That single fact explains the 18–30 month expansion cycle better than any supply-chain chart. You cannot rent
+            this. You build it, qualify it, and then spend quarters climbing its yield curve.
+          </p>
         </Panel>
       </div>
 

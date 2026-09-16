@@ -11,6 +11,8 @@ import {
   ScoreDots, Section, SplitList, SubHead, Tabs, Td, Th,
 } from '../ui';
 import { FlowRail } from '../diagrams';
+import { Figure, Mark, Photo } from '../Figure';
+import { ProcessStatesFigure, WarpageFigure } from '../figures-b';
 
 const meta = (id: string) => SECTIONS.find((s) => s.id === id)!;
 const quiz = (id: string) => QUIZZES.find((q) => q.sectionId === id)!.questions;
@@ -30,6 +32,7 @@ export function ProcessSection() {
   const m = meta('process');
   const [sel, setSel] = useState('dieattach');
   const [view, setView] = useState('flow');
+  const [hot, setHot] = useState(true);
   const s = PROCESS_STEPS.find((x) => x.id === sel)!;
 
   return (
@@ -42,6 +45,15 @@ export function ProcessSection() {
           how much value is committed by the time it appears.
         </Note>
       </LearnOnly>
+
+      <div>
+        <SubHead note="What you would actually be holding at each stage.">
+          The material, step by step
+        </SubHead>
+        <Figure id="processline">
+          <ProcessStatesFigure />
+        </Figure>
+      </div>
 
       <Tabs
         tabs={[
@@ -120,6 +132,13 @@ export function ProcessSection() {
         </Matrix>
       )}
 
+      <div className="grid gap-4 sm:grid-cols-[minmax(0,1fr)_minmax(0,300px)]">
+        <Figure id="warpage">
+          <WarpageFigure hot={hot} onToggle={() => setHot((h) => !h)} />
+        </Figure>
+        <Photo id="probecard" />
+      </div>
+
       <KnowledgeCheck sectionId="process" questions={quiz('process')} />
     </Section>
   );
@@ -189,9 +208,12 @@ export function MaterialsSection() {
                 <Eyebrow>Key suppliers</Eyebrow>
                 <ul className="mt-1.5 space-y-1">
                   {x.suppliers.map((sup) => (
-                    <li key={sup.name} className="text-[12.5px] leading-snug">
-                      <span className="font-medium text-ink">{sup.name}</span>
-                      {sup.share && <span className="text-muted"> — {sup.share}</span>}
+                    <li key={sup.name} className="flex items-start gap-2 text-[12.5px] leading-snug">
+                      <span className="mt-[1px]"><Mark name={sup.name} /></span>
+                      <span>
+                        <span className="font-medium text-ink">{sup.name}</span>
+                        {sup.share && <span className="text-muted"> — {sup.share}</span>}
+                      </span>
                     </li>
                   ))}
                 </ul>
@@ -283,9 +305,12 @@ export function EquipmentSection() {
                 <Eyebrow>Who leads</Eyebrow>
                 <ul className="mt-2 space-y-1.5">
                   {e.leaders.map((l) => (
-                    <li key={l.name} className="text-[12.5px] leading-snug">
-                      <span className="font-medium text-ink">{l.name}</span>
-                      {l.note && <span className="text-muted"> — {l.note}</span>}
+                    <li key={l.name} className="flex items-start gap-2 text-[12.5px] leading-snug">
+                      <span className="mt-[1px]"><Mark name={l.name} /></span>
+                      <span>
+                        <span className="font-medium text-ink">{l.name}</span>
+                        {l.note && <span className="text-muted"> — {l.note}</span>}
+                      </span>
                     </li>
                   ))}
                 </ul>
